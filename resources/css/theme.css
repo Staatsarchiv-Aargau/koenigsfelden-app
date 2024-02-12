@@ -3,7 +3,10 @@
 /* Due to a safari issue, relative paths to background images won't work as variables, so we list them here */
 
 .logo {
-    background-image: url("../images/tei-publisher-logo-contrast-color.svg");
+    background-image: url("../images/LogoUZH.png");
+    --application-logo-width: 350px;
+    --application-logo-width-small:  280px;
+
 }
 
 .splash {
@@ -40,10 +43,10 @@ body {
     --pb-heading-font-weight: 400 !important;
     --pb-heading-line-height: 1.2;
     --pb-breadcrumbs-font-size: 18px;
-    --pb-color-primary: #303030;
-    --pb-color-inverse: #F0F0F0;
-    --pb-color-lighter: #35424b;
-    --pb-color-focus: #f6a623;
+    --pb-color-primary: #35424b;
+    --pb-color-inverse: #f6a623;
+    --pb-color-lighter:  #d1dae0;
+    --pb-color-focus: #d6911f;
     --pb-annotation-stripes-light: #e0e0ef;
     --pb-annotation-stripes-dark: #50505f;
     --pb-annotation-selection: #f9ea7643;
@@ -66,11 +69,29 @@ body {
     --pb-popover-fallback-placement: "top right left";
     --pb-lang-input-color: var(--pb-color-inverse);
     --pb-lang-label-color: var(--pb-color-inverse);
-    --pb-link-color: black;
+    --pb-link-color: #303F9F;
     --pb-link-font-family: var(--pb-serif-font-family);
     --pb-highlight-color: #F9E976;
     --paper-input-container-focus-color: var(--pb-color-focus);
     --pb-view-max-width: 920px;
+    --font-monospace: "Ubuntu Mono", Menlo, Consolas, Courier, monospace;
+    --color-primary-light: #607D8B;
+    --color-gray-light: #777777;
+    --color-gray-lighter: #d6d7d9;
+    --color-gray-medium: rgba(153, 153, 153, 0.2);
+    --color-gray-dark: #323a45;
+    --color-white: #ffffff;
+    --color-body-text-default: #333333;
+    --color-text-critical: #888888;
+    --screen-sm: 768px;
+    --screen-md-min: 992px;
+    --font-size-h1-inner-content: 1.33em;
+    --font-size-h2-inner-content: 1em;
+    --font-size-h3-inner-content: 1em;
+    --font-size-h4-inner-content: 1em;
+    --default-border-style: 1px solid var(--color-gray-lighter);
+    --margin-right-content-inner: 200px;
+    --margin-left-content-inner: 0;
     font: var(--pb-base-font);
     color: var(--pb-color-primary);
     margin: 0;
