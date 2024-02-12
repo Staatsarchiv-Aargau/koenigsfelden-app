@@ -1,0 +1,963 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport"
+            content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" />
+        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico" />
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png"
+            sizes="16x16" />
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png"
+            sizes="24x24" />
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png"
+            sizes="32x32" />
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png"
+            sizes="64x64" />
+        <title>Visualisierung der Urkundenproduktion, Kopien und Dorsualnotizen</title>
+        <meta name="pb-template" content="stemma.html" />
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap" />
+        <link rel="stylesheet" href="resources/css/theme.css" />
+        <link rel="stylesheet" href="resources/css/koenigsfelden.css" />
+        <!-- D3.js -->
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <!-- D3-voronoi with .find(x,y) -->
+        <!-- <script src="d3-voronoi.min.js"></script> -->
+        <!-- <script src="d3-tip.js"></script> -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+        <!-- jQuery -->
+        <script type="text/javascript" src="resources/scripts/vendor/jquery-1.11.3.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/foundation.min.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css" />
+        <link href="https://www.Lokalbericht.ch/assets/foundationLB/dist/assets/css/app.css"
+            rel="stylesheet" type="text/css" />
+        <!-- Open Sans & CSS --> // <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:700,400,300" rel="stylesheet"
+            type="text/css" />
+        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"></script>
+        <style>
+            /*	  	div.side_by_side_link {
+    			  position: absolute;	
+    			  text-align: center;	
+    			  width: 300px;	
+    			  height: auto;
+    			  padding: 2px;	
+    			  font: 12px sans-serif;	
+    			  background: lightsteelblue;	
+    			  border: 0px;					
+    			  border-radius: 8px;
+    				
+    			}*/
+            
+            .link {
+                fill: none;
+                stroke: #ccc;
+                stroke-width: 2.5px;
+                opacity: 0.1;
+                z-index: 0;
+            }
+            
+            .activelink {
+                fill: none;
+                stroke: orange;
+                stroke-width: 2.5px;
+            }
+            
+            .inactivelink {
+                fill: none;
+                stroke: none;
+                stroke-width: 0px;
+                opacity: 0;
+            }
+            
+            .activelink.direct {
+                opacity: 1.0 !important;
+                stroke: red;
+            }
+            
+            .activelink.indirect {
+                /*stroke-dasharray: 3.5px;*/
+                opacity: 0.4;
+            }
+            
+            body {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 12px;
+                font-weight: 400;
+                color: #525252;
+                /*text-align: center;*/
+            }
+            
+            li {
+                list-style-type: disc;
+            }
+            
+            ul {
+                list-style-position: initial;
+                line-height: normal;
+                padding-left: 40px;
+                margin-left: 0px;
+            }
+            
+            .listedLink {
+                font-family: LatoWeb;
+                font-size: 90%
+            }
+            
+            .axis path,
+            .axis line {
+                fill: none;
+                stroke: #B3B3B3;
+                shape-rendering: crispEdges;
+            }
+            .axis text {
+                font-size: 10px;
+                fill: #6B6B6B;
+            }
+            
+            .countries {
+                pointer-events: none;
+            }
+            
+            .guide {
+                pointer-events: none;
+                font-size: 14px;
+                font-weight: 600;
+            }
+            
+            .popover {
+                pointer-events: none;
+            }
+            
+            .legendCircle {
+                stroke-width: 1;
+                stroke: #999;
+                stroke-dasharray: 2 2;
+                fill: none;
+            }
+            
+            .legendLine {
+                stroke-width: 1;
+                stroke: #D1D1D1;
+                shape-rendering: crispEdges;
+            }
+            
+            .legendTitle {
+                fill: #1A1A1A;
+                color: #1A1A1A;
+                /*text-anchor: middle;*/
+                text-anchor: start;
+                text-align: left;
+                font-size: 10px;
+            }
+            
+            .legendText {
+                fill: #949494;
+                text-anchor: start;
+                font-size: 9px;
+            }
+            
+            
+            
+            .voronoi path {
+                fill: none;
+                pointer-events: all;
+            }
+            
+            .voronoi--show path {
+                stroke: red;
+                stroke-opacity: 0.2;
+            }
+            
+            .experimental:hover {
+                z-index: 0;
+                background: gray;
+            }
+            .experimental {
+                /*position: absolute;*/
+                position: fixed;
+                opacity: 0.8;
+                box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+                top: 25px;
+                left: -50px;
+                transform: rotate(-45deg);
+                -webkit-transform: rotate(-45deg);
+                background: #336699;
+                position: absolute;
+                top: 85px;
+                left: -145px;
+                text-align: center;
+                line-height: 30px;
+                letter-spacing: 1px;
+                color: #f0f0f0;
+                transform: rotate(-45deg);
+                -webkit-transform: rotate(-45deg);
+                width: 500px;
+                z-index: 10;
+            }
+            
+            /* Style definition for dorsuallayers network visualisation */
+            .node circle {
+                stroke: #fff;
+                stroke-width: 1.5px;
+            }
+            
+            text {
+                font-family: sans-serif;
+                font-size: 10px;
+            }
+            #focusGroupText {
+                font-size: 15px;
+            
+            }
+            
+            .links > .link {
+                stroke: #999 !important;
+                opacity: 0.175 !important;
+                stroke-width: 1px !important;
+            
+            }
+            
+            .svg-wrapper {
+                display: flex;
+                align-items: center;
+                text-align: center;
+            
+            }
+            
+            .svg-wrapper > svg {
+                display: block;
+                margin: 0 auto;
+            }
+            
+            svg {
+                min-width: 200px;
+                min-height: border-box;
+                padding-left: 10px;
+            }
+            
+            .button-wrapper {
+                width: 500px;
+                height: 20%;
+                padding: 10px;
+                padding-left: 5px;
+                box-sizing: border-box;
+            
+            }
+            
+            .col-md {
+                text-align: justify;
+                margin: 5px;
+            }
+            .col-md-6 {
+                padding-right: 0px !important;
+                padding-left: 0px !important;
+                margin: 0px
+            
+            }
+            .col-md-7 {
+                padding-right: 0px !important;
+            
+            
+            }
+            #colSVG {
+                float: right !important;
+            
+            }
+            #menuAndSvg {
+                text-align: justify;
+                max-width: 100% !important;
+                margin: 0 !important;
+            }
+            #menuAndSvgContainer {
+                padding-right: 0;
+                padding-left: 0;
+                margin-right: 0;
+                margin-left: 0;
+            }</style>
+    </head>
+    <body>
+        <pb-page data-template="pages:pb-page" unresolved="unresolved"
+            locales="resources/i18n/{{ns}}/{{lng}}.json" url-ignore="view">
+            <app-drawer-layout force-narrow="force-narrow">
+                <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"></app-drawer>
+                <app-header-layout fullbleed="">
+                    <app-header slot="header" effects="waterfall" reveals="reveals"
+                        condenses="condenses" fixed="fixed">
+                        <app-toolbar data-template="templates:include"
+                            data-template-path="templates/banner.html"></app-toolbar>
+                        <app-toolbar data-template="lib:include"
+                            data-template-path="templates/menu.html"></app-toolbar>
+                    </app-header>
+                    <main class="content-body single-col">
+                        <div class="page-header">
+                            <h1>
+                                <pb-i18n key="trad"></pb-i18n>
+                            </h1>
+                        </div>
+                        <div class="tp-row">
+                            <div class="tp-row" style="padding-bottom: 20px">
+                                <ul>
+                                    <li>
+                                        <a class="block-title" href="#visualisierung" target="_self"
+                                            >Visualisierung der Urkundenproduktion, Kopien und
+                                            Dorsualnotizen</a>
+                                    </li>
+                                    <li>
+                                        <a class="block-title"
+                                            href="#Dorsualnotizschichtenzeitlinienvisualisierung"
+                                            >Visualisierung der Dorsualschichten</a>
+                                    </li>
+                                    <li>
+                                        <a class="block-title" href="#archivordnungen"
+                                            target="_self">Archivordnungen</a>
+                                    </li>
+                                    <li>
+                                        <a class="block-title" href="#archivordnung_bern"
+                                            target="_self">Archivordnung von 1570 in Bern</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tp-row">
+                            <a class="anchor" id="visualisierung"></a>
+                            <div id="code" class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="">Visualisierung der Urkundenproduktion,
+                                            Kopien und Dorsualnotizen</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body scatter">
+                                    <div>
+                                        <p>Mit dieser Grafik wird die Urkundenproduktion sowie die
+                                            Kopiertätigkeit in Bezug auf die Königsfelder Dokumente
+                                            visualisiert. Dabei stellt die Y-Achse die Zeitachse
+                                            dar, die sich von oben (Mittelalter, 1300) nach unten
+                                            (Frühe Neuzeit, bis 1789) erstreckt. Die Funktion der
+                                            X-Achse besteht darin, die einzelnen Seiten der
+                                            Kopialbücher darzustellen, links bei Seite respektive
+                                            Folio 1 beginnend. Jeder blaue Punkt symbolisiert eine
+                                            einzelne Urkunde. Diese befindet sich ihrem
+                                            Entstehungsdatum entsprechend auf der richtigen Höhe der
+                                            Y-Achse. Die X-Achse verdeutlich bei der Platzierung das
+                                            Entstehungsdatum innerhalb des Jahres (von Links,
+                                            Januar, bis rechts, Dezember. Dadurch wird sichtbar,
+                                            dass an bestimmten festen Daten (bspw. Martinstag
+                                            11.11.) präferiert Urkunden ausgestellt wurden. Die in
+                                            verschiedenen Gelbtönen horizontal angeordneten Punkte
+                                            zeigen Abschriften von Urkunden in den drei bearbeiteten
+                                            Kopialbüchern. Jede Urkunde ist durch Linien mit ihren
+                                            Abschriften verbunden. Anhand der Position des gelben
+                                            Punktes über der X-Achse kann eruiert werden, auf
+                                            welcher Folioseite sich die Abschrift im entsprechenden
+                                            Kopialbuch befindet.<br /> Mit Klick auf die Punkt wird
+                                            die entsprechende Urkunde oder Abschrift in einem neuen
+                                            Fenster geöffnet. </p>
+                                    </div>
+                                    <div class="off-canvas position-right" id="offCanvas"
+                                        data-off-canvas="" data-transition="overlap">
+                                        <!-- Your menu or Off-canvas content goes here -->
+                                        <div>
+                                            <button class="button float-left" type="button"
+                                                data-toggle="instruction">Benutzungshinweis</button>
+                                            <div class="dropdown-pane bottom" style="width: 250px;"
+                                                id="instruction" data-dropdown="">
+                                                <p>Mittels Mouseover über den Links lassen sich die
+                                                  entsprechenden Symbole in der Visualisierung
+                                                  hervorheben.</p>
+                                                <p>Durch Anklicken der Links öffnet sich eine
+                                                  synoptische Ansicht der ausgewählten
+                                                  Dokumente.</p>
+                                            </div>
+                                            <button class="close-button" aria-label="Close menu"
+                                                type="button" data-close="">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <hr />
+                                        <div id="ancestors">
+                                            <!-- D3 generiert -->
+                                            <!-- <strong>Textvorstufen</strong> -->
+                                        </div>
+                                        <hr />
+                                        <div id="off-canvas">
+                                            <!-- D3 generiert -->
+                                        </div>
+                                        <hr />
+                                        <div id="descendants">
+                                            <!-- D3 generiert -->
+                                            <!-- <strong>Textfolgestufen</strong> -->
+                                        </div>
+                                    </div>
+                                    <div class="off-canvas-content" data-off-canvas-content="">
+                                        <!-- <h5 style="color: #3B3B3B;">Visualisierung der Urkundenproduktion, Kopien und Dorsualnotizen</h5> -->
+                                        <!-- <h6 style="color: #A6A6A6;">Look ma! No SVG overlay!</h6> -->
+                                        <!--<span class="experimental">
+                                <em>experimentell</em>
+                            </span>-->
+                                        <!-- href="#" -->
+                                        <div class="col-sm-9">
+                                            <div id="chart" style="cursor:crosshair"></div>
+                                        </div>
+                                        <div id="legend" class="col-sm-3"
+                                            style="padding-right: 0px; padding-left: 0px;">
+                                            <div class="button-group">
+                                                <a class="button small" id="zoom_in">
+                                                  <span class="fi-plus" title="Vergrößern"
+                                                  aria-hidden="true"></span>
+                                                </a>
+                                                <a class="button small" id="zoom_out">
+                                                  <span class="fi-minus" title="Verkleinern"
+                                                  aria-hidden="true"></span>
+                                                </a>
+                                                <a class="button small" id="zoom_init">
+                                                  <span class="fi-loop-circular" title="Neu laden"
+                                                  aria-hidden="true"></span>
+                                                </a>
+                                                <a class="button small" id="info"
+                                                  data-open="infoModal">
+                                                  <span class="fi-info" title="Bedienungshinweis"
+                                                  aria-hidden="true"></span>
+                                                </a>
+                                            </div>
+                                            <div class="legend" id="legendMacro">
+                                                <div class="legendTitle" style="font-size: 12px;">
+                                                  <form>
+                                                  <input type="checkbox" id="checkMacro"
+                                                  name="catCheckbox" onclick="modifyState(this);" />
+                                                  Urkunden/Kopialbücher</form>
+                                                </div>
+                                            </div>
+                                            <div class="legend" id="legendPretexts">
+                                                <div class="legendTitle" style="font-size: 12px;">
+                                                  <form>
+                                                  <input type="checkbox" id="checkPretexts"
+                                                  name="catCheckbox" onclick="modifyState(this);"
+                                                   />Dorsualnotizen</form>
+                                                </div>
+                                            </div>
+                                            <div class="legend" id="legendBio">
+                                                <div class="legendTitle" style="font-size: 12px;">
+                                                  <!--
+        							<form><input type="checkbox" id="checkBio" name="catCheckbox" onclick="modifyState(this);"/> Bi(bli)ographisches</form>
+        							-->
+                                                </div>
+                                            </div>
+                                            <!-- <div class="switch tiny" style="opacity: 0.6;">
+        						  <input class="switch-input" id="yes-no" type="checkbox" name="exampleSwitch" checked="">
+        						  <label class="switch-paddle" for="yes-no">
+        						    <span class="show-for-sr">Do you like me?</span>
+        						    <span class="switch-active" aria-hidden="true">No</span>
+        						    <span class="switch-inactive" aria-hidden="true">Multi</span>
+        						  </label>
+        						</div> -->
+                                            <!-- <div style="opacity: 0.2;">Dropdown für Voronoi-Fokus</div> -->
+                                            <label style="font-size: 7pt; opacity: 0.5;">
+                                                <select name="catDisplay" style="font-size: 7pt;">
+                                                  <option value="separated">Kategorien
+                                                  separiert</option>
+                                                  <option value="combined">Kategorien
+                                                  kombinierbar</option>
+                                                </select>
+                                            </label>
+                                            <!-- <div style="opacity: 0.2;">Dropdown für Voronoi-Fokus</div> -->
+                                            <!-- <label style="font-size: 8pt; opacity: 0.2;">Dropdown für Voronoi-Fokus (noch nicht aktiv)
+        						  <select style="font-size: 8pt;">
+        						    <option value="macro">Makrogenese</option>
+        						    <option value="pretexts">Prätexte</option>
+        						    <option value="contexts">Kontexte</option>
+        						    <option value="bio">Bi(blio)graphisches</option>
+        						  </select>
+        						</label> -->
+                                            <!-- <button type="button" class="button" data-toggle="offCanvas">Open Menu</button> -->
+                                            <!-- <label id="form" for="show-voronoi">
+        						  Show Voronoi
+        						  <input type="checkbox" id="show-voronoi" disabled>
+        						</label> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- <div class="col-sm-6">
+        					<div class="tooltip" style="opacity: 1;">
+        						<!-/- tooltip goes here -/->
+        					</div>
+        				</div> -->
+                                    <div class="col-sm-12">
+                                        <!-- <p><a data-open="exampleModal1">Click me for a modal</a></p> -->
+                                        <!-- <textarea id="infobox" placeholder="None"></textarea> -->
+                                        <div class="callout clearfix" id="infobox"> </div>
+                                        <!-- <input type="text" id="infobox"></div> -->
+                                    </div>
+                                </div>
+                                <div class="reveal" id="infoModal" style="text-align: left;"
+                                    data-reveal="">
+                                    <!-- <h1>Awesome. I Have It.</h1> -->
+                                    <p class="lead">Visualisierte Urkunden- und
+                                        Kopialbuchproduktion, sowie Dorsualnotizschichten</p>
+                                    <p>Die Visualisierung der Produktion der Urkunden und der
+                                        Einträge in Kopialbüchen sowie der Dorsualnotizen hat
+                                        folgende Ziele:</p>
+                                    <ul>
+                                        <li style="list-style-type: circle;">Aufzeigen der
+                                            Verbindungen von Urkunde und Abschrift</li>
+                                        <li style="list-style-type: circle;">Chronologische
+                                            Verortung der Urkunden (vertikale Achse bildet das Jahr
+                                            ab) sowie die Darstellung der Reihenfolge der
+                                            Abschriften in den Kopialbüchern.</li>
+                                    </ul>
+                                    <p>Die vertikale Achse bildet von oben nach unten den zeitlichen
+                                        Verlauf ab.</p>
+                                    <p>Auf der horizontalen Achse sind einzelne Urkunden als Kreise
+                                        wiedergegeben, sie sind mit dem jeweiligen Editionstext
+                                        verknüpft. Kopialbücher bestehen aus horizontal angeordneten
+                                        Urkunden(abschriften). Die Reihenfolge der Anordnung der
+                                        Punkte entspricht der Reihenfolge der Abschrift, wobei auch
+                                        die jeweils erste Folioseite massgebend ist. Unterbrüche in
+                                        den Abschriften werden so deutlich.</p>
+                                    <p>Abschriften von Urkunden sind mit der ausgefertigten Urkunde
+                                        visuell verknüpft. Sie lassen sich durch Cursor-Berührung
+                                        hervorheben.</p>
+                                    <p>Durch Klicken auf die Kreissymbole lässt sich eine Liste mit
+                                        Links zu den jeweiligen Ansichten anzeigen [noch nicht
+                                        umgesetzt].</p>
+                                    <button class="close-button" data-close=""
+                                        aria-label="Close modal" type="button">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <script src="resources/scripts/stemma-data.js"></script>
+                                <script src="resources/scripts/stemma.js"></script>
+                                <script>
+                                    $(document).foundation();</script>
+                                <div>
+                                    <p>Weiterentwicklung eines digitalen Stemmas (ursprüngliche
+                                        Entwicklung: <a
+                                            href="http://cceh.uni-koeln.de/mitarbeiterinnen/">Peter
+                                            Dängeli, damals CCeH</a>)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- START Dorsualnotizschichtenzeitlinienvisualisierung -->
+                        <a class="anchor" id="Dorsualnotizschichtenzeitlinienvisualisierung"></a>
+                        <div class="tp-row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Häufigkeit und Vorkommen von
+                                        Dorsualnotizschichten</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>Die Abbildung zeigt den jeweiligen zeitlichen Umfang
+                                        einzelner Dorsualnotizschichten und ermöglicht so einen
+                                        visuellen Vergleich der fokussierten Dokumente. Die Labels
+                                        der Dorsualschichten sind mit den Editionsdaten
+                                        verlinkt.</p>
+                                    <!-- Visualization SVG Graphics -->
+                                    <iframe title="Dorsuals Timelines Visualization"
+                                        id="frame_Dorsuals_Timelines" src="dorsuals_timelines.html"
+                                        loading="lazy" width="750" height="500"
+                                        style="margin-top: 1em; border-width: 0px;"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END Dorsualnotizschichtenzeitlinienvisualisierung -->
+                        <!-- START Dorsualschichtnetzwerkvisualisierung -->
+                        <a class="anchor" id="Dorsualschichtnetzwerkvisualisierung"></a>
+                        <div class="tp-row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Netzwerkvisualiserung der
+                                        Dorsualschichten</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>Diese Netzwerkvisualisierung zeigt die Verbindung eines
+                                        Dokuments mit einer oder mehreren Dorsualschichten. Jede
+                                        Dorsualschicht wird durch eine andere Farbe dargestellt und
+                                        kann ein oder ausgeblendet werden. Mit Klick auf einen
+                                        Dokumentknoten werden nur die zugehörigen Dorsualschichten
+                                        eingeblendet. Mit einem erneuten Klick auf den selben
+                                        Dokumentkonoten wird wieder die vorherige Ansicht
+                                        eingeblendet. Mit Klick auf den Namen eines Dokumentknoten
+                                        wird das zugehörige Dokument geöffnet. </p>
+                                    <!-- Menu and Visualization d3 Graph -->
+                                    <div class="container-fluid" id="menuAndSvgContainer">
+                                        <div class="row" id="menuAndSvg">
+                                            <div class="col-md-5" style="padding-left:0">
+                                                <div class="button-wrapper">
+                                                  <div class="row">
+                                                  <div class="col-md">
+                                                  <form id="label-controls">
+                                                  <label for="show-labels">Labels einblenden <input
+                                                  checked="checked" id="show-labels" name="mode"
+                                                  type="radio" value="show-label" />
+                                                  </label>
+                                                  <label for="hide-labels">Labels verbergen <input
+                                                  id="hide-labels" name="mode" type="radio"
+                                                  value="no-label" />
+                                                  </label>
+                                                  </form>
+                                                  </div>
+                                                  </div>
+                                                  <div class="row">
+                                                  <div class="col-md">
+                                                  <div class="btn-group-toggle"
+                                                  data-toggle="buttons">
+                                                  <label class="btn btn-default active"
+                                                  id="uncheckAllLabel">
+                                                  <input autocomplete="off" class="form-check-input"
+                                                  checked="false" id="unCheckAll"
+                                                  onClick="selectAll(this)" type="checkbox"
+                                                  value="0" />
+                                                  <span>Alle Dorsualschichten einblenden</span>
+                                                  </label>
+                                                  </div>
+                                                  </div>
+                                                  </div>
+                                                  <div class="row" id="GroupCheckboxDiv1"></div>
+                                                  <div class="row" id="GroupCheckboxDiv2"></div>
+                                                  <div class="row" id="GroupCheckboxDiv3"></div>
+                                                  <div class="row" id="GroupCheckboxDiv4"></div>
+                                                  <div class="row" id="GroupCheckboxDiv5"></div>
+                                                  <div class="row" id="GroupCheckboxDiv6"></div>
+                                                  <div class="row" id="GroupCheckboxDiv7"></div>
+                                                  <div class="row" id="GroupCheckboxDiv8"></div>
+                                                  <div class="row" id="GroupCheckboxDiv9"></div>
+                                                  <div class="row" id="GroupCheckboxDiv10"></div>
+                                                  <div class="row" id="GroupCheckboxDiv11"></div>
+                                                  <div class="row" id="GroupCheckboxDiv12"></div>
+                                                  <div class="row" id="GroupCheckboxDiv13"></div>
+                                                  <div class="row" id="GroupCheckboxDiv14"></div>
+                                                  <div class="row" id="GroupCheckboxDiv15"></div>
+                                                  <div class="row" id="GroupCheckboxDiv16"></div>
+                                                  <div class="row" id="GroupCheckboxDiv17"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7" id="colSVG">
+                                                <div class="svg-wrapper"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script src="resources/scripts/dorsuallayersGraph.js"></script>
+                        </div>
+                        <!-- END Dorsualschichtnetzwerkvisualisierung -->
+                        <a class="anchor" id="archivordnungen"></a>
+                        <div class="tp-row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Archivordnungen</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p> Die Dokumente Königsfeldens wurden erst nach dem Abtransport
+                                        nach Bern (1528) in eine übergreifende Ordnung gebracht.
+                                        Zuvor wurden die Dokumente häufig umsortiert und verblieben
+                                        jeweils nur für kurze Zeit in Dossiers, die meist nur wenige
+                                        Dokumente umfassten. Entsprechend ist es nicht möglich, eine
+                                        Archivordnung vor 1570 und die Herstellung eines
+                                        Regestenwerks zu rekonstruieren. Es ist jedoch möglich, die
+                                        Vorstufen visuell darzustellen wie die obigen Stemmata
+                                        zeigen. <br /> Die damit erste gesamthafte Ordnung der
+                                        Dokumente, wie sie in Bern realisiert wurde, ist im
+                                        Folgenden tabellarisch abgebildet und lässt den Aufbau des
+                                        Bestandes in der Berner Zentrale während des 16. bis anfangs
+                                        des 19. Jahrhunderts nachvollziehen. Abschriften der
+                                        Dokumente wurden bereits um 1540 angefertigt (<a
+                                            href="https://www.ag.ch/staatsarchiv/suche/detail.aspx?id=303753"
+                                            >Kopialbuch III, StAAG AA/0430-0434</a>), dadurch waren
+                                        die Dokumente auch in Königsfelden greifbar und die
+                                        Hofmeister hatten Zugriff auf den Inhalt der Rechtstitel.
+                                        Die Königsfelder Urkunden und Akten wurden erst nach Ende
+                                        des Ancien Régimes nach 1803 an den Kanton Aargau
+                                        ausgehändigt und in der damals neuen Kantonsbibliothek
+                                        untergebracht. Im heutigen Staatsarchiv Aargau, das zusammen
+                                        mit der Kantonsbibliothek als zentrale Gedächtnisinstuition
+                                        des Kantons fungiert, ist der Königsfelder Bestand unter der
+                                        Signatur U.17 zu finden, wobei die Dokumente nun einer
+                                        chronologischen Ordnung unterliegen. Damit hat die
+                                        wechselvolle Geschichte des Königsfelders Bestandes seinen
+                                        (vorläufigen) Abschluss gefunden. <br /> Siehe auch: <a
+                                            href="https://doi.org/10.2357/9783739880600">Hodel,
+                                            Schriftordnungen 2020, S. 229-263</a>. </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tp-row">
+                            <a class="anchor" id="archivordnung_bern"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="">Archivordnung von 1570 in Bern</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Bild</th>
+                                            <th>Signatur</th>
+                                            <th>Themen und Orte</th>
+                                            <th>Transkription*</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_A_0618_01.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K A</td>
+                                            <td>Stiftungsurkunden, Rechte und verschiedene
+                                                Bestätigungen.</td>
+                                            <td>Stifftùngsbrieff dess closters fryheytt unnd
+                                                bestättigùngen derselben, ittem fryungen,
+                                                pfanndtschilling zelösenn, zoll unnd gleits
+                                                erledigùngenn.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_B_0035.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K B</td>
+                                            <td>Eigenamt, Habsburg, Lindhof, Italen, Eitenberg,
+                                                Mülligen, Altenburg.</td>
+                                            <td>Hoffs Künigsfeldenn selbs innhabende guͤtter,
+                                                mattenn, acher, mülli, höltzer, wyger im amptt
+                                                Eigenn, uff Hapspùrg, Lind, inn Italen, Eitenberg,
+                                                Müllinen, Altenbùrg.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_C_0296.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K C</td>
+                                            <td>Brugg (Stadt, Kirchensatz, Pfandsummen und
+                                                Schenkungen).</td>
+                                            <td>Brùgck die statt, der kilchennsatz, ittem ettlich
+                                                pfanndtschilling unnd vergabùngen.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_D_0022.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K D</td>
+                                            <td>Windisch (Fahr und Kirchensatz), Eigenamt, Birr,
+                                                Scherz, Oberburg, Lupfig, Hausen, Mülligen,
+                                                Schinznach-Bad, Göttishusen, Holderbank, Hellmüli,
+                                                Wildegg, Brunegg, Birrhard.</td>
+                                            <td>Windisch das vaar, kilchensatz, ampt Eigen, Bir,
+                                                Schernntz, Oberbùrg, Lùpffen, Hùsen, Müllinen,
+                                                Birenloùff, Göttisshùsen, Holderwanck, Hellmüli,
+                                                Wildegg, Brùnegg, der Birchart.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_E_0177.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K E</td>
+                                            <td>Grafschaft Baden, Gebenstorf, Birmenstorf, Oberhard,
+                                                Ober- und Niederwil, Untersiggenthal, Stetten,
+                                                Klingnau, Tegerfelden, Rohrdorf, Staretschwil,
+                                                Regensberg und Schleinikon.</td>
+                                            <td>Graffschafft Badenn, Gebistorff, Birmistorff,
+                                                Oberhart, Ober, Nider Wyl, Siggingen, Stetten,
+                                                Clingnoùw, Tägerfeld, Rordorff, Schäritzwyl, ittem
+                                                Rägensperg unnd Schlinigken.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_F_0508.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K F</td>
+                                            <td>Mellingen, Eckwil.</td>
+                                            <td>Mellingen, Eggwyl.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_G_0824.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K G</td>
+                                            <td>Bremgarten, Wohlenschwil, Dottikon, Büblikon,
+                                                Villmergen, Sarmenstorf, Bettwil, Wohlen,
+                                                Otelfingen, Freie Ämter.</td>
+                                            <td>Bremgarten, Wolenschwyl, Tottigkenn, Bùblicken,
+                                                Villmeringen, Sarmistorff, Bettwyll, Wolen,
+                                                Ottelfingen unnd was in den Fryen Ämpteren
+                                                gelegenn.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_H_0250.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K H</td>
+                                            <td>Lenzburg, Staufen, Niederlenz, Möriken, Schafisheim,
+                                                Othmarsingen, Rütihof (bei Aarau/Gränichen),
+                                                Hendschiken, Egliswil, Retterswil, Teufenthal,
+                                                Dürrenäsch.</td>
+                                            <td>Lentzbùrg, Stoùffenn, Niderlenntz, Mörigken,
+                                                Schaffhùsenn, Ottmassingenn, hoff Rüti,
+                                                Hentschicken, Egliswyl, Raterswyl, Töüffenthal,
+                                                Dürrenästes, sampt den kilchensätzenn.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_I_0291.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K I</td>
+                                            <td>Seon, Seengen, Rupperswil, Hunzenschwil,
+                                                Rottenschwil, Rohr, Laubsberg.</td>
+                                            <td>Seon, Sengen, Rùbischwyl, Hùndtzischwyl,
+                                                Rotterschwyl, Ror, Loùbsperg.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_K_0099.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K K</td>
+                                            <td>Ober- und Unterentfelden, Suhr, Buchs, Gränichen,
+                                                Hallwil.</td>
+                                            <td>Ober unnd Nider Entfeldenn, Sùr, Buchs, Grenchen,
+                                                Hallwyl.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_L_0097.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K L</td>
+                                            <td>Kölliken, Ober- und Unterkulm, Schöftland, Schloss-
+                                                und Schmiedrued, Moos- und Kirchenleerau,
+                                                Muhen.</td>
+                                            <td>Kölligken, Kùlm, Schofftlenn, Ruͦd, Leeroùw unnd das
+                                                Mùchen ampt.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_M_0175.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K M</td>
+                                            <td>Zofingen, Aarburg, Aarau, Olten, Lostorf.</td>
+                                            <td>Zoffingen, Arbùrg, Aroùw, Olttenn, Lostorff.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_N_0285.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K N</td>
+                                            <td>Erlinsbach (Kellerhof und Kirchensatz), Biberstein,
+                                                Königstein, Küttigen.</td>
+                                            <td>Erlispach, källerhoff, kilchensatz, Bibersteinn,
+                                                Küngstein, Küttingenn.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_O_0674.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K O</td>
+                                            <td>Auenstein, Schinznach, Thalheim, Veltheim,
+                                                Villnachern, Umiken, Riniken.</td>
+                                            <td>Goùwenstein, Schintznach, Talheim, Veldtheim,
+                                                Vilnachern, Umicken, Rinicken.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_P_0461.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K P</td>
+                                            <td>Bözberg, Ursprung, Mönthal, Iberg, Bözen, Villigen,
+                                                Stilli, Lauffrohr, Zeihen, Hottwil, Wessenberg.</td>
+                                            <td>Bötzberg, Ursprùng, Mönenthal, Iberg, Bötzenn,
+                                                Villingenn, Stille, Wollenfar, Zeigen, Hottwyl,
+                                                Wessenberg.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_Q_0040.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K Q</td>
+                                            <td>Elfingen, Bözen, Effingen, Gallenkirch, Mandach,
+                                                Asp, Densbüren, Urgiz, Oberflachs.</td>
+                                            <td>Elfingen, Bötzenn, Efingen, Gallenkilch, Mandach,
+                                                Asp, Tännspüren, Urgitz, Oberflachs.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_R_0194.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K R</td>
+                                            <td>Waldshut, Dogern, Remetschwiel, Schwarzwald, Bad
+                                                Säckingen, Birkingen, Endingen, Hänner,
+                                                Feldkirch.</td>
+                                            <td>Waltzhuͦt, Togerenn, Ramischwyl, der Schwartzwald,
+                                                Seckingen, Birckingen, Enndingen, Heener,
+                                                Veldtkirch.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                  src="resources/images/archivordnung/K_S_0638.png"
+                                                  alt="K_A" width="100" height="100" />
+                                            </td>
+                                            <td>K S</td>
+                                            <td>Oberwaldshut.</td>
+                                            <td>Ober Waltzhuͦtt.</td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    <br />
+                                    <p>* Transkription aus StAAG AA/0437, Regestensammlung
+                                        entstanden als Archivfindmittel 1570 in Bern. <br />
+                                        Marginaleinträge späterer Zeit und Seitenzahlen werden nicht
+                                        wiedergegeben, Abkürzungen sind stillschweigend aufgelöst
+                                        und Zeilensprünge nicht berücksichtigt. Die originale
+                                        Zeichensetzung wurde durch moderne Interpunktion ersetzt, um
+                                        die Lesung des Textes zu vereinfachen. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                    <footer data-template="templates:include"
+                        data-template-path="templates/footer.html"></footer>
+                </app-header-layout>
+            </app-drawer-layout>
+        </pb-page>
+        <div class="splash"></div>
+    </body>
+</html>

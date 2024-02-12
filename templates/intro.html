@@ -1,0 +1,1044 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport"
+            content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" />
+        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico" />
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png"
+            sizes="16x16" />
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png"
+            sizes="24x24" />
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png"
+            sizes="32x32" />
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png"
+            sizes="64x64" />
+        <title data-template="config:app-title">App Title</title>
+        <meta name="pb-template" content="intro.html" />
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap" />
+        <link rel="stylesheet" href="resources/css/theme.css" />
+        <link rel="stylesheet" href="resources/css/koenigsfelden.css" />
+        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"></script>
+    </head>
+    <body>
+        <pb-page data-template="pages:pb-page" unresolved="unresolved"
+            locales="resources/i18n/{{ns}}/{{lng}}.json" ignore-url="view">
+            <app-drawer-layout force-narrow="force-narrow">
+                <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"></app-drawer>
+                <app-header-layout fullbleed="">
+                    <app-header slot="header" effects="waterfall" reveals="reveals"
+                        condenses="condenses" fixed="fixed">
+                        <app-toolbar data-template="templates:include"
+                            data-template-path="templates/banner.html"></app-toolbar>
+                        <app-toolbar data-template="lib:include"
+                            data-template-path="templates/menu.html"></app-toolbar>
+                    </app-header>
+                    <main class="content-body single-col">
+                        <div class="page-header">
+                            <h1>
+                                <pb-i18n key="intro"></pb-i18n>
+                            </h1>
+                        </div>
+                        <div class="tp-row" style="padding-bottom: 20px">
+                            <ul>
+                                <li>
+                                    <a class="block-title" href="#geschichte" target="_self">Die
+                                        Geschichte Königsfeldens</a>
+                                </li>
+                                <li>
+                                    <a class="block-title" href="#edition" target="_self">Die
+                                        digitale Edition</a>
+                                </li>
+                                <li>
+                                    <a class="block-title" href="#philosophie" target="_self"
+                                        >Editionsphilosophie</a>
+                                </li>
+                                <li>
+                                    <a class="block-title" href="#forschungsbereiche" target="_self"
+                                        >Mögliche Forschungsbereiche</a>
+                                </li>
+                                <li>
+                                    <a class="block-title" href="#richtlinien" target="_self"
+                                        >Transkriptions- und Datierungsrichtlinien,
+                                        Datendownload</a>
+                                </li>
+                                <li>
+                                    <a class="block-title" href="#abkurzungen" target="_self"
+                                        >Abkürzungen und Symbole</a>
+                                </li>
+                                <li>
+                                    <a class="block-title" href="#bibliografie" target="_self"
+                                        >Bibliografie</a>
+                                </li>
+                                <li>
+                                    <a class="block-title" href="#berichterstattung" target="_self"
+                                        >Berichterstattung</a>
+                                </li>
+                                <li>
+                                    <a class="block-title" href="#mitarbeitende" target="_self"
+                                        >Mitarbeitende und Finanzierung</a>
+                                </li>
+                                <li>
+                                    <a class="block-title" href="#citation" target="_self"
+                                        >Vorgeschlagene Zitierweise</a>
+                                </li>
+                                <li>
+                                    <a class="block-title" href="#impressum" target="_self"
+                                        >Impressum</a>
+                                </li>
+                                <li>
+                                    <a class="block-title" href="#datenschutz" target="_self"
+                                        >Datenschutzerklärung</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tp-row">
+                            <a class="anchor" id="geschichte"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Die Geschichte
+                                            Königsfeldens</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p> Königsfeldens Geschichte beginnt mit einem Mord. Der
+                                        römisch-deutsche König Albrecht I. von Habsburg wurde 1308
+                                        von seinem Neffen, Herzog Johann von Österreich, und
+                                        weiteren Mittätern auf einem Feld in der Nähe von Windisch
+                                        getötet, da sich Johann um sein Erbe betrogen fühlte.
+                                        Albrechts Witwe Elisabeth liess am Ort der grausamen Tat
+                                        zuerst eine Kapelle errichten und gründete danach mit Hilfe
+                                        ihrer Kinder zum Gedenken an ihren verstorbenen Mann ein
+                                        Kloster. Der Bau der Klosteranlage begann 1310 und zwei
+                                        Jahre später konnten bereits die ersten Schwestern
+                                        einziehen. Die Gebäude boten Platz für einen Frauen- und
+                                        einen Männerkonvent – Klarissen und Franziskaner – , die in
+                                        streng getrennten Räumlichkeiten lebten. Nachdem Elisabeth
+                                        1313 gestorben war, machte ihre Tochter, Königin Agnes von
+                                        Ungarn, das Kloster in einem ungewöhnlichen Schritt zu ihrer
+                                        königlichen Residenz. Sie war als junge Frau mit König
+                                        Andreas von Ungarn verheiratet worden, der aber schon wenige
+                                        Jahre nach der Hochzeit verstarb. Dank Agnes' grossem
+                                        Einsatz gelangte das Kloster durch Schenkungen ihrerseits
+                                        und durch die ihrer Geschwister, durch Güterkäufe und
+                                        Tauschtransaktionen wie auch durch geschicktes Verhandeln
+                                        relativ schnell zu Ansehen und Wohlstand. Agnes, die als
+                                        grosse Förderin des Klosters fortan zeitlebens in einem
+                                        extra für sie errichteten Wohnhaus beim Kloster wohnen
+                                        blieb, verstarb 1364 und liess sich in Königsfelden
+                                        begraben. Schon ihre Mutter hatte Königsfelden als ihre
+                                        Grabstätte bestimmt, weshalb deren Gebeine bereits 1316 von
+                                        Wien nach Königsfelden überführt und somit der Grundstein
+                                        für die Bedeutung Königsfeldens als habsburgischer
+                                        Erinnerungsort gelegt wurde. Auch Herzog Leopold III. von
+                                        Habsburg-Österreich, der in der Schlacht von Sempach fiel,
+                                        fand in Königsfelden seine letzte Ruhestätte, womit
+                                        Königsfelden als Ort der habsburgischen Grablege etabliert
+                                        war. 1415 eroberten die Eidgenossen grosse Gebiete des
+                                        heutigen Aargaus und das Kloster geriet unter Berner
+                                        Einfluss. Erst 1478 verzichteten die Habsburger schliesslich
+                                        formell auf ihre Besitzungen im Aargau und Königsfelden
+                                        stand unter der Landesherrschaft der Berner. Im Zuge der
+                                        Reformation wurde das Kloster 1528 aufgehoben und diente
+                                        danach als Verwahrungsanstalt und Altersheim. Durch den
+                                        ehemaligen grossen Klosterbesitz war das Amt Königsfelden
+                                        eine der wirtschaftlich florierenderen Berner Landvogteien
+                                        und blieb bis zur Französischen Revolution unter Berner
+                                        Verwaltung. </p>
+                                    <p> Ausführlich zur Geschichte Königsfeldens: Teuscher, Simon
+                                        und Moddelmog, Claudia (Hrsg.): <a
+                                            href="https://www.hierundjetzt.ch/de/catalogue/konigsfelden_13000149/"
+                                            >Königsfelden: Königsmord, Kloster, Klinik</a>, Baden
+                                        2012. </p>
+                                    <div class="text-center">
+                                        <img class="img-thumbnail"
+                                            src="resources/images/Koenigsfelden1.png"
+                                            alt="Aussenansicht Kloster Königsfelden"
+                                            style="width:840px" />
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="anchor" id="edition"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Die digitale Edition</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p> Als eine der wenigen Bestandeseditionen präsentiert das
+                                        Projekt «Urkunden und Akten des Klosters und der
+                                        Hofmeisterei Königsfelden» den historischen Königsfelder
+                                        Urkunden- und Aktenbestand von der Gründung des Klosters bis
+                                        in die Frühe Neuzeit und macht damit das gesamte
+                                        klösterliche Verwaltungsschriftgut bis ins 17. Jahrhundert
+                                        digital zugänglich. Diese mittelalterlichen und
+                                        frühneuzeitlichen Königsfelder Dokumente, vornehmlich
+                                        Urkunden, werden im Staatsarchiv Aargau unter der Signatur
+                                        U.17 aufbewahrt. Die Erweiterung der digitalen Edition um
+                                        Dokumente aus dem einstigen Kloster, die nicht mehr in
+                                        Königsfelden respektive heute im Staatsarchiv Aargau
+                                        aufbewahrt werden, soll sukzessive erfolgen. </p>
+                                    <p> Anders als in einem Buch können die Dokumente in dieser
+                                        digitalen Edition nach verschiedenen Kriterien geordnet und
+                                        durchsucht werden. Die Einteilung der Dokumente in einzelne
+                                        historische Abschnitte Königsfeldens liefert den
+                                        chronologischen Zugang zu den Dokumenten. Die Suche von
+                                        Dokumenten über die einzelnen Dorsualschichten erlaubt es
+                                        nachzuvollziehen, wie die Dokumente während verschiedenen
+                                        Zeiträumen eingeordnet waren. Dadurch lässt sich
+                                        erschliessen, welche Bedeutung ihnen die damaligen Akteure
+                                        zuwiesen oder wozu diese aufbewahrt wurden. Nebst den beiden
+                                        genannten Zugriffen – Chronologie und Dorsualnotiz – kann
+                                        ein solcher auch über die Schlagwörter erfolgen, die den
+                                        Inhalt der Dokumente rudimentär thematisieren. Die Karte
+                                        ermöglicht einen geografischen Einstieg zur Dokumentensuche,
+                                        indem alle Orte – Städte, Dörfer, Flüsse, Flurnamen etc. – ,
+                                        die in den Urkunden erwähnt werden, georeferiert sind.
+                                        Schliesslich kann der Zugriff auf die Einzelstücke auch über
+                                        eine Volltextsuche in allen Dokumenten und Kommentarteilen
+                                        oder über eine Suche, die sich facettiert und zielgerichtet
+                                        gestaltet, erfolgen. Alle Registereinträge sind in den
+                                        Registern der Schweizerischen Rechtsquellenstiftung suchbar:
+                                            <a href="https://www.ssrq-sds-fds.ch/persons-db-edit/"
+                                            >SSRQ Datenbank historischer Personen und
+                                            Organisationen</a> und <a
+                                            href="https://www.ssrq-sds-fds.ch/places-db-edit/">SSRQ
+                                            Datenbank historischer Ortsnamen</a>. </p>
+                                    <p> Experimentell sind die Visualisierungen im Reiter
+                                        "Überlieferung", wo die Produktion der Dokumente auf der
+                                        Zeitachse, gleichzeitig aber auch die Beziehungen zwischen
+                                        den Dokumenten, den Dorsualschichten und den Kopialbüchern
+                                        dargestellt werden. So wird deutlich, welches Dokument in
+                                        welches Kopialbuch abgeschrieben wurde. Das Stemma mit den
+                                        Schichten zeigt auf, welche Stücke zu welchem Zeitpunkt
+                                        markiert wurden, was wiederum Einsichten über die Umordnung
+                                        der Dokumente ermöglicht. </p>
+                                    <div class="text-center">
+                                        <img class="img-thumbnail"
+                                            src="resources/images/slider_siegel.jpg" alt="Siegel"
+                                            style="width:840px;height:240px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="anchor" id="philosophie"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Editionsphilosophie</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p> Das Editionskonzept war und ist hauptsächlich den folgenden
+                                        drei Zielen verpflichtet: 1) Es wird nach wissenschaftlicher
+                                        Methode ein beachtliches Dokumentenkorpora bearbeitet und
+                                        dadurch eine grosse Datenmenge produziert, die der
+                                        Öffentlichkeit wie auch der Wissenschaft vollumfänglich –
+                                        auch für digitale Auswertungsmethoden – zur Verfügung steht.
+                                        2) Durch die Vermerke auf der Rückseite der Dokumente, die
+                                        sogenannten <a
+                                            href="resources/images/Beschreibung_Dorsualschichten.pdf"
+                                            target="_blank">Dorsualnotizen (Signaturen, Datierungen,
+                                            Notizen oder Kurzregeste)</a>, lässt sich die
+                                        Entwicklung der Dokumentenordnungen nachvollziehen.
+                                        Insgesamt lassen sich dank dieser Dorsualnotizen etliche
+                                        Reorganisationen der Aufbewahrung nachweisen, die über die
+                                        hier abgedeckte Zeitspanne von gut dreihundert Jahren
+                                        vorgenommen wurden. Das ermöglicht neue Erkenntnisse zur
+                                        Erforschung der mittelalterlichen und frühneuzeitlichen
+                                        Schrift- und Verwaltungskultur. 3) Es wird ein Beitrag zur
+                                        Weiterentwicklung digitaler Editionsmethoden geleistet.
+                                        Diese Ziele sollen im folgenden Abschnitt noch ausgeführt
+                                        werden. </p>
+                                    <p> Im Rahmen dieses Editionsprojekts wurde eine
+                                        Bestandesedition erstellt. Das heisst, es wurden alle
+                                        Dokumente digitalisiert, transkribiert und deren Entitäten
+                                        (Personen, Organisationen und Orte) ausgezeichnet, die zum
+                                        Bestand "Urkunden: Kloster und Amt Königsfelden" im
+                                        Staatsarchiv Aargau gehören und von der Gründung des
+                                        Klosters Königsfelden anfangs des 14. Jahrhunderts bis 1662
+                                        entstanden sind. Zusätzlich wurden aus derselben Zeitspanne
+                                        drei Königsfelder Kopialbücher bearbeitet und ediert. Knapp
+                                        1’000 Einzelblattdokumente sowie drei Kopialbücher stehen
+                                        somit der Forschung dank diesem Projekt zur freien
+                                        Verfügung. Die sehr grosse Anzahl an Dokumenten, die im
+                                        Zeitraum von vier Jahren erarbeitet wurden, bedingte, dass
+                                        auf ausführliche Einleitungen und vielfältige Kommentare bei
+                                        den einzelnen Dokumenten verzichtet wurde. Dafür steht dank
+                                        der digitalen Aufbereitung eine grosse Datenmenge über
+                                        Personen, Organisationen und Orte zur Verfügung, die einen
+                                        enormen Effizienzgewinn darstellt und künftigen
+                                        Forscherinnen und Forschern die Archivrecherche massiv
+                                        erleichtern wird.</p>
+                                    <p> Die besondere Beweglichkeit einer digitalen Edition wird
+                                        insofern genutzt, als dass der Forschung in neuartiger Weise
+                                        Entwicklungen eines Bestandes und dahinterliegende Umbrüche
+                                        in der Schrift- und Administrationskultur zugänglich gemacht
+                                        werden. Das Editionsprojekt legt nebst der Edition der Texte
+                                        auf der Vorderseite der Dokumente wie erwähnt grossen Wert
+                                        auf die Wiedergabe der Dorsualnotizen, die zu
+                                        unterschiedlichen Zeiten auf den Dokumenten angebracht
+                                        wurden. Sie können in Schichten eingeteilt werden und damit
+                                        historische Archivordnungen und deren Veränderungen
+                                        nachvollziehbar machen. So kann die Edition zugleich die
+                                        Umorganisation und Umdeutung dieses Bestandes erschliessen. </p>
+                                    <p> Nebst der standardisierten Fassung der Texte, in welcher
+                                        Abkürzungen aufgelöst sind und bei welcher eine moderne
+                                        Interpunktion eingefügt wurde, ist die zeichennahe
+                                        Transkription eines jeden Dokumentes einsehbar. Dazu muss
+                                        auf der Dokumentenseite der Haken bei "standardisiert"
+                                        entfernt werden. Diese zeichensensitive Fassung des
+                                        Dokuments macht editorische Eingriffe in der
+                                        standardisierten Fassung weitgehendst rückgängig und ist
+                                        bestrebt, so nah wie möglich am Originaldokument zu sein.
+                                        Die vom jeweiligen Schreibenden gemachten und nicht
+                                        eindeutig zu identifizierenden Punkte und Striche
+                                        unterschiedlicher Art, welche einen textgestalterischen Wert
+                                        haben – Interpunktionszeichen?, Atempausen beim Verlesen?,
+                                        Abschnittszeichen?, Verweiszeichen?, Abtrennung von
+                                        Sinneinheiten? etc. – werden in dieser Fassung allesamt
+                                        durch einen Stern dargestellt. Diese Fassung der
+                                        Transkriptionen ist nicht so leicht lesbar, verhindert dafür
+                                        aber eine vom heutigen Schriftgebrauch geprägte
+                                        Interpretation von Zeichen und dürfte vor allem für
+                                        linguistische oder paläografische Forschungen interessant
+                                        sein. </p>
+                                    <div class="text-center">
+                                        <img class="img-thumbnail"
+                                            src="resources/images/slider_truhe.jpg" alt="Siegel"
+                                            style="width:645px;height:240px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="anchor" id="forschungsbereiche"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Mögliche
+                                            Forschungsbereiche</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p> Die Transkriptionen mit den identifizierten Personen,
+                                        Organisationen und Orten und somit das Bereitstellen einer
+                                        grossen, wissenschaftlich verifizierten Datenmenge bilden
+                                        zusammen mit den mit den Digitalisaten der Dokumente die
+                                        Grundlage und die optimale Voraussetzung bezüglich weiterer,
+                                        thematisch breit gefächerter, historischer Forschung. </p>
+                                    <p> So bietet die mittelalterliche Königsfelder Überlieferung
+                                        einen in wesentlichen Aspekten exemplarischen Zugang zur
+                                        Erforschung klösterlicher Gemeinschaften. Sie erlaubt
+                                        ordensgeschichtliche Forschungen [zB. <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0123.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0123</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0126.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0126</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0152.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0152</a>] ebenso wie solche zum
+                                        spätmittelalterlichen Wirtschaften – etwa zur Hof- und
+                                        Zehntbewirtschaftung [zB. <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0190.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0190</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0638.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0638</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0762.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0762</a>] oder zur Haushaltung vor
+                                        Ort [zB. <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0189.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0189</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0815.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0815</a>] –, zu schriftlichen und
+                                        mündlichen Administrationspraktiken [zB. <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0447.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0447</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0749.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0749</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0790.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0790</a>] oder zu
+                                        Institutionalisierungen und Systematisierungen von Rechten
+                                        [zB. <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0362.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0362</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0626.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0626</a>].</p>
+                                    <p> Königsfelden birgt auch besonderes gendergeschichtliches
+                                        Potential, ist doch die Klosterstätte der Klarissen und
+                                        Franziskaner als Herrschaftsträger und Wirtschaftsbetrieb
+                                        von der Klarissengemeinschaft dominiert worden, zu der
+                                        Frauen aus den führenden adligen und stadtbürgerlichen
+                                        Familien der heutigen Deutschschweiz gehörten [zB. <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0063.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0063</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0802.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0802</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_897.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0897</a>]. Die im Bestand der
+                                        Königsfelder Dokumente enthaltenen Quittungen aus der
+                                        Auflösungsphase des Klosters, welche die Klarissen beim
+                                        Austritt aus dem Kloster (oft im Zusammenhang mit
+                                        Heiratsabsichten) unterzeichneten, sind herausragende
+                                        Schriftstücke für reformationsgeschichtliche Fragen [zB. <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0924a.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0924a</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0927a.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0927a</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0927f.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0927f</a>]. </p>
+                                    <p>Auch für weitere kirchen- und stadtgeschichtliche Forschungen
+                                        stellt die Königsfelder Überlieferung ein fruchtbarer
+                                        Dokumentenkorpus dar; es sei hier nur schon auf die
+                                        zahlreichen Kirchensätze (Patronatsrechte) in der Umgebung
+                                        verwiesen, die die Klarissen innehatten [zB. <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0116_01.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0116/1</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0225.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0225</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0617.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0617</a>]. Die Edition bildet zudem
+                                        eine vorzügliche Möglichkeit, weitergehende
+                                        bauhistorisch-archäologische und kunstgeschichtliche
+                                        Forschung zu betreiben, die sonst über die prominenten
+                                        Glasmalereien (Kurmann-Schwarz 2008) hinaus derzeit kaum
+                                        möglich ist [zB. <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0276a.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0276a</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0306a.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0306a</a>, <a
+                                            href="https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/U-17_0332a.xml?odd=ssrq-norm.odd"
+                                            target="_blank">Urk. 0332a</a>].</p>
+                                    <p>Die Edition öffnet im Weiteren den Blick auf die noch immer
+                                        zu wenig erforschte Schweizer "Aristokratie", zu der neben
+                                        dem habsburgischen Dienstadel aus der näheren und weiteren
+                                        Umgebung (Elsass, Oberschwaben und Aargau) auch die
+                                        "bürgerlichen" Eliten von Städten wie Bern, Brugg oder Baden
+                                        gezählt werden müssen. Nicht weniger sind grosse wie kleine
+                                        lokale Akteure fassbar, so dass in der Königsfelder
+                                        Überlieferung in seltener Ausgewogenheit eine enorme
+                                        Spannweite von Personen greifbar wird, die sozial und
+                                        regional sehr verschieden verankert waren. Königsfelden war
+                                        im Mittelalter ein sozialer Knotenpunkt, an dem
+                                        Beziehungsfäden von europäischer Reichweite mit lokalen
+                                        zusammenliefen, und der sich auch in der Frühen Neuzeit
+                                        nicht in die Raster einer herkömmlichen Landes- oder
+                                        Nationalgeschichte fügt, sondern zu neuen Perspektivierungen
+                                        und zu Forschungen einlädt, die vom Paradigma der
+                                        Glokalisierung inspiriert sind.</p>
+                                </div>
+                            </div>
+                            <a class="anchor" id="richtlinien"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Transkriptions- und
+                                            Datierungsrichtlinien, Datendownload</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>Im Sinne einer einheitlichen Aufbereitung des vormodernen
+                                        Schriftguts wie Urkunden, Akten und weiterer Dokumente
+                                        wurden die Editionsvorschriften von der <a
+                                            href="https://www.ssrq-sds-fds.ch/produkte/editionsgrundsaetze/"
+                                            target="_blank">Schweizerischen
+                                            Rechtsquellenstiftung</a> weitgehend übernommen. In dem
+                                        von den Rechtsquellen bespielten Wiki werden Vorgaben und
+                                        Ansätze geliefert, wie mit komplexen textkritischen und
+                                        inhaltlichen Problemen umgegangen wird. Die für dieses
+                                        Editionsprojekt spezifischen und damit von den SSRQ
+                                        abweichenden Richtlinien sind unter
+                                        Transkriptionsrichtlinien als <a
+                                            href="resources/images/TRL_Web.pdf" target="_blank"
+                                            >PDF</a> abrufbar.</p>
+                                    <p> Die Datierungsrichtlinien wurden ebenso hauptsächlich von
+                                        der Schweizerischen Rechtsquellenstiftung übernommen und
+                                        können unter folgendem Link <a
+                                            href="https://www.ssrq-sds-fds.ch/wiki/Datierungsrichtlinien"
+                                            >ssrq-sds-fds.ch/wiki/Datierungsrichtlinien</a>
+                                        eingesehen werden. Die wenigen unterschiedlichen
+                                        Handhabungen sind in den oben erwähnten
+                                        Transkriptionsrichtlinien festgehalten. </p>
+                                    <p>Alle Daten mit Ausnahme der Bilder, die auf e-Codices
+                                        publiziert wurden, sind frei als Datendump verfügbar: <a
+                                            href="https://doi.org/10.5281/zenodo.5179361">DOI:
+                                            10.5281/zenodo.5179361</a>.</p>
+                                </div>
+                            </div>
+                            <a class="anchor" id="abkurzungen"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Abkürzungen und
+                                            Symbole</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <h4> Abkürzungen </h4>
+                                    <ul>
+                                        <li>StAAG = Staatsarchiv Aargau</li>
+                                    </ul>
+                                    <h4>Symbole</h4>
+                                    <ul>
+                                        <li> = Schilling (Währung)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a class="anchor" id="bibliografie"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Bibliografie</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <h4>Quellensammlungen</h4>
+                                    <p>Liebenau, Hermann, Hundert Urkunden zu der Geschichte der
+                                        Königin Agnes, Wittwe von Ungarn: 1288 – 1364, Regensburg
+                                        1869, url: <a
+                                            href="http://www.mdz-nbn-resolving.de/urn/resolver.pl?urn=urn:nbn:de:bvb:12-bsb11001029-2"
+                                            >www.mdz-nbn-resolving.de/urn/resolver.pl?urn=urn:nbn:de:bvb:12-bsb11001029-2</a>
+                                    </p>
+                                    <p>Maag, Rudolf, Hrsg., Das Habsburger Urbar. Band 2,1: Pfand-
+                                        und Revokationsrödel zu König Albrechts Urbar, frühere und
+                                        spätere Urbaraufnahmen und Lehensverzeichnisse der
+                                        Laufenburger Linie, Bd. 2.1, 2 Bde., Quellen zur
+                                        Schweizer-Geschichte 15, Basel 1894.</p>
+                                    <p>Merz, Walther, Hrsg., Die Rechtsquellen des Kantons Aargau.
+                                        Teil 1: Stadtrechte, Band 4, Die Stadtrechte von Bremgarten
+                                        und Lenzburg, Sammlung Schweizerischer Rechtsquellen, Aarau
+                                        1909, url: <a
+                                            href="https://www.ssrq-sds-fds.ch/online/AG_I_4/index.html"
+                                            >www.ssrq-sds-fds.ch/online/AG_I_4/</a>
+                                    </p>
+                                    <p>Merz, Walther, Hrsg.,Die Rechtsquellen des Kantons Aargau.
+                                        Teil 1 : Stadtrechte, Band 5, Die Stadtrechte von Zofingen,
+                                        Sammlung Schweizerischer Rechtsquellen, Aarau 1914, url: <a
+                                            href="https://www.ssrq-sds-fds.ch/online/AG_I_5/index.html"
+                                            >www.ssrq-sds-fds.ch/online/AG_I_5/</a>
+                                    </p>
+                                    <p>Merz, Walther, Hrsg., Die Rechtsquellen des Kantons Aargau.
+                                        Teil 1: Stadtrechte, Band 7, Das Stadtrecht von Rheinfelden,
+                                        Sammlung Schweizerischer Rechtsquellen, Aarau 1917, url: <a
+                                            href="https://www.ssrq-sds-fds.ch/online/AG_I_7/index.html"
+                                            >www.ssrq-sds-fds.ch/online/AG_I_7/</a>
+                                    </p>
+                                    <p>Merz, Walther, Hrsg., Die Rechtsquellen des Kantons Aargau.
+                                        Teil 2: Die Rechte der Landschaft, Band 2, Die Oberämter
+                                        Königsfelden, Biberstein und Kastelen, Sammlung
+                                        Schweizerischer Rechtsquellen, Aarau 1926, url: <a
+                                            href="https://www.ssrq-sds-fds.ch/online/AG_II_2/index.html"
+                                            >www.ssrq-sds-fds.ch/online/AG_II_2/</a>
+                                    </p>
+                                    <p>Merz, Walther, Hrsg., Die Rechtsquellen des Kantons Aargau.
+                                        Teil 2: Die Rechte der Landschaft, Band 1, Amt Arburg und
+                                        Grafschaft Lenzburg, Sammlung Schweizerischer Rechtsquellen,
+                                        Aarau 1923, url: <a
+                                            href="https://www.ssrq-sds-fds.ch/online/AG_II_1/index.html"
+                                            >www.ssrq-sds-fds.ch/online/AG_II_1/</a>
+                                    </p>
+                                    <p> </p>
+                                    <h4>Literaturverzeichnis</h4>
+                                    <p>Ammann, Hektor, Das Kloster Königsfelden, 2. Aufl., Aarau
+                                        1953.</p>
+                                    <p>Bärtschi, Marianne, <a
+                                            href="https://uzb.swisscovery.slsp.ch/view/delivery/41SLSP_UZB/12464583890005508"
+                                            >Das Habsburger Urbar: Vom Urbar-Rodel zum
+                                            Traditionscodex</a>, Zürich 2008.</p>
+                                    <p>Baum, Wilhelm, Die Habsburger in den Vorlanden 1386 –1486:
+                                        Krise und Höhepunkt der habsburgischen Machtstellung in
+                                        Schwaben am Ausgang des Mittelalters, Wien 1993.</p>
+                                    <p>Beck, Marcel, Königsfelden: Geschichte, Bauten, Glasgemälde,
+                                        Kunstschätze, Olten 1983.</p>
+                                    <p>Bihrer, Andreas, Zwischen Wien und Königsfelden: Die
+                                        Kirchenpolitik der Habsburger in den Vorderen Landen im 14.
+                                        Jahrhundert, in: Habsburger Herrschaft vor Ort – weltweit
+                                        (1300–1600), hrsg. von Jeannette Rauschert, Simon Teuscher
+                                        und Thomas Zotz, Ostfildern 2013, S. 109–135.</p>
+                                    <p>Boner, Georg, Barfüsserkloster Königsfelden, in: Helvetia
+                                        Sacra. Abteilung V, Band 1: Der Franziskusorden. Die
+                                        Franziskaner, die Klarissen und die regulierten
+                                        Franziskaner-Terziarinnen in der Schweiz, hrsg. von Brigitte
+                                        Degler-Spengler, Bern 1978, S. 206–209.</p>
+                                    <p>Boner, Georg, Die Erschliessung ausländischer Archivalien zur
+                                        aargauischen Geschichte, in: Argovia. Jahresschrift der
+                                        Historischen Gesellschaft des Kantons Aargau 84 (1972), S.
+                                        96–117, doi: <a href="http://dx.doi.org/10.5169/seals-71635"
+                                            >10.5169/seals-71635</a>.</p>
+                                    <p>Boner, Georg, Die Gründung des Klosters Königsfelden, in:
+                                        Zeitschrift für schweizerische Kirchengeschichte 47 (1953),
+                                        S. 1–24, 81–112, 181–209.</p>
+                                    <p>Boner, Georg, Die Gründung des Klosters Königsfelden, in:
+                                        Argovia. Jahresschrift der Historischen Gesellschaft des
+                                        Kantons Aargau (1979), S. 11–44, doi: 10.5169/seals-73921,
+                                        doi: <a href="http://dx.doi.org/10.5169/seals-73921"
+                                            >10.5169/seals-73921</a>.</p>
+                                    <p>Boner, Georg, Die Königsfelder Klosterordnungen der Königin
+                                        Agnes von Ungarn, in: Schaffhauser Beiträge zur
+                                        vaterländischen Geschichte 48 (1971), S. 59–89.</p>
+                                    <p>Boner, Georg, Die politische Wirksamkeit der Königin Agnes
+                                        von Ungarn, in: Brugger Neujahrsblätter 75 (1965), S.
+                                        3–17.</p>
+                                    <p>Boner, Georg, Gesammelte Beiträge zur aargauischen
+                                        Geschichte, in: Argovia. Jahresschrift der Historischen
+                                        Gesellschaft des Kantons Aargau 91 (1979), S. 5–463, doi: <a
+                                            href="http://dx.doi.org/10.5169/seals-73921"
+                                            >10.5169/seals-73921</a>.</p>
+                                    <p>Boner, Georg, Klarissenkloster Königsfelden ,in: Der
+                                        Franziskusorden, hrsg.von Brigitte Degler-Spengler, Helvetia
+                                        Sacra. Abteilung V, Band 1: Der Franziskusorden. Die
+                                        Franziskaner, die Klarissen und die regulierten
+                                        Franziskaner-Terziarinnen in der Schweiz, Bern 1978, S.
+                                        561–576.</p>
+                                    <p>Boner, Georg, Königin Agnes von Ungarn, in: Brugger
+                                        Neujahrsblätter 74(1964), S.3–30.</p>
+                                    <p>Boner, Georg, Le rayonnement en Alsace de deux abbayes
+                                        suisses: Königsfelden et Einsiedeln: I. Der elsässische
+                                        Besitz des Klosters Königsfelden, in: L’Alsace et la Suisse
+                                        à travers les siècles, hrsg. von Lucien Febvre, Strassburg,
+                                        Paris 1952, S. 113–128. </p>
+                                    <p>Brun, Peter, «Die von Ergoew duchte gar verdrossent, werent
+                                        sy mitt pappir erschössen», in: Argovia. Jahresschrift der
+                                        Historischen Gesellschaft des Kantons Aargau 118 (2006),
+                                        doi: <a href="http://dx.doi.org/10.5169/seals-19712"
+                                            >10.5169/seals-19712</a>.</p>
+                                    <p>Brun, Peter, Schrift und politisches Handeln: Eine
+                                        «zugeschriebene» Geschichte des Aargaus 1415–1425, Zürich
+                                        2006.</p>
+                                    <p>Danuser, Hanspeter, Göllheim und Königsfelden: Ein Beitrag
+                                        zur Geschichte König Albrechts I., Zürich 1974.</p>
+                                    <p>Gerber, Roland, Erobert, entführt und makuliert: Das
+                                        vorländische Archiv der Herzöge von Österreich als
+                                        Herrschaftsinstrument und Kriegsbeute, in: Die Habsburger
+                                        zwischen Aare und Bodensee, hrsg. von Peter Niederhäuser,
+                                        Mitteilungen der Antiquarischen Gesellschaft in Zürich 77,
+                                        Zürich 2010, S. 95-122.</p>
+                                    <p>Gerber, Roland, Herrschaftswechsel mit Misstönen: Der
+                                        Übergang der Herrschaft Aarburg von Habsburg an Bern
+                                        zwischen 1415 und 1458, in: Argovia. Jahresschrift der
+                                        Historischen Gesellschaft des Kantons Aargau 120 (2008), S.
+                                        131–155, doi: <a
+                                            href="http://dx.doi.org/10.5169/seals-19712"
+                                            >10.5169/seals-15</a>.</p>
+                                    <p>Girsberger, Ernst, Die Gesellschaftsabzeichen der Sempacher
+                                        Ritter zu Königsfelden, in: Archives héraldiques suisses =
+                                        Schweizerisches Archiv für Heraldik = Archivio araldico
+                                        Svizzero 43 (1927), S. 104–108.</p>
+                                    <p>Hilsebein, Angelica, Das Kloster als Residenz: Leben und
+                                        Wirken der Königin Agnes von Ungarn in Königsfelden, in:
+                                        Wissenschaft und Weisheit 72 (2009), S. 179–250.</p>
+                                    <p>Himmelein, Volker, Hrsg., Vorderösterreich – nur die
+                                        Schwanzfeder des Kaiseradlers? Die Habsburger im deutschen
+                                        Südwesten, Ulm 1999.</p>
+                                    <p>Hodel, Tobias, <a
+                                            href="https://doi.org/10.2357/9783739880600"
+                                            >Schriftordnungen im Wandel, Gebrauchs- und
+                                            Aufbewahrungspraktiken von klösterlichem Schriftgut in
+                                            Königsfelden (1300-1800)</a>, Konstanz 2020.</p>
+                                    <p>Hödl, Günther, Habsburg und Österreich, 1273–1493: Gestalten
+                                        und Gestalt des österreichischen Spätmittelalters, Wien,
+                                        Köln 1988.</p>
+                                    <p>Köhn, Rolf, Der Landvogt in den spätmittelalterlichen
+                                        Vorlanden: Kreatur des Herzogs und Tyrann der Untertanen,
+                                        in: Die Habsburger im deutschen Südwesten: Neue Forschungen
+                                        zur Geschichte Vorderösterreichs, hrsg. von Franz Quarthal
+                                        und Faix Gerhard, Stuttgart 2000, S. 153-198.</p>
+                                    <p>Krieger, Karl Friedrich, Die Habsburger im Mittelalter: Von
+                                        Rudolf I. bis Friedrich III., 2. Aufl., Stuttgart 2004.</p>
+                                    <p>Kurmann-Schwarz, Brigitte, «. . . ein vrowen chloster sande
+                                        Chlaren orden und ein chloster der minneren Bru(e)der
+                                        orden»: Die beiden Konvente in Königsfelden und ihre
+                                        gemeinsame Nutzung der Kirche, in: Glas, Malerei, Forschung.
+                                        Internationale Studien zu Ehren von Rüdiger Becksmann, hrsg.
+                                        von Hartmut Scholz und Rüdiger Becksmann, Berlin 2004, S.
+                                        151–163.</p>
+                                    <p>Kurmann-Schwarz, Brigitte, Die mittelalterlichen
+                                        Glasmalereien der ehemaligen Klosterkirche Königsfelden,
+                                        Corpus vitrearum medii aevi. Schweiz 2, Bern 2008.</p>
+                                    <p>Lackner, Christian, Archivordnung im 14. Jahrhundert: Zur
+                                        Geschichte des habsburgischen Hausarchivs in Baden im
+                                        Aargau, in: Handschriften, Historiographie und Recht, hrsg.
+                                        von Gustav Pfeifer und Winfried Stelzer, Wien 2002, S.
+                                        255–268.</p>
+                                    <p>Lackner, Christian, Die Verwaltung der Vorlande im späteren
+                                        Mittelalter, in: Vorderösterreich – nur die Schwanzfeder des
+                                        Kaiseradlers? Die Habsburger im deutschen Südwesten, hrsg.
+                                        von Volker Himmelein, unter Mitarb. von Irmgard Christa
+                                        Becker, Ulm 1999, S. 61–71.</p>
+                                    <p>Lackner, Christian, Zwschen herrschaftlicher Gestaltung und
+                                        regionaler Anpassung. Pfandschaften, Ämterkauf und Formen
+                                        der Kapitalisierung in der Verwaltung der
+                                        spätmittelalterlichen habsburgischen Länder Österreich und
+                                        Steiermark, in: Habsburger Herrschaft vor Ort – weltweit
+                                        (1300–1600), hrsg. von Jeannette Rauschert, Simon Teuscher
+                                        und Thomas Zotz, Ostfildern, 2013, S. 35–48.</p>
+                                    <p>Leemann Lüpold, Bettina, Hin- und hergerissen zwischen
+                                        Habsburg und Bern? Die Herren von Hallwyl, das Jahr 1415 und
+                                        seine Folgen, in: Argovia. Jahresschrift der Historischen
+                                        Gesellschaft des Kantons Aargau 120 (2008), S. 33–54, doi:
+                                            <a href="https://dx.doi.org/10.5169/seals-12"
+                                            >10.5169/seals-12</a>
+                                    </p>
+                                    <p>Liebenau, Hermann, Die Truhe im Kloster Königsfelden, in:
+                                        Anzeiger für Schweizerische Alterthumskunde 2.2 (1872), S.
+                                        432–434, doi: <a
+                                            href="http://dx.doi.org/10.5169/seals-154770"
+                                            >10.5169/seals-154770</a>.</p>
+                                    <p>Liebenau, Hermann, Lebensgeschichte der Königin Agnes von
+                                        Ungarn, der letzten Habsburgerin des erlauchten Stammhauses
+                                        aus dem Aargaue, Regensburg 1868.</p>
+                                    <p>Liebenau, Hermann und Liebenau, Theodor, Urkundliche
+                                        Nachweise zu der Lebensgeschichte der verwittw. Königin
+                                        Agnes von Ungarn, in: Argovia. Jahresschrift der
+                                        Historischen Gesellschaft des Kantons Aargau 5 (1866), S.
+                                        1–192, doi: <a href="https://dx.doi.org/10.5169/seals-3537"
+                                            >10.5169/seals-3537</a>
+                                    </p>
+                                    <p>Liebenau, Theodor, Bischof Johann von Gurk, Brixen und Cur
+                                        und die Familie Schultheiss von Lenzburg, in: Argovia.
+                                        Jahresschrift der Historischen Gesellschaft des Kantons
+                                        Aargau 8 (1874), S. 141–317, doi: <a
+                                            href="https://dx.doi.org/10.5169/seals-21230"
+                                            >10.5169/seals-21230</a>.</p>
+                                    <p>Liebenau, Theodor, Königsfelder Chronik zur Geschichte Kaiser
+                                        Friedrichs III.,in: Jahrbuchder k.k. heraldischen
+                                        Gesellschaft «Adler» 11 (1884).</p>
+                                    <p>Lüthi, Alfred, Wirtschafts- und Verfassungsgeschichte des
+                                        Klosters Königsfelden. Ein Beitrag zur Geschichte des
+                                        Habsburgerstaates in den Vorlanden, Zürich 1947.</p>
+                                    <p>Maurer, Emil, Das Kloster Königsfelden, Die Kunstdenkmäler
+                                        des Kantons Aargau 3, Basel 1954.</p>
+                                    <p>Meier, Bruno, Ein Königshaus aus der Schweiz: Die Habsburger,
+                                        der Aargau und die Eidgenossenschaft im Mittelalter, 2.
+                                        Aufl., Baden 2008.</p>
+                                    <p>Merz, Walther, Aargauische Amtslisten, in: Argovia.
+                                        Jahresschrift der Historischen Gesellschaft des Kantons
+                                        Aargau 46 (1934), S. 245–260, doi: <a
+                                            href="https://dx.doi.org/10.5169/seals-48912"
+                                            >10.5169/seals-48912</a>.</p>
+                                    <p>Merz, Walther, Repertorium des Aargauischen Staatsarchivs.
+                                        Teil 1: Der bernische Aargau und die Grafschaft Baden, Bd.
+                                        1, 2 Bde., Aarau 1935.</p>
+                                    <p>Meyer, Bruno, Das habsburgische Archiv in Baden, in:
+                                        Zeitschrift für Schweizerische Geschichte 23 (1943), S.
+                                        169–200.</p>
+                                    <p>Moddelmog, Claudia, Die Klarissen von Königsfelden und ihre
+                                        Verwandten: Beziehung und Besitz, in: Königsfelden.
+                                        Königsmord, Kloster, Klinik, hrsg. von Simon Teuscher und
+                                        Claudia Moddelmog, Baden 2012, S. 128–169.</p>
+                                    <p>Moddelmog, Claudia, Klarissen von Königsfelden, in:
+                                        Königsfelden. Königsmord, Kloster, Klinik, hrsg. von Simon
+                                        Teuscher und Claudia Moddelmog, Baden 2012, S. 257–263.</p>
+                                    <p>Nevsimal, Alfred, Königin Agnes von Ungarn: Leben und
+                                        Stellung in der habsburgischen Politik ihrer Zeit, Wien
+                                        1951.</p>
+                                    <p> Niederhäuser, Peter, «Der Landvogt kam nie gen Baden». Baden
+                                        ein habsburgisches Verwaltungszentrum nach 1400?, in:
+                                        Badener Neujahrsblätter 78 (2003), S. 139–149, doi: <a
+                                            href="https://dx.doi.org/10.5169/seals-324761"
+                                            >10.5169/seals-324761</a>.</p>
+                                    <p>Niederhäuser, Peter, Adel und Habsburg – habsburgischer Adel?
+                                        Karrieremöglichkeiten und Abhängigkeiten im späten
+                                        Mittelalter, in: Die Habsburger zwischen Aare und Bodensee,
+                                        hrsg. von Peter Niederhäuser, Mitteilungen der
+                                        Antiquarischen Gesellschaft in Zürich 77, Zürich 2010, S.
+                                        151–178.</p>
+                                    <p>Niederhäuser, Peter, Herzog Friedrich von Österreich, seine
+                                        Landvögte und die Appenzellerkriege: «im, sinen landen und
+                                        lûten gar ungütlich getan», in: Die Appenzellerkriege – Eine
+                                        Krisenzeit am Bodensee?, hrsg. von Peter Niederhäuser und
+                                        Alois Niederstätter, Forschungen zur Geschichte Vorarlbergs
+                                        7, Konstanz 2006, S. 33–52.</p>
+                                    <p>Niederhäuser, Peter, Verdrängung, Mobilität oder Beharrung?
+                                        Adel im 15. Jahrhundert zwischen dem Aargau und Tirol, in:
+                                        Argovia. Jahresschrift der Historischen Gesellschaft des
+                                        Kantons Aargau 120 (2008), S. 18–32, doi: <a
+                                            href="https://dx.doi.org/10.5169/seals-11"
+                                            >10.5169/seals-11</a>.</p>
+                                    <p>Niederstätter, Alois, Habsburgische Herrschaftspraxis
+                                        zwischen Bodensee und im ausgehenden Mittelalter, in:
+                                        Habsburger Herrschaft vor Ort – weltweit (1300–1600), hrsg.
+                                        von Jeannette Rauschert, Simon Teuscher und Thomas Zotz,
+                                        Ostfildern 2013, S. 77–88.</p>
+                                    <p>Niederstätter, Alois, Princeps Suevie et Alsacie:Herzog
+                                        Rudolf IV. von Österreich und die habsburgischen Vorlande,
+                                        in: Die Habsburger zwischen Aare und Bodensee, hrsg. von
+                                        Peter Niederhäuser, Mitteilungen der Antiquarischen
+                                        Gesellschaft in Zürich 77, Zürich 2010, S. 125–136.</p>
+                                    <p>Peyer, Hans Conrad, Das Archiv der Feste Baden:
+                                        Dorsualregesten und Archivordnung im Mittelalter, Bern
+                                        1967.</p>
+                                    <p>Rauschert, Jeannette: Landvogteisitz und
+                                        Erinnerungsort:Königfelden im 16. bis 18. Jahrhundert, in:
+                                        Königsfelden. Königsmord, Kloster, Klinik, hrsg. von Simon
+                                        Teuscher und Claudia Moddelmog, Baden 2012, S. 170–215.</p>
+                                    <p>Saxer, Daniela und Burri, Monika, Quellen zur Königsfelder
+                                        Klosterwirtschaft des 15. und 16. Jahrhunderts, in: Argovia.
+                                        Jahresschrift der Historischen Gesellschaft des Kantons
+                                        Aargau 108 (1996), S. 243–272, doi: <a
+                                            href="https://dx.doi.org/10.5169/seals-13505"
+                                            >10.5169/seals-13505</a>.</p>
+                                    <p>Sieber, Christian, «On the Move»: Das Itinerar der Herzöge
+                                        Leopold IV. und Friedrich IV. von Österreich von der
+                                        Schlacht bei Sempach (1386) bis zur Aussöhnung mit König
+                                        Sigmund (1418), in: Die Habsburger zwischen Aare und
+                                        Bodensee, hrsg. von Peter Niederhäuser, Mitteilungen der
+                                        Antiquarischen Gesellschaft in Zürich 77, Zürich 2010, S.
+                                        77–93.</p>
+                                    <p>Stercken, Martina, Formen herrschaftlicher Präsenz: Die
+                                        Habsburger in ihren Städten im Gebiet der heutigen Schweiz,
+                                        in: Habsburger Herrschaft vor Ort – weltweit (1300–1600),
+                                        hrsg. von Jeannette Rauschert, Simon Teuscher und Thomas
+                                        Zotz, Ostfildern 2013, S. 149–168.</p>
+                                    <p>Stercken, Martina, Städte der Herrschaft: Kleinstadtgenese im
+                                        habsburgischen Herrschaftsraum des 13. und 14. Jahrhunderts,
+                                        Köln 2006.</p>
+                                    <p>Studer Immenhauser, Barbara, Verwaltung zwischen Innovation
+                                        und Tradition: Die Stadt Bern und ihr Untertanengebiet
+                                        1250–1550, Ostfildern 2006.</p>
+                                    <p>Stüssi-Lauterburg, Barbara, Agnes von Österreich, Johann II.
+                                        von Bubenberg und die Friedensvermittlung von Königsfelden
+                                        nach dem Laupenkrieg, in: Berner Zeitschrift für Geschichte
+                                        und Heimatkunde 74.2 (2012), S. 11–28.</p>
+                                    <p>Teuscher, Simon und Moddelmog, Claudia, Hrsg., Königsfelden:
+                                        Königsmord, Kloster, Klinik, Baden 2012.</p>
+                                    <p>Werder, Max, Die Gerichtsverfassung des aargauischen
+                                        Eigenamtes bis zum Jahre 1798, in: Argovia. Jahresschrift
+                                        der Historischen Gesellschaft des Kantons Aargau 54 (1942),
+                                        doi: <a href="https://dx.doi.org/10.5169/seals-54550"
+                                            >10.5169/seals-54550</a>.</p>
+                                </div>
+                            </div>
+                            <a class="anchor" id="berichterstattung"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Berichterstattung</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p> 
+                                    <ul>
+                                        <li>infoclio.ch: Das Schweizer Fachportal für die
+                                            Geschichtswissenschaften: <a
+                                                href="https://infoclio.ch/de/die-urkunden-und-akten-des-klosters-k%C3%B6nigsfelden-online"
+                                                target="_blank"
+                                                >https://infoclio.ch/de/die-urkunden-und-akten-des-klosters-königsfelden-online</a>.</li>
+                                        <li>higgs.ch: <a
+                                                href="https://www.higgs.ch/schriften-aus-dem-kloster-koenigsfelden-neu-online-erlebbar/47560/?access=4ac6adcf3037a065929947194461a768"
+                                                target="_blank"
+                                                >https://www.higgs.ch/schriften-aus-dem-kloster-koenigsfelden-neu-online-erlebbar/
+                                                (Paywall)</a>.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a class="anchor" id="mitarbeitende"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Mitarbeitende und
+                                            Finanzierung</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p> Die Arbeiten für dieses Editionsprojekt erfolgten von
+                                        2017-2020 im Rahmen des Schweizerischen
+                                        Nationalfondsprojekts "Edition der Urkunden und Akten des
+                                        Klosters Königsfelden" (<a
+                                            href="http://p3.snf.ch/project-157907">Infrastruktur:
+                                            Editionen, 10FE15_157907</a>) unter der Leitung von
+                                        Prof. Simon Teuscher, Universität Zürich, und in
+                                        Zusammenarbeit mit dem Staatsarchiv des Kantons Aargau und
+                                        der Schweizerischen Rechtsquellenstiftung. Zusätzlich zur
+                                        Finanzierung durch den Schweizerischen Nationalfonds wurde
+                                        das Projekt mit einem Beitrag des Lotteriefonds des Kantons
+                                        Aargau unterstützt. </p>
+                                    <p> Das Projekt wurde von Dr. Tobias Hodel, Dr. Claudia
+                                        Moddelmog und Prof. Simon Teuscher iniziiert und nach der
+                                        Zusage der Finanzierung durch den Schweizerischen
+                                        Nationalfonds als Drittmittelprojekt am Lehrstuhl von Prof.
+                                        Simon Teuscher durchgeführt. Von Januar 2017 bis Oktober
+                                        2019 stand es unter der Leitung von Dr. Tobias Hodel. Nach
+                                        dessen Berufung als Professor an die Universität Bern
+                                        übernahm Dr. Colette Halter-Pernet bis zum Projektende die
+                                        Leitungsfunktion. Als wissenschaftliche Mitarbeiter*innen
+                                        arbeiteten Sabine Stettler, MA, Dr. Colette Halter-Pernet,
+                                        Michael Nadig, MA, Anina Steinmann, BA, Fabian Henggeler,
+                                        MA, Salome Egloff, MA, und Lukas Barwitzki, MA, mit
+                                        unterschiedlichen Pensen und Anstellungsdauern im Projekt
+                                        mit. Als Experte*in für Latein zeichnen Helena Müller, MA
+                                        und Severin Hof, MA; als IT-Verantwortlicher Ismail Prada
+                                        Ziegler, BA. </p>
+                                </div>
+                            </div>
+                            <a class="anchor" id="citation"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Vorgeschlagene
+                                            Zitierweise</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p id="date">C. Halter-Pernet, T. Hodel, S. Teuscher (Hg.):
+                                        Digitale Edition Königsfelden. Kloster und Hofmeisterei
+                                        Königsfelden: Urkunden und Akten, 1300-1662. Bearbeitet von
+                                        L. Barwitzki, S. Egloff, C. Halter-Pernet, F. Henggeler, T.
+                                        Hodel, M. Nadig, A. Steinmann und S. Stettler. 2017-2020:
+                                        &lt;https://www.koenigsfelden.uzh.ch/link-zum-spezifischen-dokument&gt;,
+                                        Stand: </p>
+                                    <script>
+                                            n = new Date();
+                                            y = n.getFullYear();
+                                            m = n.getMonth() + 1;
+                                            d = n.getDate();
+                                            document.getElementById("date").innerHTML = document.getElementById("date").innerHTML + d + "." + m + "." + y + ".";</script>
+                                </div>
+                            </div>
+                            <a class="anchor" id="impressum"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Impressum</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <h4>Herausgeber</h4>
+                                    <p> Lehrstuhl Prof. Dr. Simon Teuscher<br /> Historisches
+                                        Seminar<br /> Universität Zürich<br /> Prof. Dr. Simon
+                                        Teuscher<br /> Karl Schmid-Strasse 4<br /> CH-8006 Zürich<br />
+                                        <br /> E-Mail: <a href="mailto:sekteuscher@hist.uzh.ch"
+                                            >sekteuscher@hist.uzh.ch</a>
+                                        <br /> Telefon: Tel: +41 (0) 44 634 38 56 </p>
+                                </div>
+                            </div>
+                            <a class="anchor" id="datenschutz"></a>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <pb-i18n key="introduction">Datenschutzerklärung</pb-i18n>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p> Wir freuen uns über Ihren Besuch auf der Webseite des
+                                        Editionsprojekts Königsfelden, einem Projekt, das vom
+                                        Historischen Seminars durch den Lehrstuhl von Prof. Dr.
+                                        Simon Teuscher durchgeführt wird. Da Datenschutz für das
+                                        Historische Seminar und die UZH ein wichtiges Anliegen ist,
+                                        möchten wir Sie im Folgenden kurz darüber unterrichten,
+                                        welche Daten die UZH im Rahmen der geltenden
+                                        datenschutzrechtlichen Bestimmungen von Besuchern und
+                                        Nutzern der Editions-Webseite zu welchem Zweck erhebt,
+                                        weiter bearbeitet und bekannt gibt, und welche Massnahmen
+                                        getroffen worden sind, um für die Sicherheit dieser Daten zu
+                                        sorgen.</p>
+                                    <h4>1. Gegenstand des Datenschutzes</h4>
+                                    <p> Datenschutz dient dem Schutz der Persönlichkeitsrechte. Er
+                                        verpflichtet die Datenbearbeiter zu rechtmässigem Handeln
+                                        und verleiht den betroffenen Personen durchsetzbare Rechte
+                                        im Hinblick auf die Bearbeitung ihrer Personendaten.
+                                        Personendaten sind nach § 3 Gesetz über die Information und
+                                        den Datenschutz des Kantons Zürich (IDG ZH) alle
+                                        Informationen, die sich auf eine bestimmte oder bestimmbare
+                                        Person beziehen. Hierunter fallen z.B. Angaben wie Name,
+                                        Anschrift, Telefonnummer, E-Mail- oder IP-Adresse.</p>
+                                    <h4>2. Datenerhebung, -bearbeitung, -speicherung</h4>
+                                    <p>Bei jedem Anfordern resp. Aufrufen der Editions-Webseite
+                                        werden folgende Zugriffsdaten erhoben und in einer
+                                        Webserver-Logdatei auf Servern der UZH gespeichert: <ul>
+                                        <li>die IP-Adresse des anfordernden Rechners (z. B.
+                                            123.456.97.36)</li>
+                                        <li>die Seite/Adresse (URL), von der aus die Webseite
+                                            angefordert wurde</li>
+                                        <li>der Pfad und der Name der angeforderten Webseite</li>
+                                        <li>das Datum und die Uhrzeit der Anforderung (z. B.
+                                            [12/Apr/2021:00:00:01 +0200])</li>
+                                        <li>die übertragene Datenmenge</li>
+                                        <li>der Zugriffsstatus</li>
+                                        <li>die Zugriffsart</li>
+                                        <li>die Beschreibung des verwendeten Webbrowsertyps bzw. des
+                                            verwendeten Betriebssystems</li>
+                                        <li>die Session-ID</li>
+                                        <li>Seriennummer des anfordernden Rechners</li>
+                                    </ul> Die Bearbeitung dieser Daten erfolgt zu folgenden Zwecken: <ul>
+                                        <li>Sicherstellung der Netzinfrastruktur und der technischen
+                                            Administration</li>
+                                        <li>Optimierung der Nutzung bestimmter Web-Angebote</li>
+                                        <li>Identifikation und Nachverfolgung unzulässiger
+                                            Zugriffsversuche.</li>
+                                        <li>Die Webserver-Logdateien werden ab Beendigung des
+                                            Zugriffs für einen Zeitraum von 6 Monaten gespeichert.
+                                            Danach werden die Webserver-Logdateien automatisch
+                                            gelöscht, soweit nicht ein erkannter Angriff auf unsere
+                                            Netzinfrastruktur zu einer zivil- oder strafrechtlichen
+                                            Verfolgung des Angreifers führt und damit eine weitere
+                                            Speicherung erforderlich macht.</li>
+                                    </ul>
+                                    <h4>3. Bekanntgabe von Personendaten</h4>
+                                    <p>Personendaten werden ausschließlich dann an Dritte (z.B. an
+                                        Behörden) bekannt gegeben, soweit dies im Rahmen zwingender
+                                        Rechtsvorschriften (z.B. behördlichen Aufforderungen,
+                                        Gerichtsbeschlüssen) oder zum Zweck der Rechts- oder
+                                        Strafverfolgung (z.B. im Fall von Angriffen auf die
+                                        UZH-Netzinfrastruktur) erforderlich ist. Eine Bekanntgabe an
+                                        Dritte zu anderen Zwecken findet nicht statt.</p>
+                                    <p>Dessen ungeachtet kann die UZH Dienstleister damit
+                                        beauftragen, die über die Editionswebseite erhoben Daten zu
+                                        den oben genannten Zwecken weiter zu bearbeiten. Die UZH und
+                                        die beauftragten Drittdienstleister werden mittels
+                                        rechtlicher, technischer und organisatorischer Massnahmen
+                                        dazu verpflichtet, die Einhaltung datenschutzrechtlicher
+                                        Bestimmungen zu gewährleisten.</p>
+                                    <h4>4. Querverweise (Links) zu Webseiten anderer Anbieter</h4>
+                                    <p>Die vorliegende Datenschutzerklärung gilt nur für die
+                                        Editionswebseite. Soweit über Links der Zugang zu Inhalten
+                                        anderer Anbieter vermittelt wird, möchten wir Sie bitten,
+                                        deren Datenschutzerklärungen zu beachten. Die UZH ist weder
+                                        für den Inhalt noch die Datenschutzpraxis dieser anderen
+                                        Anbieter verantwortlich. Insbesondere kann die UZH nicht
+                                        gewährleisten, dass die Inhalte anderer Anbieter frei von
+                                        Malware sind.</p>
+                                    <h4>5. Sicherheit</h4>
+                                    <p>Die UZH setzt auf der Editionswebseite technische und
+                                        organisatorische Sicherheitsmaßnahmen ein, damit die Daten,
+                                        die sie über die UZH-Webseiten erhebt und weiter bearbeitet,
+                                        vertraulich bleiben und vor zufälligen oder unrechtmässigen
+                                        Zugriffen, Veränderungen oder Offenlegungen sowie vor
+                                        Verlusten und Zerstörung geschützt werden; und ein Zugriff
+                                        auf die Daten ausschliesslich nach dem Grundsatz der
+                                        Erforderlichkeit („Need-to-Know“) denjenigen Personen
+                                        erteilt wird, die aufgrund ihrer Funktion und Aufgabe auf
+                                        die Personendaten zugreifen müssen. Die zu treffenden
+                                        Massnahmen richten sich nach der Art der Information, nach
+                                        Art und Zweck der Verwendung und nach dem jeweiligen Stand
+                                        der Technik.</p>
+                                    <h4>6. Gültigkeit</h4>
+                                    <p>Die UZH als Betreiberin der Webseite behält sich vor, die
+                                        Datenschutzerklärung jederzeit mit Wirkung für die Zukunft
+                                        zu ändern, sollte die Implementierung neuer Technologien
+                                        oder die Gesetzeslage eine solche Anpassung erforderlich
+                                        machen. Wir empfehlen Ihnen daher, die Datenschutzerklärung
+                                        regelmässig zu überprüfen.</p>
+                                    <h4>7. Auskunftsrecht</h4>
+                                    <p>Sollten Sie eine Auskunft zu den über Sie erhobenen und
+                                        weiter bearbeiteten Personendaten oder eine Berichtigung,
+                                        Vernichtung oder Sperrung dieser Daten wünschen oder
+                                        weitergehende Fragen zu deren Verwendung haben, wenden Sie
+                                        sich bitte an den Datenschutzdelegierten der UZH. Er ist
+                                        unter folgender Adresse erreichbar:<br />
+                                        <br /> Datenschutzdelegierter der UZH<br />
+                                        Stampfenbachstrasse 73<br /> CH-8006 Zürich<br />
+                                    </p>
+                                    <p> Weitere Informationen finden Sie auf den Webseiten der
+                                        Abteilung Datenschutzrecht der UZH: <a
+                                            href="https://www.dsd.uzh.ch">www.dsd.uzh.ch</a>. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                    <footer data-template="templates:include"
+                        data-template-path="templates/footer.html"></footer>
+                </app-header-layout>
+            </app-drawer-layout>
+        </pb-page>
+        <div class="splash"></div>
+    </body>
+</html>
