@@ -55,9 +55,9 @@ function app:clear-facets($node as node(), $model as map(*)) {
 
 declare 
     %templates:wrap
-    %templates:default("field", "text")
-    %templates:default("sort", "category")
-function app:form($node as node(), $model as map(*), $field as xs:string, $sort as xs:string) {
+    %templates:default("field", "edition")
+    %templates:default("sort", "date")
+function app:form($node as node(), $model as map(*), $field as xs:string+, $sort as xs:string) {
     map {
         "field": $field,
         "sort": $sort
@@ -88,7 +88,7 @@ function app:browse($node as node(), $model as map(*), $start as xs:int, $per-pa
             ($total idiv $per-page) * $per-page + 1
         else
             $start
-    return (
+     return if ($total = 0) then <p><pb-i18n key="no-search-results"/></p> else (
         response:set-header("pb-start", xs:string($start)),
         response:set-header("pb-total", xs:string($total)),
         attribute data-pagination-start { $start },
@@ -184,19 +184,37 @@ declare function app:dispatch-action($node as node(), $model as map(*), $action 
 };
 
 declare function app:show-hits($node as node(), $model as map(*)) {
-    if (empty($model?query) or $model?query = '' or $model?field = 'title') then
-        ()
-    else
-        for $field in ft:highlight-field-matches($model?work, query:field-prefix($model?work) || $model?field)
-        let $matches := $field//exist:match
-        return
-            <div class="matches">
-                <div class="count"><pb-i18n key="browse.items" options='{{"count": {count($matches)}}}'></pb-i18n></div>
-                {
-                    for $match in subsequence($matches, 1, 5)
-                    let $config := <config width="60" table="no"/>
+    let $subtypes := request:get-parameter("subtype", ())
+    let $query := request:get-parameter("query", ())
+    let $start := request:get-parameter("start", ())
+    let $field-prefix := query:field-prefix($model?work)
+        
+    return
+        if (empty($model?query) or $model?query = '' or $model?field = 'title') then ()
+        else (
+            for $field-name in $subtypes                               
+                for $field-matches in ft:highlight-field-matches($model?work,$field-name)
+                    let $matches := $field-matches//exist:match
                     return
-                        kwic:get-summary($field, $match, $config)
-                }
-            </div>
+                        app:display-hits($matches, $field-matches, $field-name)
+        )
 };
+
+declare function app:display-hits($matches, $field, $type) {
+if(count($matches) = 0) then ()
+else ( 
+    <div class="matches">
+        <div>
+            <span class="search-result-tag field-{$type}"> <pb-i18n key="{$type}">{$type}</pb-i18n></span>
+            <span class="count">
+                <pb-i18n key="browse.items" options='{{"count": {count($matches)}}}'></pb-i18n>
+            </span>
+        </div>
+        {
+            for $match in subsequence($matches, 1, 1)
+                let $config := <config width="60" table="no" />
+                return
+                    kwic:get-summary($field, $match, $config)
+        }
+    </div>
+)};

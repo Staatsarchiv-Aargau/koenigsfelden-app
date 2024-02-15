@@ -58,11 +58,12 @@ declare function teis:query-default($fields as xs:string+, $query as xs:string, 
 };
 
 declare function teis:query-metadata($path as xs:string?, $field as xs:string?, $query as xs:string?, $sort as xs:string) {
+    let $subfields := request:get-parameter("subtype", "edition")
     let $queryExpr := 
         if ($field = "file" or empty($query) or $query = '') then 
             "file:*" 
         else
-            ($field, "text")[1] || ":" || $query
+            teis:query-by-subfield($subfields, $query)
     let $options := query:options($sort, ($field, "text")[1])
     let $result :=
         $config:data-default ! (
@@ -71,6 +72,16 @@ declare function teis:query-metadata($path as xs:string?, $field as xs:string?, 
     return
         query:sort($result, $sort)
 };
+
+declare function teis:query-by-subfield($fields as xs:string*, $query as xs:string?) {
+    string-join(
+        for $field in $fields
+        return
+           $field || ":(" || $query || ")",
+        " OR "
+    )
+};
+
 
 declare function teis:autocomplete($doc as xs:string?, $fields as xs:string+, $q as xs:string) {
     let $lower-case-q := lower-case($q)

@@ -76,7 +76,7 @@ declare variable $config:address-by-id := false();
 (:~
  : Set default language for publisher app i18n
  :)
-declare variable $config:default-language := "en";
+declare variable $config:default-language := "de";
 
 (:
  : The default to use for determining the amount of content to be shown
@@ -122,25 +122,14 @@ declare variable $config:pagination-fill := 5;
  :)
 declare variable $config:facets := [
     map {
-        "dimension": "genre",
-        "heading": "facets.genre",
-        "max": 5,
-        "hierarchical": true()
-    },
-    map {
         "dimension": "language",
         "heading": "facets.language",
-        "max": 5,
-        "hierarchical": false(),
-        "output": function($label) {
-            switch($label)
-                case "de" return "German"
-                case "es" return "Spanish"
-                case "la" return "Latin"
-                case "fr" return "French"
-                case "en" return "English"
-                default return $label
-        }
+        "hierarchical": false()
+    },
+    map {
+        "dimension": "material",
+        "heading": "material",
+        "hierarchical": false()
     }
 ];
 
@@ -324,11 +313,20 @@ declare variable $config:context-path :=
  :)
 declare variable $config:data-root := "/db/apps/koenigsfelden-data/";
 
+declare variable $config:all-root := doc("/db/apps/koenigsfelden-data/all_collections.xml")/*;
+
+declare variable $config:collections-root := doc("/db/apps/koenigsfelden-data/collections.xml")/*;
+
+declare variable $config:dorsual-root := doc("/db/apps/koenigsfelden-data/dorsuals.xml")/*;
+
+declare variable $config:term-collection-root := doc("/db/apps/koenigsfelden-data/term_collection.xml")/*;
+
+
 (:~
  : The root of the collection hierarchy whose files should be displayed
  : on the entry page. Can be different from $config:data-root.
  :)
-declare variable $config:data-default := $config:data-root || 'data';
+declare variable $config:data-default := $config:data-root || 'data/docs';
 
 (:~
  : A sequence of root elements which should be excluded from the list of

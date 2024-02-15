@@ -52,7 +52,7 @@ declare
     %private
 function capi:list-works($root as xs:string?, $cached, $params as map(*)) {
     (: session:clear(), :)
-    let $sort := request:get-parameter("sort", "title")
+    let $sort := request:get-parameter("sort", "date")
     let $filter := request:get-parameter("field", ())
     let $query := request:get-parameter("query", ())
     let $filtered :=
@@ -65,6 +65,8 @@ function capi:list-works($root as xs:string?, $cached, $params as map(*)) {
         session:set-attribute($config:session-prefix || '.hits', $filtered?all),
         session:set-attribute($config:session-prefix || '.params', $params),
         session:set-attribute($config:session-prefix || ".works", $filtered),
+        session:set-attribute($config:session-prefix || ".search", $query),
+        session:set-attribute($config:session-prefix || ".field", request:get-parameter("subtype", "edition")),
         if (empty($cached)) then
             session:set-attribute($config:session-prefix || ".collection", $root)
         else

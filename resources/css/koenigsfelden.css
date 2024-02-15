@@ -1,3 +1,16 @@
+
+.search-result-tag {color:white}
+
+.search-result-tag.field-notes { background-color:#363576 }
+.search-result-tag.field-regest { background-color:#00558a; }
+.search-result-tag.field-edition { background-color:#777777; }
+.search-result-tag.field-text { background-color:#740502; }
+.search-result-tag.field-title { background-color:#35424b; }
+
+
+
+
+
 /********************* Styles for the Content ************************/
 /*  Imported from previous app with some modifactions                */
 /*********************************************************************/
