@@ -130,6 +130,36 @@ declare variable $config:facets := [
         "dimension": "material",
         "heading": "material",
         "hierarchical": false()
+    },
+    map {
+        "dimension": "collection",
+        "heading": "facets.collection",
+        "max": 7,
+        "hierarchical": false(),
+        "output": function ($label) {
+            $config:collections-root//collection[@ref eq $label]/@name/string()
+            }
+    },
+    map {
+        "dimension": "dorsual",
+        "heading": "facets.dorsual",
+        "max": 7,
+        "hierarchical": false(),
+        "output": function ($label) {
+            let $value := $config:dorsual-root//collection[@ref eq $label]/@name/string()
+            return
+                if (contains($value, '|')) then
+                    (let $elementContent := replace($value, '^.*?\|(.+?)\|.*?$', '$1')
+                    return
+                    <span>{(substring-before($value, '|'), <em>{$elementContent}</em>, substring-after($value, $elementContent || '|'))}</span> )
+                    else $value
+            }
+    },
+    map {
+        "dimension": "keywords",
+        "heading": "facets.keywords",
+        "max": 7,
+        "hierarchical": false()
     }
 ];
 
@@ -317,7 +347,7 @@ declare variable $config:all-root := doc("/db/apps/koenigsfelden-data/all_collec
 
 declare variable $config:collections-root := doc("/db/apps/koenigsfelden-data/collections.xml")/*;
 
-declare variable $config:dorsual-root := doc("/db/apps/koenigsfelden-data/dorsuals.xml")/*;
+declare variable $config:dorsual-root := doc("/db/apps/koenigsfelden-data/dorsuals.xml");
 
 declare variable $config:term-collection-root := doc("/db/apps/koenigsfelden-data/term_collection.xml")/*;
 

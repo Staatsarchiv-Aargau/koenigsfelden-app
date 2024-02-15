@@ -1,4 +1,9 @@
 {
+	"facets": {
+		 "dorsual": "Dorsualschichten",
+		 "keywords": "Häufigste Schlagwörter",
+		 "collection": "Chronologische Aufteilung"
+	},
     "home": "Start",
     "intro": "Einleitung",
     "trad": "Überlieferung",
