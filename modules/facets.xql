@@ -58,7 +58,7 @@ declare function facets:print-table($config as map(*), $nodes as element()+, $va
                             <td>
                                 <paper-checkbox class="facet" name="facet-{$config?dimension}" value="{$label}">
                                     { if ($label = $params) then attribute checked { "checked" } else () }
-                                    <pb-i18n key="{$content}">{$content}</pb-i18n>
+                                    {$content}
                                 </paper-checkbox>
                             </td>
                             <td>{$freq}</td>
