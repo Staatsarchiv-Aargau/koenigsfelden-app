@@ -65,7 +65,8 @@ declare function app:api-keys($refs as xs:string*) {
 };
 
 declare function app:list-places($node as node(), $model as map(*)) {
-    let $places := root($model?data)//(tei:placeName[@ref])
+    let $doc := doc($config:data-root || '/' || $model?doc)
+    let $places := $doc//tei:placeName/@ref
     where exists($places)
     return
         (<h2>Orte</h2>,
@@ -74,7 +75,7 @@ declare function app:list-places($node as node(), $model as map(*)) {
             return
                 <li data-ref="{$place?ref}">
                     <a target="_new"
-                        href="detail.html?ref={$place?ref}">
+                        href="../../detail.html?ref={$place?ref}">
                         {$place?stdName('#text')}
                     </a>
                     ({$place?location})
@@ -84,7 +85,8 @@ declare function app:list-places($node as node(), $model as map(*)) {
 };
 
 declare function app:list-keys($node as node(), $model as map(*)) {
-    let $keywords := root($model?data)//tei:term[starts-with(@ref, 'key')]
+    let $doc := doc($config:data-root || '/' || $model?doc)
+    let $keywords := $doc//tei:term[starts-with(@ref, 'key')]
     where exists($keywords)
     return  
         (<h2>Schlagwörter</h2>,
@@ -92,7 +94,7 @@ declare function app:list-keys($node as node(), $model as map(*)) {
             for $keyword in app:api-lookup($app:KEYWORDS, app:api-keys($keywords/@ref), "id")
             return
                 <li data-ref="{$keyword?ref}">
-                    <a href="detail.html?ref={$keyword?ref}"
+                    <a href="../../detail.html?ref={$keyword?ref}"
                         target="_new">
                         {$keyword?name("#text")}
                     </a>
@@ -111,7 +113,7 @@ declare function app:list-lemmata($node as node(), $model as map(*)) {
             return
                 <li data-ref="{$lemma?ref}">
                     <a target="_new"
-                        href="detail.html?ref={$lemma?ref}">
+                        href="../../detail.html?ref={$lemma?ref}">
                         {$lemma?stdName("#text")}
                     </a>
                     ({$lemma?morphology})
@@ -132,7 +134,7 @@ declare function app:list-persons($node as node(), $model as map(*)) {
             return
                 <li data-ref="{$person?ref}">
                     <a target="_new"
-                        href="detail.html?ref={$person?ref}">
+                        href="../../detail.html?ref={$person?ref}">
                         {$person?name}
                     </a>
                     {
@@ -156,7 +158,7 @@ declare function app:list-organizations($node as node(), $model as map(*)) {
             return
                 <li data-ref="{$organization?ref}">
                     <a target="_new"
-                        href="detail.html?ref={$organization?ref}">
+                        href="../../detail.html?ref={$organization?ref}">
                         {$organization?name}
                     </a>
                     {
