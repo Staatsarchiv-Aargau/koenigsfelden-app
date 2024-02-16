@@ -307,7 +307,39 @@
                     }
                 }
             }
-        }
+        },
+        "/api/entities/{type}": {
+			"get": {
+				"summary": "Get information about a specific person",
+				"description": "Get information about a specific person",
+				"tags": ["view"],
+				"operationId": "api:get-ids",
+				"parameters": [
+					{
+						"name": "type",
+						"in": "path",
+						"description": "type of entity",
+						"required": true,						
+						"schema":{
+							"type": "string",
+							"default": "all"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "list of ids",
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
     },
     "security": [
         {
