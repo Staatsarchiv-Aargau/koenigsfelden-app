@@ -133,8 +133,9 @@ declare variable $config:facets := [
     },
     map {
         "dimension": "collection",
-        "heading": "collection",
-        "max": 7,
+        "heading": "collections",
+        "source": "api/search/facets/collection",
+        "max": 5,
         "hierarchical": false(),
         "output": function ($label) {
             $config:collections-root//collection[@ref eq $label]/@name/string()
@@ -143,7 +144,8 @@ declare variable $config:facets := [
     map {
         "dimension": "dorsual",
         "heading": "dorsual",
-        "max": 7,
+        "max": 5,
+        "source": "api/search/facets/dorsual",
         "hierarchical": false(),
         "output": function ($label) {
             let $value := $config:dorsual-root//collection[@ref eq $label]/@name/string()
@@ -158,7 +160,8 @@ declare variable $config:facets := [
     map {
         "dimension": "keywords",
         "heading": "keywords",
-        "max": 7,
+        "source": "api/search/facets/keywords",
+        "max": 5,
         "hierarchical": false()
     }
 ];
