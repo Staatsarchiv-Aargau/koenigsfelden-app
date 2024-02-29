@@ -10,17 +10,10 @@ module namespace app="teipublisher.com/app";
 
 import module namespace templates="http://exist-db.org/xquery/html-templating";
 import module namespace config="http://www.tei-c.org/tei-simple/config" at "config.xqm";
-import module namespace http="http://expath.org/ns/http-client" at "java:org.expath.exist.HttpClientModule";
+import module namespace pm-config="http://www.tei-c.org/tei-simple/pm-config" at "pm-config.xql";
 
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-
-declare variable $app:HOST := "https://www.ssrq-sds-fds.ch";
-
-declare variable $app:PLACES := $app:HOST || "/places-db-edit/views/get-info.xq";
-declare variable $app:PERSONS := $app:HOST || "/persons-db-api/";
-declare variable $app:LEMMA := $app:HOST || "/lemma-db-edit/views/get-lem-info.xq";
-declare variable $app:KEYWORDS := $app:HOST || "/lemma-db-edit/views/get-key-info.xq";
 
 
 
@@ -32,114 +25,71 @@ function app:foo($node as node(), $model as map(*)) {
 
 declare  
 %templates:wrap
-%templates:default("id","")
-function app:load-model($node as node(), $model as map(*), $id as xs:string) {
-    let $id := xmldb:decode($id)
-    let $type := xmldb:decode($type)
+%templates:default("ref","")
+function app:load-model($node as node(), $model as map(*), $ref as xs:string) {
+    let $ref := xmldb:decode($ref)
+    let $type := if (starts-with($ref, 'per')) then 'person' else if (starts-with($ref, 'loc')) then 'place' else 'org'
     return
-        map:merge(($model, map {"key" : $id, "type": $type}))
+        map:merge(($model, map {"key" : $ref, "type": $type}))
 };
 
-
-declare function app:api-lookup($api as xs:string, $list as map(*)*, $param as xs:string) {
-    for $item in $list
-    let $request := <http:request method="GET" href="{$api}?{$param}={$item?ref}"/>
-    let $response := http:send-request($request)
-    return
-        if ($response[1]/@status = "200") then
-            let $json := parse-json(util:binary-to-string($response[2]))
-            return
-                map:merge(($json, map { "ref": $item?ref }))
-        else
-            ()
-};
-
-declare function app:api-keys($refs as xs:string*) {
-    for $id in $refs
-    group by $ref := substring($id, 1, 9)
-    return
-        map {
-            "ref": $ref,
-            "name": $id[1]
-        }
-};
 
 declare function app:list-places($node as node(), $model as map(*)) {
     let $doc := doc($config:data-root || '/' || $model?doc)
-    let $places := $doc//tei:placeName/@ref
-    where exists($places)
+    let $ids := $doc//tei:placeName/@ref
+    where exists($ids)
     return
         (<h2>Orte</h2>,
         <ul>{
-            for $place in app:api-lookup($app:PLACES, app:api-keys($places/@ref), "id")
+            for $id in  distinct-values($ids)
+            let $place := collection($config:registers)/id($id)[1]
+            let $region := if ($place/descendant::tei:region) then ' (' || string-join($place/descendant::tei:region, ', ') ||  ')' else 
+                if ($place/descendant::tei:country) then ' (' || $place/descendant::tei:country || ')'
+                else ()
             return
-                <li data-ref="{$place?ref}">
+                <li data-ref="{$id}">
                     <a target="_new"
-                        href="../../detail.html?ref={$place?ref}">
-                        {$place?stdName('#text')}
+                        href="../../detail.html?ref={$id}">
+                        {$place/tei:placeName}
                     </a>
-                    ({$place?location})
-                    {$place?type}
+                    <span class="info">{$region}</span>
                 </li>
     }</ul>)
 };
 
 declare function app:list-keys($node as node(), $model as map(*)) {
     let $doc := doc($config:data-root || '/' || $model?doc)
-    let $keywords := $doc//tei:term[starts-with(@ref, 'key')]
+    let $keywords := $doc//tei:keywords/tei:term
     where exists($keywords)
     return  
         (<h2>Schlagwörter</h2>,
         <ul>{
-            for $keyword in app:api-lookup($app:KEYWORDS, app:api-keys($keywords/@ref), "id")
+            for $keyword in $keywords
             return
-                <li data-ref="{$keyword?ref}">
-                    <a href="../../detail.html?ref={$keyword?ref}"
-                        target="_new">
-                        {$keyword?name("#text")}
-                    </a>
-                </li>
+                <li>{$keyword}</li>
     }</ul>)
 };
 
-declare function app:list-lemmata($node as node(), $model as map(*)) {
-    let $doc := doc($config:data-root || '/' || $model?doc)
-    let $lemmata := $doc//tei:term[starts-with(@ref, 'lem')]
-    where exists($lemmata)
-    return
-        (<h2>Lemmata</h2>,
-        <ul>{
-            for $lemma in app:api-lookup($app:LEMMA, app:api-keys($lemmata/@ref), "id")
-            return
-                <li data-ref="{$lemma?ref}">
-                    <a target="_new"
-                        href="../../detail.html?ref={$lemma?ref}">
-                        {$lemma?stdName("#text")}
-                    </a>
-                    ({$lemma?morphology})
-                    {$lemma?definition("#text")}
-                </li>
-    }</ul>)
-};
 
 declare function app:list-persons($node as node(), $model as map(*)) {
  let $doc := doc($config:data-root || '/' || $model?doc)
- let $persons := $doc//tei:text//tei:persName/@ref |
+ let $ids := $doc//tei:text//tei:persName/@ref |
         $doc//@scribe[starts-with(., 'per')]
-    where exists($persons)
+    where exists($ids)
     return
         (<h2>Personen</h2>,
         <ul>{
-            for $person in app:api-lookup($app:PERSONS, app:api-keys($persons), "id_search")
+            for $id in distinct-values($ids)
+            let $person :=  collection($config:registers)/id($id)[1]
             return
-                <li data-ref="{$person?ref}">
+                <li data-ref="{$id}">
                     <a target="_new"
-                        href="../../detail.html?ref={$person?ref}">
-                        {$person?name}
+                        href="../../detail.html?ref={$id}">
+                        {$person/tei:persName}
                     </a>
                     {
-                        if ($person?dates) then
-                            <span class="info"> ({$person?dates})</span>
+                        if ($person/tei:death) then
+                            <span class="info"> ({string-join(($person/tei:birth, $person/tei:death), '–')})</span>
                         else
                             ()
                     }
@@ -149,21 +99,22 @@ declare function app:list-persons($node as node(), $model as map(*)) {
 
 declare function app:list-organizations($node as node(), $model as map(*)) {
     let $doc := doc($config:data-root || '/' || $model?doc)
-    let $organizations := $doc//tei:text//tei:orgName/@ref
-    where exists($organizations)
+    let $ids := $doc//tei:text//tei:orgName/@ref
+    where exists($ids)
     return 
         (<h2>Organisationen</h2>,
         <ul>{
-            for $organization in app:api-lookup($app:PERSONS, app:api-keys($organizations), "id_search")
+            for $id in distinct-values($ids)
+            let $organization :=  collection($config:registers)/id($id)[1]
             return
-                <li data-ref="{$organization?ref}">
+                <li data-ref="{$id}">
                     <a target="_new"
-                        href="../../detail.html?ref={$organization?ref}">
-                        {$organization?name}
+                        href="../../detail.html?ref={$id}">
+                        {$organization/tei:orgName/string()}
                     </a>
                     {
-                        if ($organization?type) then
-                            <span class="info"> ({$organization?type})</span>
+                        if ($organization/tei:desc) then
+                            <span class="info"> ({$organization/tei:desc[@xml:lang eq 'de']})</span>
                         else
                             ()
                     }
@@ -179,4 +130,52 @@ function app:show-list-items($node as node(), $model as map(*)) {
     return
         $item
 };
+
+declare function app:get-entity-info($node as node(), $model as map(*)) {
+    let $id := $model?key
+    let $entity := collection($config:registers)/id($id)[1]
+    let $info :=  $pm-config:web-transform(
+                            $entity,
+                            map { 
+                                "root": $entity, 
+                                "view": "single", 
+                                "webcomponents": 7},
+                                'koenigsfelden-register.odd')
+    return
+            <div class="panel">
+                    {$info}
+            </div>
+            };
+
+declare function app:get-entity-mentions($node as node(), $model as map(*)) {
+    let $id := $model?key
+    let $type := $model?type
+    let $docsCollection := 
+    switch ($type) 
+        case 'person' return
+            collection($config:data-default)//tei:text[ft:query(., 'person-mentioned:' || $id, map { 'fields' : ('person-mentioned' , 'date')})]
+        case 'place' return  
+            collection($config:data-default)//tei:text[ft:query(., 'place-mentioned:' || $id, map { 'fields' : ('place-mentioned' , 'date')})]
+        case 'org' 
+            return  collection($config:data-default)//tei:text[ft:query(., 'org-mentioned:' || $id, map { 'fields' : ('org-mentioned' , 'date')})]
+        default return ()
+   let $docs :=  for $text in $docsCollection
+        let $d := ft:field($text, 'date')
+        order by $d ascending
+        return
+            element a {
+                attribute href {'data/docs/' || ft:field($text, 'file') },
+                $text/ancestor::tei:TEI//tei:titleStmt/tei:title/text()
+                }
+    return 
+        if ($docs) then
+        <div class="panel">
+            <h3 class="panel-title">Vorkommen in Dokumenten</h3>
+            <ol>{for $doc in $docs 
+                return element li { $doc } }
+            </ol>
+        </div>
+        else ()
+    }; 
+    
 
