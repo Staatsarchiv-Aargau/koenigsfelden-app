@@ -157,7 +157,7 @@ declare variable $config:facets := [
     },
     map {
         "dimension": "keywords",
-        "heading": "facets.keywords",
+        "heading": "keywords",
         "max": 7,
         "hierarchical": false()
     }
