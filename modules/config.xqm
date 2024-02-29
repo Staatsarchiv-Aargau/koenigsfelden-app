@@ -133,7 +133,7 @@ declare variable $config:facets := [
     },
     map {
         "dimension": "collection",
-        "heading": "facets.collection",
+        "heading": "collection",
         "max": 7,
         "hierarchical": false(),
         "output": function ($label) {
@@ -142,7 +142,7 @@ declare variable $config:facets := [
     },
     map {
         "dimension": "dorsual",
-        "heading": "facets.dorsual",
+        "heading": "dorsual",
         "max": 7,
         "hierarchical": false(),
         "output": function ($label) {
