@@ -351,6 +351,8 @@ declare variable $config:dorsual-root := doc("/db/apps/koenigsfelden-data/dorsua
 
 declare variable $config:term-collection-root := doc("/db/apps/koenigsfelden-data/term_collection.xml")/*;
 
+declare variable $config:registers := "/db/apps/koenigsfelden-data/data/registers";
+
 
 (:~
  : The root of the collection hierarchy whose files should be displayed
@@ -406,7 +408,7 @@ declare variable $config:default-odd :="koenigsfelden.odd";
  : make sure to run modules/generate-pm-config.xql to update the main configuration
  : module for transformations (modules/pm-config.xql).
  :)
-declare variable $config:odd-available :=("koenigsfelden.odd", "teipublisher.odd");
+declare variable $config:odd-available :=("koenigsfelden.odd", "teipublisher.odd", "koenigsfelden-register.odd");
 
 (:~
  : List of ODD files which are used internally only, i.e. not for displaying information
