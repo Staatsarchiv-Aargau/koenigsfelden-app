@@ -308,10 +308,207 @@
                 }
             }
         },
+        "/api/people": {
+            "get": {
+                "summary": "List all persons",
+                "description": "Retrieve list of all persons",
+                "operationId": "api:person-list",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "schema":{
+                            "type": "string",
+                            "default": "id"
+                        }
+                    },
+					{
+						"name": "category",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},		
+                    {
+                        "name": "dir",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "asc"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 50
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of register entries",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+         },
+         "/api/organizations": {
+            "get": {
+                "summary": "List all organizations",
+                "description": "Retrieve list of all organizations",
+                "operationId": "api:organization-list",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "schema":{
+                            "type": "string",
+                            "default": "id"
+                        }
+                    },
+					{
+						"name": "category",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},		
+                    {
+                        "name": "dir",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "asc"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 50
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of register entries",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+         },
+        "/api/places": {
+            "get": {
+                "summary": "List all places",
+                "description": "Retrieve list of all places",
+                "operationId": "api:place-list",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "schema":{
+                            "type": "string",
+                            "default": "id"
+                        }
+                    },
+					{
+						"name": "category",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},		
+                    {
+                        "name": "dir",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "asc"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 50
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of register entries",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/places/all": {
+            "get": {
+                "summary": "List all places",
+                "description": "Retrieve list of all places",
+				"tags": ["view"],
+                "operationId": "api:places-all",
+				"responses": {
+                    "200": {
+                        "description": "List of all places",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+				}
+			}			
+		},
         "/api/entities/{type}": {
 			"get": {
-				"summary": "Get information about a specific person",
-				"description": "Get information about a specific person",
+				"summary": "Get list of IDs by entity type",
+				"description": "Get list of IDs by entity type",
 				"tags": ["view"],
 				"operationId": "api:get-ids",
 				"parameters": [

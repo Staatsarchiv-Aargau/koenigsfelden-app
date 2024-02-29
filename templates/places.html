@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"/>
+        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png" sizes="24x24"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png" sizes="64x64"/>
+       <title data-template="config:app-title">App Title</title>
+        <meta name="pb-template" content="place.html"/>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap"/>
+
+        <link rel="stylesheet" href="resources/css/theme.css"/>
+        <link rel="stylesheet" href="resources/css/koenigsfelden.css"/>
+        
+        <script data-target="script-preload" type="module" src="pb-leaflet-map.js" data-template="pages:load-components"/>
+        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
+      
+        <style>
+            .content-body.single-col {
+                grid-template-columns: minmax(auto, 64rem);
+                justify-content: center;
+                width: 50%;
+                margin: auto;
+            }
+
+            .content-body.single-col .transcript {
+                max-width: none;
+            }
+
+
+            pb-custom-form {
+                margin-bottom: 1em;
+            }
+            
+           pb-leaflet-map {
+                margin-top: 2em;
+                height: 80%;
+                width: 100%;
+            }
+            
+            
+        </style>
+    </head>
+    <body>
+        <pb-page data-template="pages:pb-page" unresolved="unresolved" locales="resources/i18n/{{ns}}/{{lng}}.json" require-language="">
+            <app-drawer-layout force-narrow="force-narrow">
+                <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
+                <app-header-layout fullbleed="">
+                    <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
+                        <app-toolbar data-template="lib:include" data-template-path="templates/menu.html"/>
+                    </app-header>
+                    <main>
+                     <pb-leaflet-map id="map" subscribe="map" emit="map" zoom="3" cluster="" latitude="48.856614" longitude="2.3522219">
+                            <pb-map-layer show="" base="" label="Mapbox OSM" url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}" max-zoom="19" access-token="pk.eyJ1Ijoid29sZmdhbmdtbSIsImEiOiJjam1kMjVpMnUwNm9wM3JwMzdsNGhhcnZ0In0.v65crewF-dkNsPF3o1Q4uw" attribution="© Mapbox © OpenStreetMap">
+                            </pb-map-layer>
+                        </pb-leaflet-map>
+                        <div class="content-body single-col">
+                        <div class="transcript">
+                            <pb-custom-form id="options" auto-submit="input,paper-input,paper-icon-button" emit="transcription">
+                                <paper-input name="search" label="Search" data-template="templates:form-control">
+                                    <paper-icon-button icon="search" slot="suffix"/>
+                                </paper-input>                                
+                            </pb-custom-form>
+                            <pb-split-list url="api/places" subforms="#options" selected="A" emit="transcription" subscribe="transcription"/>
+                        </div>
+                        </div>
+                    </main>
+                    <footer data-template="templates:include" data-template-path="templates/footer.html"/>
+                </app-header-layout>
+            </app-drawer-layout>
+        </pb-page>
+        <div class="splash"/>
+         <script>
+            window.addEventListener('WebComponentsReady', function() {
+                pbEvents.subscribe('pb-page-ready', null, function() {
+                    const endpoint = document.querySelector("pb-page").getEndpoint();
+                    const url = `${endpoint}/api/places/all`;
+                    console.log(`fetching places from: ${url}`);
+                    fetch(url)                
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(json) {
+                        pbEvents.emit("pb-update-map", "map", json)
+                    });
+                });
+
+                pbEvents.subscribe('pb-leaflet-marker-click', 'map', function(ev) {
+                    const label = ev.detail.label;
+                    const category = label.substring(0, 1);
+                    window.location = `${label}?category=${category}`;
+                });
+                
+                setTimeout(function () {
+                    window.dispatchEvent(new Event('resize'));
+                }, 1000);
+            });
+        </script>  
+    </body>
+</html>

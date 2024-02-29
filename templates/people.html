@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"/>
+        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png" sizes="24x24"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png" sizes="64x64"/>
+        <title data-template="config:app-title">App Title</title>
+        <meta name="pb-template" content="person.html"/>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap"/>
+
+        <link rel="stylesheet" href="resources/css/theme.css"/>
+        <link rel="stylesheet" href="resources/css/koenigsfelden.css"/>
+        
+        <script data-target="script-preload" type="module" src="pb-leaflet-map.js" data-template="pages:load-components"/>
+
+        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
+        <style>
+            .content-body.single-col {
+                grid-template-columns: minmax(auto, 64rem);
+                justify-content: center;
+                margin: auto;
+            }
+
+            .content-body.single-col .transcript {
+                max-width: none;
+            }
+
+
+            pb-custom-form {
+                margin-bottom: 1em;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <pb-page data-template="pages:pb-page" unresolved="unresolved" locales="resources/i18n/{{ns}}/{{lng}}.json" require-language="">
+            <app-drawer-layout force-narrow="force-narrow">
+                <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
+                <app-header-layout fullbleed="">
+                    <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
+                        <app-toolbar data-template="lib:include" data-template-path="templates/menu.html"/>
+                    </app-header>
+                   <main class="content-body single-col">
+                        <div class="transcript">
+                            <pb-custom-form id="options" auto-submit="input,paper-input,paper-icon-button" emit="transcription">
+                                <paper-input name="search" label="Search" data-template="templates:form-control">
+                                    <paper-icon-button icon="search" slot="suffix"/>
+                                </paper-input>                                
+                            </pb-custom-form>
+                            <pb-split-list url="api/people" subforms="#options" selected="A" emit="transcription" subscribe="transcription"/>
+                        </div>
+                    </main>
+                    <footer data-template="templates:include" data-template-path="templates/footer.html"/>
+                </app-header-layout>
+            </app-drawer-layout>
+        </pb-page>
+        <div class="splash"/>
+    </body>
+</html>

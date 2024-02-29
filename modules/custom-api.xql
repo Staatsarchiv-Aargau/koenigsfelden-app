@@ -37,4 +37,244 @@ declare function api:get-ids($request as map(*)) {
         case 'place' return  $collection/descendant::tei:text/descendant::tei:placeName/@ref
         default return ()
         
-    return string-join(distinct-values($refs), '&#10;') };
+    return string-join(distinct-values($refs), '&#10;')
+    };
+
+declare function api:places-all($request as map(*)) {
+    let $places := doc($config:registers || '/places.xml')//tei:place[descendant::tei:geo]
+    return 
+        array { 
+            for $place in $places
+                let $tokenized := tokenize($place/tei:location/tei:geo)
+                return 
+                    map {
+                        "latitude":$tokenized[1],
+                        "longitude":$tokenized[2],
+                        "label":string(count($place/preceding-sibling::tei:place))
+                    }
+            }        
+};
+
+declare function api:person-list($request as map(*)){
+    let $search := normalize-space($request?parameters?search)
+    let $letterParam := $request?parameters?category
+    let $sortDir := $request?parameters?dir
+    let $limit := $request?parameters?limit
+    let $doc := doc($config:registers || '/people.xml')
+    let $people :=
+            if ($search and $search != '') then
+(:                $doc//tei:person[@xml:id][ft:query(., 'name:(' || $search || '*)')]
+ : for some reason that field is not indexing properly :)
+                 $doc//tei:person[@xml:id][matches(tei:persName, $search, 'i')]
+            else
+                $doc//tei:person[@xml:id]
+    let $byKey := for-each($people, function($person as element()) {
+        let $name := $person//tei:persName[not(@type)][1]
+        let $label :=
+            if ($name/tei:surname) then
+                string-join(($name/tei:surname, $name/tei:forename), ", ")
+            else
+                $name/string()
+        let $sortKey :=
+            if (starts-with($label, "von ")) then
+                substring($label, 5)
+            else
+                $label
+        return
+            [lower-case($sortKey), $label, $person]
+    })
+    let $sorted := api:sort($byKey, $sortDir)
+    let $letter := 
+        if (count($people) < $limit) then 
+            "Alle"
+        else if ($letterParam = '') then
+            substring($sorted[1]?1, 1, 1) => upper-case()
+        else
+            $letterParam
+    let $byLetter :=
+        if ($letter = 'Alle') then
+            $sorted
+        else
+            filter($sorted, function($entry) {
+                starts-with($entry?1, lower-case($letter))
+            })
+    return
+        map {
+            "items": api:output-register-all($byLetter, 'person'),
+            "categories":
+                if (count($people) < $limit) then
+                    []
+                else array {
+                    for $index in 1 to string-length('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+                    let $alpha := substring('ABCDEFGHIJKLMNOPQRSTUVWXYZ', $index, 1)
+                    let $hits := count(filter($sorted, function($entry) { starts-with($entry?1, lower-case($alpha))}))
+                    where $hits > 0
+                    return
+                        map {
+                            "category": $alpha,
+                            "count": $hits
+                        },
+                    map {
+                        "category": "Alle",
+                        "count": count($sorted)
+                    }
+                }
+        }
+};
+
+declare function api:organization-list($request as map(*)){
+    let $search := normalize-space($request?parameters?search)
+    let $letterParam := $request?parameters?category
+    let $sortDir := $request?parameters?dir
+    let $limit := $request?parameters?limit
+    let $doc := doc($config:registers || '/organizations.xml')
+    let $orgs :=
+            if ($search and $search != '') then
+(:                $doc//tei:person[@xml:id][ft:query(., 'name:(' || $search || '*)')]
+ : for some reason that field is not indexing properly :)
+                 $doc//tei:org[matches(tei:orgName, $search, 'i')]
+            else
+                $doc//tei:org
+    let $byKey := for-each($orgs, function($org as element()) {
+        let $name := $org//tei:orgName
+        let $label := $name/string()
+        let $sortKey :=
+            if (starts-with($label, "von ")) then
+                substring($label, 5)
+            else
+                $label
+        return
+            [lower-case($sortKey), $label, $org]
+    })
+    let $sorted := api:sort($byKey, $sortDir)
+    let $letter := 
+        if (count($orgs) < $limit) then 
+            "Alle"
+        else if ($letterParam = '') then
+            substring($sorted[1]?1, 1, 1) => upper-case()
+        else
+            $letterParam
+    let $byLetter :=
+        if ($letter = 'Alle') then
+            $sorted
+        else
+            filter($sorted, function($entry) {
+                starts-with($entry?1, lower-case($letter))
+            })
+    return
+        map {
+            "items": api:output-register-all($byLetter, 'org'),
+            "categories":
+                if (count($orgs) < $limit) then
+                    []
+                else array {
+                    for $index in 1 to string-length('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+                    let $alpha := substring('ABCDEFGHIJKLMNOPQRSTUVWXYZ', $index, 1)
+                    let $hits := count(filter($sorted, function($entry) { starts-with($entry?1, lower-case($alpha))}))
+                    where $hits > 0
+                    return
+                        map {
+                            "category": $alpha,
+                            "count": $hits
+                        },
+                    map {
+                        "category": "Alle",
+                        "count": count($sorted)
+                    }
+                }
+        }
+};
+
+declare function api:place-list($request as map(*)){
+    let $search := normalize-space($request?parameters?search)
+    let $letterParam := $request?parameters?category
+    let $sortDir := $request?parameters?dir
+    let $limit := $request?parameters?limit
+    let $doc := doc($config:registers || '/places.xml')
+    let $places :=
+            if ($search and $search != '') then
+(:                $doc//tei:place[ft:query(., 'name:(' || $search || '*)')]
+ : for some reason that field is not indexing properly:)
+                    
+                  $doc//tei:place[matches(tei:placeName, $search, 'i')]
+            else
+                $doc//tei:place
+    let $byKey := for-each($places, function($place as element()) {
+        let $name := $place/tei:placeName[@xml:lang eq 'deu'] 
+        let $label := string($name)
+        let $sortKey := $label
+        return
+            [lower-case($sortKey), $label, $place]
+    })
+    let $sorted := api:sort($byKey, $sortDir)
+    let $letter := 
+        if (count($places) < $limit) then 
+            "Alle"
+        else if ($letterParam = '') then
+            substring($sorted[1]?1, 1, 1) => upper-case()
+        else
+            $letterParam
+    let $byLetter :=
+        if ($letter = 'Alle') then
+            $sorted
+        else
+            filter($sorted, function($entry) {
+                starts-with($entry?1, lower-case($letter))
+            })
+    return
+        map {
+            "items": api:output-register-all($byLetter, 'place'),
+            "categories":
+                if (count($places) < $limit) then
+                    []
+                else array {
+                    for $index in 1 to string-length('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+                    let $alpha := substring('ABCDEFGHIJKLMNOPQRSTUVWXYZ', $index, 1)
+                    let $hits := count(filter($sorted, function($entry) { starts-with($entry?1, lower-case($alpha))}))
+                    where $hits > 0
+                    return
+                        map {
+                            "category": $alpha,
+                            "count": $hits
+                        },
+                    map {
+                        "category": "Alle",
+                        "count": count($sorted)
+                    }
+                }
+        }
+};
+
+declare function api:output-register-all($list, $type as xs:string) {
+    array {
+        for $item in $list
+        let $log := util:log("info", $item)
+        return
+            switch ($type)
+                case 'place' return
+                    let $label := $item?3/tei:placeName/string()
+                    let $coords := tokenize($item?3//tei:geo)
+                    return
+                    <span><a href="detail.html?ref={$item?3/@xml:id}">{$label} ({$item?3//tei:country/string()})</a> 
+                    {if (count($coords) eq 2) then 
+                          <pb-geolocation latitude="{$coords[1]}" longitude="{$coords[2]}" label="{$label}" emit="map" event="click">
+                                <iron-icon icon="maps:map"></iron-icon>
+                            </pb-geolocation>  else ()
+                    }
+                    </span>
+                default return
+                    <span><a href="detail.html?ref={$item?3/@xml:id}">{$item?2}</a></span>
+    }
+};
+
+declare function api:sort($list as array(*)*, $dir as xs:string) {
+    let $sorted :=
+        sort($list, "?lang=de-DE", function($entry) {
+            $entry?1
+        })
+    return
+        if ($dir = "asc") then
+            $sorted
+        else
+            reverse($sorted)
+};
