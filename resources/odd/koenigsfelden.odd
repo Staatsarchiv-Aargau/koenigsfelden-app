@@ -1,4 +1,5 @@
-<?xml-model href="teipublisher_odds.xsd"?><TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
+<?teipublisher output="web"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:pb="http://teipublisher.com/1.0" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -8,7 +9,8 @@
                 <publisher>eXistSolutions GmbH</publisher>
                 <availability>
                     <licence target="https://www.gnu.org/licenses/gpl-3.0.en.html">Distributed under GNU General Public License</licence>
-                    <p>Copyright 2017 <ref target="http://existsolutions.com">eXistSolutions GmbH</ref></p>
+                    <p>Copyright 2017 <ref target="http://existsolutions.com">eXistSolutions GmbH</ref>
+                    </p>
                     <p>This program is free software: you can redistribute it and/or modify
                         it under the terms of the GNU General Public License as published by
                         the Free Software Foundation, either version 3 of the License, or
@@ -25,13 +27,1040 @@
                 <p>born digital</p>
             </sourceDesc>
         </fileDesc>
+        <encodingDesc>
+            <tagsDecl>
+                <rendition source="koenigsfelden.css"/>
+            </tagsDecl>
+        </encodingDesc>
         <revisionDesc>
             <change when="2024-02-06Z">Initial version</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
-            <schemaSpec start="TEI teiCorpus" source="teipublisher.odd" ident="koenigsfelden"> </schemaSpec>
+            <schemaSpec start="TEI teiCorpus" ident="koenigsfelden" source="teipublisher.odd">   
+             <elementSpec ident="TEI" mode="change">
+                    <model behaviour="document"/>
+                </elementSpec>
+                <elementSpec ident="body" mode="change">
+                    <modelSequence>
+            <model behaviour="index">
+                <param name="type" value="'toc'"/>
+            </model>
+            <model behaviour="block"/>
+        </modelSequence>
+                </elementSpec>
+                <elementSpec ident="summary" mode="add">
+                    <model behaviour="block"/>
+                </elementSpec>
+            <elementSpec ident="pb" mode="change">
+                    <model predicate="@facs" behaviour="pass-through">
+            <desc>Use the url from the facs attribute to link with IIIF image</desc>
+            <param name="facs" value="let $base-uri := if(starts-with(@source ,'saa')) then 'https://www.e-codices.unifr.ch/loris/saa/' || substring-before(@source, '_') || '/' else 'https://www.koenigsfelden.uzh.ch:5000/iiif/2/' return $base-uri || @source || '.jp2'"/>
+            <param name="content" value="@n"/>
+            <param name="order" value="count(preceding::pb[@facs]) + 1"/>
+            <param name="alternate" value="'Seitenumbruch'"/>
+            <pb:template xmlns="" xml:space="preserve"><a href="#"><pb-facs-link emit="transcription" facs="[[facs]]" trigger="click" order="[[order]]"><pb-popover>
+     [[[content]]]
+    <template slot="alternate">[[alternate]]</template>
+</pb-popover></pb-facs-link></a></pb:template>
+        </model>
+                    <model behaviour="break" useSourceRendition="true">
+            <param name="type" value="'page'"/>
+            <param name="label" value="(concat(if(@n) then concat(@n,' ') else '',if(@facs) then                   concat('@',@facs) else ''))"/>
+            <outputRendition xml:space="preserve">
+            display: block; margin-left: 4pt; color: grey; float: right;
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="before">
+            content: '[Page ';
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content: ']';
+            </outputRendition>
+        </model>
+                </elementSpec>
+                <elementSpec ident="lb" mode="change">
+                    <model predicate="$parameters?view='norm'" behaviour="omit"/>
+                    <model predicate="ancestor::back//orig" behaviour="omit"/>
+                    <model predicate="preceding-sibling::node()[1][self::pb]" behaviour="omit"/>
+                    <model predicate=". is (./ancestor::div[1]//lb[1])" behaviour="omit"/>
+                    <model predicate=". is (ancestor::p[1]/lb[1])" behaviour="omit"/>
+                    <model predicate="$parameters?view='dipl'" behaviour="break">
+            <param name="type" value="'line'"/>
+            <param name="label" value="@n"/>
+        </model>
+                </elementSpec>
+   <elementSpec ident="seg" mode="change">
+                    <model predicate="@n and $parameters?view='norm'" behaviour="block">
+            <param name="content" value="(text{'['}, @n, text{'] '}, .)"/>
+            <outputRendition xml:space="preserve">
+            margin-top: 1ex;
+            </outputRendition>
+        </model>
+                    <model predicate=". is (ancestor::quote[1]/seg[1])  and $parameters?view='norm'" behaviour="inline">
+            <desc>Force « on same line, cf. quote</desc>
+        </model>
+                    <model predicate=". is (ancestor::quote[1]/seg[last()])  and $parameters?view='norm'" behaviour="inline">
+            <desc>Force » on same line, cf. quote</desc>
+        </model>
+                    <model predicate=". is (ancestor::quote[1]/seg[last()-1])  and $parameters?view='norm'" behaviour="block">
+            <desc>Add missing margin</desc>
+            <outputRendition xml:space="preserve">
+            
+            
+            
+            
+            
+            
+            
+            margin-top: 1ex;
+margin-bottom: 1ex;
+            
+            
+            
+            
+            
+            
+            
+            </outputRendition>
+        </model>
+                    <model behaviour="block">
+            <outputRendition xml:space="preserve">
+            margin-top: 1ex;
+            </outputRendition>
+        </model>
+                </elementSpec>
+                   <elementSpec ident="choice" mode="change">
+                    <model predicate="sic and corr and $parameters?view='norm'" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="corr"/>
+            <param name="alternate" value="(ec:label('corrected-from'), ec:colon(), sic)"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="sic and corr" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="sic"/>
+            <param name="prefix" value="(ec:label('corrected'), ec:colon())"/>
+            <param name="alternate" value="corr"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="abbr and expan and $parameters?view='norm'" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="expan[1]"/>
+            <param name="alternate" value="'In der Vorlage: ' || abbr[1]"/>
+        </model>
+                    <model predicate="abbr and expan" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="abbr[1]"/>
+            <param name="prefix" value="(ec:label('abbr-expanded'), ec:colon())"/>
+            <param name="alternate" value="expan[1]"/>
+        </model>
+                    <model predicate="orig and reg and $parameters?view='norm'" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="reg[1]"/>
+            <param name="alternate" value="orig[1]"/>
+        </model>
+                    <model predicate="orig and reg" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="orig[1]"/>
+            <param name="alternate" value="reg[1]"/>
+        </model>
+                </elementSpec>
+                 <elementSpec ident="abbr" mode="change">
+                    <model predicate="parent::choice and $parameters?view='dipl'" behaviour="inline"/>
+                    <model predicate="unclear and $parameters?view='dipl'" behaviour="alternate">
+            <param name="default" value="."/>
+            <param name="alternate" value="'Abkürzung, unsichere Lesung'"/>
+        </model>
+                    <model predicate="$parameters?view='dipl'" behaviour="alternate">
+            <param name="default" value="."/>
+            <param name="alternate" value="('Abkürzung: ', .)"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="p" mode="change">
+                    <model predicate="parent::body/div and parent::div[@n]/*[1] is . and $parameters?view='norm'" behaviour="paragraph" useSourceRendition="true">
+            <param name="content" value="('[', parent::div/@n, '] ', .)"/>
+            <outputRendition xml:space="preserve">
+            text-align: justify;
+            </outputRendition>
+        </model>
+                    <model predicate="$parameters?view='norm'" behaviour="paragraph" useSourceRendition="true">
+            <outputRendition xml:space="preserve">
+            text-align: justify;
+            </outputRendition>
+        </model>
+                </elementSpec>
+                <elementSpec ident="head" mode="change">
+                    <model predicate="$parameters?header='short'" behaviour="inline">
+            <param name="content" value="replace(string-join(.//text()[not(parent::ref)]), '^(.*?)[^\w]*$', '$1')"/>
+        </model>
+                    <model predicate="parent::figure" behaviour="block">
+            <outputRendition xml:space="preserve">
+            font-style: italic;
+            </outputRendition>
+        </model>
+                    <model predicate="parent::table" behaviour="caption">
+            <desc>head inside table should be output as caption element</desc>
+        </model>
+                    <model predicate="parent::lg" behaviour="block">
+            <outputRendition xml:space="preserve">
+            font-style: italic;
+            </outputRendition>
+        </model>
+                    <model predicate="parent::list" behaviour="block">
+            <outputRendition xml:space="preserve">
+            font-weight: bold;
+            </outputRendition>
+        </model>
+                    <model predicate="@resp and @n" behaviour="block">
+            <desc>Supplied heading: output in brackets if @resp</desc>
+            <param name="level" value="2"/>
+            <param name="content" value="('[ ', @n, '. ', ., ' ]')"/>
+            <outputRendition xml:space="preserve">
+            font-weight: bold;
+            </outputRendition>
+        </model>
+                    <model predicate="@n" behaviour="block">
+            <desc>Supplied heading: n. in brackets unless @resp</desc>
+            <param name="level" value="2"/>
+            <param name="content" value="('[', @n, '.', '] ', .)"/>
+            <outputRendition xml:space="preserve">
+            font-weight: bold;
+            </outputRendition>
+        </model>
+                    <model predicate="@resp" behaviour="block">
+            <desc>Supplied heading: output in brackets if @resp</desc>
+            <param name="level" value="2"/>
+            <param name="content" value="."/>
+            <outputRendition xml:space="preserve">
+            font-weight: bold;
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="before">
+            content: '[';
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content: ']';
+            </outputRendition>
+        </model>
+                    <model predicate="ancestor::app and $parameters?view='norm'" behaviour="inline" cssClass="head">
+            <desc>Heading in app</desc>
+            <outputRendition xml:space="preserve">
+            
+            
+            
+            
+            
+            
+            
+            display: block;
+font-weight: 700;
+line-height: 1.2;
+margin-top: 20px;
+margin-bottom: 10px;
+            
+            
+            
+            
+            
+            
+            
+            </outputRendition>
+        </model>
+                    <model predicate="ancestor::app" behaviour="inline">
+            <desc>Heading in app (don't format)</desc>
+        </model>
+                    <model predicate="parent::div[@n][@type=('chapter', 'section')]/*[1] is . and $parameters?view='norm'" behaviour="heading">
+            <desc>Show number in front of heading if @n is set on parent</desc>
+            <param name="content" value="('[', parent::div/@n, '] ', .)"/>
+            <param name="level" value="1"/>
+        </model>
+                    <model predicate="parent::div[@n]/*[1] is . and $parameters?view='norm'" behaviour="heading">
+            <desc>Show number in front of heading if @n is set on parent</desc>
+            <param name="content" value="('[', parent::div/@n, '] ', .)"/>
+            <param name="level" value="if (@type=('chapter','section','title')) then 1 else 2"/>
+        </model>
+                    <model predicate="$parameters?view='norm'" behaviour="heading">
+            <desc>All other headings are same size as text</desc>
+            <param name="level" value="if (@type='title') then 1 else 2"/>
+        </model>
+                    <model predicate="@resp" behaviour="omit">
+            <desc>Supplied heading: output in brackets if @resp</desc>
+            <param name="level" value="2"/>
+            <param name="content" value="."/>
+            <outputRendition xml:space="preserve" scope="before">
+            content: '[';
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content: ']';
+            </outputRendition>
+        </model>
+                    <model predicate="@type = 'title'" behaviour="heading">
+            <param name="level" value="1"/>
+        </model>
+                    <model behaviour="heading" useSourceRendition="true">
+            <param name="level" value="2"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="quote" mode="change">
+                    <model predicate="$parameters?view='norm'" behaviour="inline">
+            <desc>With quotes</desc>
+            <outputRendition xml:space="preserve" scope="before">
+            content: '«';
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content: '»';
+            </outputRendition>
+        </model>
+                    <model behaviour="inline" cssClass="quote-inline" useSourceRendition="true">
+            <desc>Add css class for quotes</desc>
+        </model>
+                </elementSpec>
+                 <elementSpec ident="signed" mode="change">
+                    <model behaviour="block">
+            <param name="content" value="('[Unterschrift] ', .)"/>
+        </model>
+                </elementSpec>
+               
+                <elementSpec ident="figure" mode="change">
+                    <model behaviour="inline">
+            <param name="content" value="ec:translate(@type, 0, 'uppercase')"/>
+            <outputRendition xml:space="preserve" scope="before">
+            content: '[';
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content: ']';
+            </outputRendition>
+        </model>
+                </elementSpec>
+                  <elementSpec ident="origDate" mode="add">
+                    <model predicate="$parameters?header='short' and @from" behaviour="inline">
+            <desc>Called to output the sigle of a document</desc>
+            <param name="content" value="(format-date(xs:date(@from), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()), ' – ', format-date(xs:date(@to), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()))"/>
+        </model>
+                    <model predicate="$parameters?header='short'" behaviour="inline">
+            <desc>Called to output the sigle of a document</desc>
+            <param name="content" value="format-date(xs:date(@when), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ())"/>
+        </model>
+                    <model predicate="parent::origin and @from and text()" behaviour="listItem">
+            <desc>Ausgabe in "Stückbeschreibung"</desc>
+            <param name="content" value="(ec:label('origDate'), ec:colon(), format-date(xs:date(@from), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()), ' – ', format-date(xs:date(@to), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()), ' (', text(), ')')"/>
+        </model>
+                    <model predicate="parent::origin and text()" behaviour="listItem">
+            <desc>Ausgabe in "Stückbeschreibung"</desc>
+            <param name="content" value="(ec:label('origDate'), ec:colon(), format-date(xs:date(@when), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()), ' (', text(), ')')"/>
+        </model>
+                    <model predicate="parent::origin and @from" behaviour="listItem">
+            <desc>Ausgabe in "Stückbeschreibung" UND "Weitere Überlieferungen"</desc>
+            <param name="content" value="(ec:label('origDate'), ec:colon(), format-date(xs:date(@from), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()), ' – ', format-date(xs:date(@to), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()))"/>
+        </model>
+                    <model predicate="parent::origin" behaviour="listItem">
+            <desc>Ausgabe in "Stückbeschreibung" UND "Weitere Überlieferungen"</desc>
+            <param name="content" value="(ec:label('origDate'), ec:colon(), format-date(xs:date(@when), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()))"/>
+        </model>
+                    <model predicate="@calendar" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('origDate'), ec:colon(), ec:format-date(@when), ' (', ec:translate(@calendar, 0, ()), ')')"/>
+        </model>
+                    <model behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('origDate'), ec:colon(), ec:format-date(@when))"/>
+        </model>
+                </elementSpec>
+                 <elementSpec ident="add" mode="change">
+                    <model predicate="ancestor::back//orig" behaviour="inline"/>
+                    <model predicate="parent::subst" behaviour="inline"/>
+                    <model predicate="@hand!='other hand'" behaviour="note">
+            <desc>Show footnote only</desc>
+            <param name="prefix" value="(ec:span((ec:label('add'), ' ', string-join((ec:translate(@place, 0, 'lowercase'), ec:translate(@hand, 0, 'lowercase'), ec:translate(@rend, 0, 'lowercase'), ec:translate(@type, 0, 'lowercase')), ' '), if (@scribe) then (' ', ec:label('by', false()), ec:scribe(@scribe)) else (), ec:colon())))"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model behaviour="alternote" cssClass="text-critical">
+            <desc>Show text of add with popup and footnote</desc>
+            <param name="alternate" value="(ec:span((ec:label('add'), ' ', string-join((ec:translate(@place, 0, 'lowercase'), ec:translate(@hand, 0, 'lowercase'), ec:translate(@rend, 0, 'lowercase'), ec:translate(@type, 0, 'lowercase')), ' '))), if (@scribe) then (' ', ec:label('by', false()), ec:scribe(@scribe)) else ())"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="content" value="."/>
+        </model>
+                    <model predicate="@type='catchword'" behaviour="alternote">
+            <desc>Show text of add with popup and footnote</desc>
+            <param name="alternate" value="(ec:span((ec:label('add'), ' ', string-join((ec:translate(@place, 0, 'lowercase'), ', ', ec:translate(@type, 0, 'lowercase'))))))"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="addSpan" mode="change">
+                    <model predicate="parent::subst" behaviour="inline"/>
+                    <model behaviour="note">
+            <desc>with @hand: just show footnote</desc>
+            <param name="place" value="&#34;footnote&#34;"/>
+            <param name="content" value="(ec:label('add'), ' ', string-join((ec:translate(@place, 0, ()), ec:translate(@hand, 0, 'lowercase'), ec:translate(@rend, 0, 'lowercase')), ' '), if (@scribe) then (' ', ec:label('by', false()), ec:scribe(@scribe)) else ())"/>
+            <param name="type" value="'text-critical-start'"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="del" mode="change">
+                    <model predicate="ancestor::back//orig" behaviour="omit"/>
+                    <model predicate="add/@type='catchword'" behaviour="note">
+            <param name="prefix" value="(ec:label('del-add'), string-join((ec:translate(add/@place, 0, 'lowercase'), ', ', ec:translate(add/@type, 0, 'lowercase')), ''), ec:colon())"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="@hand='later hand'" behaviour="alternote" cssClass="text-critical">
+            <desc>Show text of del with popup and footnote</desc>
+            <param name="alternate" value="(if (@rend) then (ec:translate(@rend, 0, 'uppercase')) else (ec:label('del')), ' ', ec:translate(@hand, 0, 'lowercase'))"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="content" value="."/>
+        </model>
+                    <model predicate="add" behaviour="note">
+            <param name="prefix" value="(ec:label('del-add'), ' ', string-join((ec:translate(add/@place, 0, 'lowercase'), ec:translate(add/@hand, 0, 'lowercase'), ec:translate(add/@rend, 0, 'lowercase'), ec:translate(add/@type, 0, 'lowercase')), ' '), ec:colon())"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="parent::subst" behaviour="inline"/>
+                    <model predicate="gap" behaviour="alternote">
+            <param name="place" value="&#34;footnote&#34;"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="alternate" value="(ec:translate(@rend), ' ', ec:label('del-gap', false()), ' (', gap/@quantity, ' ', ec:translate(gap/@unit, gap/@quantity, ()), ')')"/>
+            <param name="content" value="'[...]'"/>
+        </model>
+                    <model predicate="unclear" behaviour="note">
+            <param name="place" value="&#34;footnote&#34;"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="prefix" value="(ec:translate(@rend),', ', ec:label('unclear-rdg', false()), ec:colon())"/>
+        </model>
+                    <model predicate="@rend" behaviour="note">
+            <desc>Show footnote only</desc>
+            <param name="prefix" value="(ec:translate(@rend, 0, 'uppercase'), if (@hand) then (' ', ec:translate(@hand, 0, 'lowercase')) else (), ec:colon())"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="@hand" behaviour="note">
+            <desc>Show footnote only</desc>
+            <param name="type" value="'text-critical'"/>
+            <param name="prefix" value="(ec:label('del'), ' ', ec:translate(@hand, 0, 'uppercase'), ec:colon())"/>
+        </model>
+                    <model behaviour="note">
+            <desc>Show footnote only</desc>
+            <param name="type" value="'text-critical'"/>
+            <param name="prefix" value="(ec:label('del'), ec:colon())"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="delSpan" mode="change">
+                    <model predicate="not(@rend)" behaviour="note">
+            <param name="type" value="'text-critical-start'"/>
+            <param name="content" value="ec:label('del')"/>
+        </model>
+                    <model behaviour="note">
+            <param name="content" value="(ec:translate(@rend, 0, 'uppercase'), if (@hand) then (' ', ec:translate(@hand, 0, 'lowercase')) else ())"/>
+            <param name="type" value="'text-critical-start'"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="damage" mode="add">
+                    <model predicate="gap" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="'[...]'"/>
+            <param name="place" value="&#34;footnote&#34;"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="alternate" value="(ec:translate(@agent),' ', ec:label('del-gap', false()),' (', gap/@quantity,' ', ec:translate(gap/@unit, gap/@quantity, ()), ')')"/>
+        </model>
+                    <model predicate="unclear" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="unclear/node()"/>
+            <param name="place" value="&#34;footnote&#34;"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="alternate" value="(ec:translate(@agent),', ', ec:label('unclear-rdg', false()))"/>
+        </model>
+                    <model predicate="supplied/@source" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="supplied/node()"/>
+            <param name="place" value="&#34;footnote&#34;"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="alternate" value="concat(ec:translate(@agent),', ', ec:label('supplied-after', false()), ' ', supplied/@source)"/>
+        </model>
+                    <model predicate="supplied" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="('[', supplied/node(), ']')"/>
+            <param name="place" value="&#34;footnote&#34;"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="alternate" value="concat(ec:label('damage', true()), ' (', ec:translate(@agent, 0, 'lowercase'), '), ', ec:label('supplied', false()))"/>
+        </model>
+                    <model predicate="add" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="add/node()"/>
+            <param name="place" value="&#34;footnote&#34;"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="alternate" value="(ec:translate(@agent), ', ', ec:span((ec:label('add'), ' ', string-join((ec:translate(add/@place, 0, 'lowercase'), ec:translate(add/@hand, 0, 'lowercase'), ec:translate(add/@rend, 0, 'lowercase'), ec:translate(add/@type, 0, 'lowercase')), ' '))))"/>
+        </model>
+                    <model predicate="@agent" behaviour="alternote" cssClass="text-critical">
+            <param name="place" value="&#34;footnote&#34;"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="alternate" value="ec:translate(@agent)"/>
+        </model>
+                    <model behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="'[...]'"/>
+            <param name="place" value="&#34;footnote&#34;"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="alternate" value="ec:translate(@agent)"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="damageSpan" mode="change">
+                    <model predicate="@agent" behaviour="note">
+            <param name="place" value="&#34;footnote&#34;"/>
+            <param name="type" value="'text-critical-start'"/>
+            <param name="content" value="ec:translate(@agent)"/>
+        </model>
+                    <model behaviour="omit"/>
+                </elementSpec>
+                <elementSpec ident="anchor" mode="change">
+                    <model predicate="exists(root($parameters?root)//*[@spanTo = '#' || $node/@xml:id])" behaviour="notespan-end">
+            <param name="content" value="root($parameters?root)//*[@spanTo = '#' || $node/@xml:id]"/>
+        </model>
+                    <model behaviour="anchor">
+            <param name="id" value="@xml:id"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="app">
+                    <model predicate="empty(rdg/node())" behaviour="alternote" cssClass="text-critical">
+            <desc>app with empty reading</desc>
+            <param name="content" value="lem/node()"/>
+            <param name="alternate" value="(ec:label('omitted-in'), ' ', rdg/@wit)"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="empty(lem/node())" behaviour="alternote" cssClass="text-critical">
+            <desc>app with empty lemma</desc>
+            <param name="content" value="''"/>
+            <param name="prefix" value="(ec:label('alt-rdg-in'), ' ', rdg/@wit, ec:colon())"/>
+            <param name="alternate" value="rdg"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="lem/node()"/>
+            <param name="prefix" value="(ec:label('alt-rdg-in'), ' ', rdg/@wit, ec:colon())"/>
+            <param name="alternate" value="rdg"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="lem">
+                    <model behaviour="inline"/>
+                </elementSpec>
+                <elementSpec ident="rdg">
+                    <model predicate="../gap" behaviour="inline">
+            <desc>app with gap and reading</desc>
+            <param name="content" value="(ec:label('unreadable'), ', ', ec:label('supplied-after', false()), ' ', @wit)"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="handShift">
+                    <model behaviour="note">
+            <param name="place" value="'footnote'"/>
+            <param name="type" value="'text-critical'"/>
+            <param name="content" value="(ec:label('handswitch'), ec:scribe(@scribe))"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="note" mode="change">
+                    <model predicate="@place" behaviour="note">
+            <param name="place" value="@place"/>
+            <param name="label" value="@n"/>
+        </model>
+                    <model behaviour="note">
+            <param name="type" value="'note'"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="hi" mode="change">
+                    <model predicate="@rend='sup'" behaviour="inline">
+            <outputRendition xml:space="preserve">
+            font-size: 80%; vertical-align: top;
+            </outputRendition>
+        </model>
+                    <model predicate="@rend='underline' and @hand" behaviour="alternote">
+            <param name="content" value="."/>
+            <param name="alternate" value="(ec:label('underlined'), ' ', ec:translate(@hand, 0, 'lowercase'))"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="@rend='underline'" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="."/>
+            <param name="alternate" value="ec:label('underlined')"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="@rendition" behaviour="inline" useSourceRendition="true">
+            <outputRendition xml:space="preserve">
+            font-style: italic;
+            </outputRendition>
+        </model>
+                    <model predicate="not(@rendition)" behaviour="inline">
+            <outputRendition xml:space="preserve">
+            font-style: italic;
+            </outputRendition>
+        </model>
+                </elementSpec>
+                <elementSpec ident="space" mode="change">
+                    <model behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="text{'...'}"/>
+            <param name="alternate" value="(ec:label('gap-in-orig'), ' (' , @quantity , text{' '} , ec:translate(@unit, @quantity, 'lowercase'), text{')'})"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="gap" mode="change">
+                    <model predicate="parent::damage" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="text{'[...]'}"/>
+            <param name="alternate" value="(ec:translate(parent::damage/@agent, 0, 'lowercase'), ' ', ec:label('del-gap'), ' (', @quantity, text{' '}, ec:translate(@unit, @quantity, 'lowercase'), text{')'} )"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="@reason='irrelevant'" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="text{'[...]'}"/>
+            <param name="alternate" value="ec:label('irrelevant')"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="@reason='illegible'" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="text{'[...]'}"/>
+            <param name="alternate" value="(ec:label('unreadable'), ' (' , @quantity , text{' '} , ec:translate(@unit, @quantity, 'lowercase'), text{')'})"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="@source" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="text{'[...]'}"/>
+            <param name="alternate" value="(ec:label('compare'), ' ', @source)"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="desc" behaviour="inline">
+            <outputRendition xml:space="preserve">
+            color: grey;
+            </outputRendition>
+        </model>
+                    <model predicate="@extent" behaviour="inline" cssClass="text-critical">
+            <param name="content" value="@extent"/>
+            <outputRendition xml:space="preserve" scope="before">
+            content: '[..';
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content: '..]';
+            </outputRendition>
+            <outputRendition xml:space="preserve">
+            color: grey;
+            </outputRendition>
+        </model>
+                    <model behaviour="inline" cssClass="text-critical">
+            <outputRendition xml:space="preserve" scope="before">
+            content: '[...]';
+            </outputRendition>
+        </model>
+                </elementSpec>
+                <elementSpec ident="foreign" mode="change">
+                    <model behaviour="alternate">
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('lang-switch'), ' ', ec:label(@xml:lang))"/>
+            <outputRendition xml:space="preserve">
+            color: black;
+            </outputRendition>
+        </model>
+                </elementSpec>
+                <elementSpec ident="term" mode="change">
+                    <model behaviour="reference" cssClass="semantic term">
+            <desc>Semantic highlighting of keywords and lemmata with dark-red text
+                            color</desc>
+            <param name="content" value="."/>
+            <param name="ref" value="@ref"/>
+            <param name="label" value="ec:label('term')"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="persName" mode="add">
+                    <model behaviour="pass-through">
+            <desc>Semantic highlighting of person with blue text color</desc>
+            <param name="uri" value="'../../detail.html?ref=' || @ref"/>
+            <pb:template xmlns="" xml:space="preserve"><a class="semantic person" href="[[uri]]">[[content]]</a></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="orgName" mode="add">
+                    <model behaviour="reference" cssClass="semantic organization">
+            <desc>Semantic highlighting of organization names with tooltip and blue text
+                            color</desc>
+            <param name="content" value="."/>
+            <param name="ref" value="@ref"/>
+            <param name="label" value="ec:label('organisation')"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="placeName" mode="add">
+                    <model behaviour="pass-through">
+            <desc>Semantic highlighting of place names with tooltip and green text
+                            color</desc>
+            <param name="uri" value="'../../detail.html?ref=' || @ref"/>
+            <pb:template xmlns="" xml:space="preserve"><a class="semantic place" href="[[uri]]">[[content]]</a></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="origPlace" mode="add">
+                    <model predicate="parent::origin and node()" behaviour="listItem">
+            <param name="content" value="(ec:label('origPlace'), ec:colon(), .)"/>
+        </model>
+                    <model predicate="parent::origin" behaviour="omit">
+            <desc>Leeres Element im header</desc>
+        </model>
+                    <model predicate="@ref" behaviour="pass-through">
+            <desc>Semantic highlighting of origPlace names with tooltip and green text
+                            color</desc>
+            <param name="uri" value="'../../detail.html?ref=' || @ref"/>
+            <pb:template xmlns="" xml:space="preserve"><a class="semantic place" href="[[uri]]">[[content]]</a></pb:template>
+        </model>
+                    <model behaviour="alternate" cssClass="semantic place">
+            <desc>Semantic highlighting of origPlace names with tooltip and green text
+                            color</desc>
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('origPlace'), ec:colon(), . )"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="num" mode="change">
+                    <model behaviour="alternate" cssClass="text-critical">
+            <desc>Display number in tooltip and highlight text with color</desc>
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('amount'), ec:colon(), @value)"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="time" mode="change">
+                    <model predicate="@period" behaviour="alternate" cssClass="text-critical">
+            <desc>Display time with given parameter in tooltip and highlight text with
+                            color</desc>
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('duration'), ec:colon(), ec:translate(@period, 0, ()))"/>
+        </model>
+                    <model predicate="@when" behaviour="alternate" cssClass="text-critical">
+            <desc>Display time with given parameter in tooltip and highlight text with
+                            color</desc>
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('time'), ec:colon(), format-time(@when, '[H]:[m]'))"/>
+        </model>
+                    <model predicate="@dur" behaviour="alternate" cssClass="text-critical">
+            <desc>Display time in tooltip and highlight text with color</desc>
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('duration'), ec:colon(), ec:format-duration(@dur))"/>
+        </model>
+                    <model behaviour="alternate" cssClass="text-critical">
+            <desc>Display time in tooltip and highlight text with color</desc>
+            <param name="default" value="."/>
+            <param name="alternate" value="ec:label('time')"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="measure" mode="change">
+                    <model behaviour="alternate" cssClass="text-critical">
+            <desc>Display measurement with given parameters in tooltip and highlight
+                            text with color</desc>
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:translate(@type, 0, 'uppercase'), ec:colon(), @quantity, text{' '}, ec:translate(@origin, 0, 'lowercase'), text{' '}, ec:translate(@unit, @quantity, 'lowercase'), text{' '}, ec:translate(@commodity, 0, 'lowercase'))"/>
+        </model>
+                </elementSpec>
+                 <elementSpec ident="q" mode="change">
+                    <model behaviour="inline" cssClass="quote-inline" useSourceRendition="true">
+            <desc>Add css class for quotes</desc>
+        </model>
+                </elementSpec>
+                 <elementSpec ident="supplied" mode="change">
+                    <model predicate="parent::choice" behaviour="inline"/>
+                    <model predicate="@reason" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="."/>
+            <param name="alternate" value="(ec:translate(@reason, 0, 'uppercase'), ', ', ec:label('supplied', false()))"/>
+            <param name="type" value="'text-critical'"/>
+            <outputRendition xml:space="preserve" scope="before">
+            content:"[";
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content:"]";
+            </outputRendition>
+        </model>
+                    <model predicate="@resp" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="."/>
+            <param name="alternate" value="ec:label('supplied')"/>
+            <param name="type" value="'text-critical'"/>
+            <outputRendition xml:space="preserve" scope="before">
+            content:"[";
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content:"]";
+            </outputRendition>
+        </model>
+                    <model predicate="parent::damage and @source" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="."/>
+            <param name="alternate" value="(ec:translate(parent::damage/@agent, 0, 'uppercase'), text{', '}, if (@reason) then text{ec:translate(@reason, 0, 'lowercase') || ', '} else (), ec:label('supplied-after', false()), ' ', @source)"/>
+            <param name="type" value="'text-critical'"/>
+            <outputRendition xml:space="preserve" scope="before">
+            content:"[";
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content:"]";
+            </outputRendition>
+        </model>
+                    <model predicate="@source and @reason" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="."/>
+            <param name="alternate" value="(ec:translate(@reason, 0, 'uppercase'), ec:label('supplied-after', false()), ' ', @source)"/>
+            <param name="type" value="'text-critical'"/>
+            <outputRendition xml:space="preserve" scope="before">
+            content:"[";
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content:"]";
+            </outputRendition>
+        </model>
+                    <model predicate="@source" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="."/>
+            <param name="alternate" value="( ec:label('supplied-after'), ' ', @source)"/>
+            <param name="type" value="'text-critical'"/>
+            <outputRendition xml:space="preserve" scope="before">
+            content:"[";
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content:"]";
+            </outputRendition>
+        </model>
+                    <model behaviour="inline" cssClass="text-critical">
+            <outputRendition xml:space="preserve" scope="before">
+            content:"[";
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content:"]";
+            </outputRendition>
+        </model>
+                </elementSpec>
+                <elementSpec ident="fileDesc" mode="change">
+                    <modelSequence predicate="$parameters?header='short'">
+            <desc>Output a short header to be used in document listings</desc>
+            <model behaviour="block" cssClass="header-short">
+                <param name="content" value="titleStmt"/>
+            </model>
+            <model behaviour="block" cssClass="header-short">
+                <param name="content" value="ec:format-id(seriesStmt/idno)"/>
+            </model>
+            <model behaviour="block" cssClass="header-short">
+                <param name="content" value="sourceDesc/msDesc/head"/>
+            </model>
+            <model behaviour="block" cssClass="header-short">
+                <param name="content" value="sourceDesc/msDesc/history/origin/origDate"/>
+            </model>
+            <model behaviour="block" cssClass="header-short">
+                <param name="content" value="editionStmt"/>
+            </model>
+            <model behaviour="block" cssClass="header-short">
+                <param name="content" value="publicationStmt"/>
+            </model>
+        </modelSequence>
+                    <model behaviour="title">
+            <param name="content" value="titleStmt"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="back" mode="change">
+                    <desc>back contains the commentary, which should appear as a numbered
+                        list</desc>
+                    <model predicate="div/@n" behaviour="list">
+            <param name="type" value="'ordered'"/>
+        </model>
+                    <model behaviour="block"/>
+                </elementSpec>
+                <elementSpec ident="div" mode="change">
+                    <model predicate="parent::back and @n" behaviour="listItem">
+            <desc>output as list item if in commentary</desc>
+        </model>
+                    <model predicate="parent::body or parent::front or parent::back" behaviour="section"/>
+                    <model behaviour="block"/>
+                </elementSpec>
+                 <elementSpec ident="ab" mode="change">
+                    <model predicate="@place" behaviour="block" cssClass="ab">
+            <param name="content" value="('[', string-join((ec:translate(@type, 0, 'lowercase'),ec:translate(@place, 0, 'lowercase'),ec:translate(@hand, 0, 'lowercase')), ' '), if (@scribe) then (' ', ec:label('by', false()), ec:scribe(@scribe)) else (), ec:punct(':', false()), '] ', .)"/>
+            <outputRendition xml:space="preserve">
+            font-size: 1.5rem;
+            </outputRendition>
+        </model>
+                    <model behaviour="paragraph"/>
+                </elementSpec>
+                <elementSpec ident="subst" mode="change">
+                    <model predicate="add/@hand" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="del"/>
+            <param name="prefix" value="(ec:label('del'), ', ', ec:label('replace', false()), ' ', ec:translate(add/@place, 0, 'lowercase'), text{' '}, ec:translate(add/@hand, 0, 'lowercase'), ec:colon())"/>
+            <param name="alternate" value="add/node()"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="add" behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="add"/>
+            <param name="prefix" value="(ec:label('add', true()), ' ', ec:translate(add/@place, 0, 'lowercase'), ', ', ec:label('replace-del', false()), ec:colon())"/>
+            <param name="alternate" value="'[...]'"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                    <model behaviour="inline"/>
+                </elementSpec>
+                <elementSpec ident="date" mode="change">
+                    <model output="web" predicate="@when and @type" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('date'), ec:colon(), ec:format-date(@when), ' (', ec:translate(@type, 0, ()), ')')"/>
+        </model>
+                    <model output="web" predicate="@when and @calendar" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('date'), ec:colon(), ec:format-date(@when), ' (', ec:translate(@calendar, 0, ()), ')')"/>
+        </model>
+                    <model output="web" predicate="@when" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('date'), ec:colon(), ec:format-date(@when))"/>
+        </model>
+                    <model output="web" predicate="@from and @to" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('date'), ec:colon(), ec:format-date(@from), ' – ', ec:format-date(@to))"/>
+        </model>
+                    <model output="web" predicate="@period" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('duration'), ec:colon(), ec:translate(@period, 0, ()))"/>
+        </model>
+                    <model output="web" predicate="@dur[starts-with(., 'R/P')]" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('repeated-duration'), ec:colon(), ec:format-duration(substring-after(@dur, 'R/')))"/>
+        </model>
+                    <model output="web" predicate="@dur" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('duration'), ec:colon(), ec:format-duration(@dur))"/>
+        </model>
+                    <model predicate="@type" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="."/>
+            <param name="alternate" value="(ec:label('date'), ' ', ec:translate(@type, 0, ()) )"/>
+        </model>
+                    <model predicate="text()" behaviour="inline" cssClass="text-critical"/>
+                </elementSpec>
+                <elementSpec ident="msDesc" mode="add">
+                    <desc>Stückbeschreibung ausgeben</desc>
+                    <model behaviour="list">
+            <param name="content" value="(msIdentifier,history/origin/origDate,msContents/msItem/filiation[@type='current'], physDesc/objectDesc/supportDesc/condition, physDesc/objectDesc/supportDesc, physDesc, history/origin/origPlace, msContents/msItem/textLang, msContents/msItem/author[@role=&#34;scribe&#34;], additional)"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="msIdentifier">
+                    <modelSequence>
+            <model behaviour="listItem">
+                <param name="content" value="idno"/>
+            </model>
+            <model behaviour="listItem">
+                <param name="content" value="altIdentifier/idno"/>
+            </model>
+        </modelSequence>
+                </elementSpec>
+
+                <elementSpec ident="msItem">
+                    <model behaviour="listItem">
+            <param name="content" value="filiation[@type='current']"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="idno">
+                    <model predicate="parent::altIdentifier" behaviour="inline">
+            <param name="content" value="(ec:label('signatureAlt'), ec:colon(), .)"/>
+        </model>
+                    <model behaviour="inline">
+            <param name="content" value="(ec:label('signature'), ec:colon(), .)"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="filiation">
+                    <model predicate="text() and origDate/@when" behaviour="inline">
+            <param name="content" value="(ec:label('other-source'), ec:colon(), text()[1], ', ', format-date(xs:date(origDate/@when), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()))"/>
+        </model>
+                    <model predicate="text() and origDate/@from" behaviour="inline">
+            <param name="content" value="(ec:label('other-source'), ec:colon(), text()[1], ', ', format-date(xs:date(origDate/@from), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()), ' – ', format-date(xs:date(origDate/@to), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()))"/>
+        </model>
+                    <model predicate="text()" behaviour="inline">
+            <param name="content" value="(ec:label('other-source'), ec:colon(), text()[1])"/>
+        </model>
+                    <model behaviour="omit"/>
+                </elementSpec>
+                <elementSpec ident="condition">
+                    <model behaviour="listItem">
+            <param name="content" value="(ec:label('condition'), ec:colon(), .)"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="physDesc">
+                    <model behaviour="listItem">
+            <param name="content" value="sealDesc"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="supportDesc">
+                    <modelSequence>
+            <model behaviour="listItem">
+                <param name="content" value="support/material"/>
+            </model>
+            <model behaviour="listItem">
+                <param name="content" value="extent/dimensions"/>
+            </model>
+        </modelSequence>
+                </elementSpec>
+                <elementSpec ident="material">
+                    <model predicate="node() or @*" behaviour="inline">
+            <param name="content" value="(ec:label('surface'), ec:colon(), .)"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="dimensions">
+                    <model predicate="@type = 'leaves' and (width/@quantity &gt; 0 or height/@quantity &gt; 0)" behaviour="inline">
+            <param name="content" value="(ec:label('format'), ' (cm)', ec:colon(), string-join((width/@quantity,height/@quantity), ' × ') )"/>
+        </model>
+                    <model predicate="@type = 'plica' and width/@quantity &gt; 0" behaviour="inline">
+            <param name="content" value="' (Plica' || ec:colon() || width/@quantity || ')'"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="sealDesc">
+                    <modelSequence predicate="seal and seal/node()">
+            <model behaviour="inline">
+                <param name="content" value="(count(seal), ' ', ec:label('sigle'), ec:colon())"/>
+            </model>
+            <model behaviour="list">
+                <param name="type" value="'ordered'"/>
+            </model>
+        </modelSequence>
+                    <model predicate="not(seal)" behaviour="listItem">
+            <desc>sealDesc in "weitere Überlieferungen"</desc>
+            <param name="content" value="(ec:label('sigle'), ec:colon(), .)"/>
+        </model>
+                    <model behaviour="omit"/>
+                </elementSpec>
+                <elementSpec ident="ref" mode="change">
+                    <model predicate="not(@target) and matches(., '^(?:SSRQ|SDS|FDS)_')" behaviour="link">
+            <desc>Link auf ein anderes Dokument innerhalb Portal</desc>
+            <param name="link" value="string() || &#34;.xml&#34;"/>
+        </model>
+                    <model predicate="not(@target)" behaviour="inline">
+            <desc>Link ohne Verweisadresse</desc>
+        </model>
+                    <model predicate="not(text())" behaviour="link">
+            <param name="content" value="@target"/>
+            <param name="link" value="@target"/>
+        </model>
+                    <model behaviour="link">
+            <param name="link" value="@target"/>
+            <param name="target" value="'_new'"/>
+        </model>
+                </elementSpec>
+                 <elementSpec ident="author" mode="change">
+                    <model behaviour="listItem">
+            <desc>Ausgabe des Schreibers im Header</desc>
+            <param name="content" value="(ec:label('scriptor'), ec:colon(), .)"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="listBibl" mode="change">
+                    <modelSequence predicate="not($parameters?mode = 'filiation')">
+            <desc>Ausgabe Bibliographie, aber nicht in "weitere Überlieferungen"</desc>
+            <model behaviour="heading">
+                <desc>Titel des Bibliographieabschnitts</desc>
+                <param name="content" value="head/node()"/>
+                <param name="level" value="5"/>
+                <outputRendition xml:space="preserve">
+                margin-top: 1em;
+                </outputRendition>
+            </model>
+            <model behaviour="list">
+                <desc>Liste der Bibliographieeinträge</desc>
+                <param name="content" value="bibl"/>
+            </model>
+        </modelSequence>
+                    <model behaviour="omit"/>
+                </elementSpec>
+                 <elementSpec ident="bibl" mode="change">
+                    <model predicate="@type='url'" behaviour="inline">
+            <param name="url" value="string()"/>
+            <pb:template xmlns="" xml:space="preserve">
+                            <li>
+                                <a href="[[url]]" target="_blank">[[url]]</a>
+                            </li>
+                        </pb:template>
+        </model>
+                    <model predicate="ancestor::teiHeader" behaviour="listItem"/>
+                    <model behaviour="inline"/>
+                </elementSpec>
+                <elementSpec ident="additional" mode="add">
+                    <model behaviour="listItem"/>
+                </elementSpec>
+                <elementSpec ident="textLang" mode="add">
+                    <model behaviour="listItem">
+            <desc>Ausgabe Sprache in "weitere Überlieferungen"</desc>
+            <param name="content" value="(ec:label('language'), ec:colon(), string-join(for $lang in tokenize(., ', *') return ec:label($lang), ', '))"/>
+        </model>
+                </elementSpec>
+            <elementSpec ident="reg" mode="add">
+                    <model predicate="@type = ('star', 'lb') and $parameters?view='dipl'" behaviour="inline"/>
+                    <model predicate="@type = ('star', 'lb') and $parameters?view='norm'" behaviour="omit">
+            <outputRendition xml:space="preserve">
+            
+            </outputRendition>
+        </model>
+                    <model predicate="$parameters?view='norm'" behaviour="inline"/>
+                    <model predicate="$parameters?view='dipl'" behaviour="omit"/>
+                </elementSpec>
+            </schemaSpec>
         </body>
     </text>
 </TEI>

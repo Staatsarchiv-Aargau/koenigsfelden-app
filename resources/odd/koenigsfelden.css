@@ -1,0 +1,93 @@
+.semantic {
+    text-decoration:none;
+}
+
+.highlight {
+    background-color: var(--pb-highlight-color);
+}
+
+.term {
+    color: #b5221f;
+}
+.place {
+    color: #007e00;
+}
+.person,
+.organization {
+    color: #4478b5;
+}
+
+.reference {
+    cursor: pointer;
+}
+
+.text-critical {
+    color: var(--color-text-critical);
+}
+
+.orig {
+    font-family: var(--pb-serif-font-family);
+}
+
+.orig::before {
+    content: '«';
+}
+.orig::after {
+    content: '»';
+}
+
+.textcritical {
+    margin-bottom: 1em;
+}
+
+.pb,
+.pb2 {
+    font-size: small;
+    float: none !important;
+    display: inline !important;
+    margin: 0 !important;
+    color: var(--color-gray-medium);
+}
+
+.pb:before {
+    content: '[p. ' !important;
+}
+
+/* Custom pagebreaks in documents */
+.pb-empty,
+.pb-pagination,
+.pb-foliation {
+    color: #808080;
+    display: inline;
+    clear: left;
+    padding-right: .5em;
+}
+
+.pb-norm {
+    clear: none;
+    padding-left: .5em;
+}
+
+.pb-pagination::after,
+.pb-foliation::after {
+    content: "]";
+}
+
+
+.pb-pagination::before {
+    content: "| [S. ";
+}
+
+
+
+.pb-foliation:before {
+    content: "| [fol. ";
+}
+
+/*  Display <q> tags in guillemets */
+.quote-inline::before {
+    content: "\00AB";
+}
+.quote-inline::after {
+    content: "\00BB";
+}
