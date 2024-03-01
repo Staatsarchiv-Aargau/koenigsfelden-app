@@ -13,18 +13,21 @@
         <meta name="pb-template" content="view.html"/>
 
         <link rel="stylesheet" href="resources/css/theme.css"/>
+        
+     <script type="module" src="pb-tify.js" data-template="pages:load-components"/>
         <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
         <style>
+        body {
+            --pb-view-height: calc(100vh - 212px);
+        }
+        #facsimile {
+             flex: 1 1;
+            --pb-facsimile-height: var(--pb-view-height);
+        }
             @media (min-width: 769px) {
                 .toolbar pb-navigation {
                     display: none;
                 }
-            }
-
-            .content-body {
-                position: relative;
-                display: flex;
-                justify-content: center;
             }
 
             .content-body pb-navigation {
@@ -47,6 +50,40 @@
                     display: none;
                 }
             }
+                            pb-grid {
+                    --pb-content-theme: {
+                        font-family: "Junicode", Georgia, "Times New Roman", serif;
+                        font-size: 14pt;
+                        line-height: 1.42857143;
+                        margin: 0 16px;
+                    };
+                }
+
+                .content-body pb-tify {
+                    display: block;
+                    height: 70vh;
+                }
+
+
+                .metadata {
+                    max-width: 30vw;
+                }
+
+                .content-body {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    padding: 0 20px;
+                    margin-bottom: 200px;
+                }
+
+                .content-body pb-view {
+                    flex: 1 1;
+                }
+                pb-panel {
+                    height: 80vh;
+                    overflow-y:auto;
+                }
         </style>
     </head>
 
@@ -60,37 +97,60 @@
                         <app-toolbar data-template="lib:include" data-template-path="templates/menu.html"/>
                         <app-toolbar data-template="lib:include" data-template-path="templates/toolbar.html"/>
                     </app-header>
-
-                    <pb-drawer toggle="tocToggle" class="toc" emit="toc" subscribe="transcription">
-                        <div class="drawer-content">
-                            <h3>
-                                <pb-i18n key="document.contents">Contents</pb-i18n>
-                            </h3>
-                            <pb-load id="toc" url="api/document/{doc}/contents?target=transcription&amp;icons=true" expand="expand" src="document1" subscribe="toc" load-once="load-once">
-                                <pb-i18n key="dialogs.loading">Loading</pb-i18n>
-                            </pb-load>
-                        </div>
-                    </pb-drawer>
                     <section class="breadcrumbs">
                         <pb-view id="title-view1" src="document1" xpath="//teiHeader/fileDesc/titleStmt/title[1]" view="single">
                             <pb-param name="header" value="short"/>
                         </pb-view>
                     </section>
-                    <main class="content-body">
-                        <pb-navigation direction="backward" unit="page" emit="transcription" subscribe="transcription">
-                            <paper-fab icon="icons:chevron-left"/>
-                        </pb-navigation>
-                        <pb-view id="view1" src="document1" column-separator=".tei-cb" append-footnotes="append-footnotes" subscribe="transcription" emit="transcription"/>
-                        <pb-navigation direction="forward" unit="page" emit="transcription" subscribe="transcription">
-                            <paper-fab icon="icons:chevron-right"/>
-                        </pb-navigation>
-                    <aside id="aside">
-                        <div class="places" data-template="app:list-places"/>
-                        <div class="persons" data-template="app:list-persons"/>
-                        <div class="persons" data-template="app:list-organizations"/>
-                        <div class="keywords" data-template="app:list-keys"/>
-                    </aside>
+                <main class="content-body">
+                        <pb-grid id="grid" panels="[2]" subscribe="transcription" emit="transcription">
+                            <template>
+                                <!-- template used for adding a new column: user can choose between normalized edition, diplomatic edition, facsimile and register  -->
+                                <pb-panel>
+                                    <!-- Added to the toolbar -->
+                                    <pb-grid-action grid="#grid" slot="toolbar" action="remove">
+                                        <paper-icon-button icon="icons:close"/>
+                                    </pb-grid-action>
+                                    <template title="Lesefassung">
+                                        <pb-view src="document1" subscribe="transcription" emit="transcription" append-footnotes="append-footnotes">
+                                            <pb-param name="view" value="norm"/>
+                                        </pb-view>
+                                    </template> 
+                                    <template title="textnahe Fassung">
+                                    <pb-view src="document1" subscribe="transcription" emit="transcription" append-footnotes="append-footnotes">
+                                        <pb-param name="view" value="dipl"/>
+                                    </pb-view>
+                                </template>
+                                     <template title="Digitalisat">
+                                     <pb-facsimile show-rotation-control="show-rotation-control" style="height:600px" show-full-page-control="show-full-page-control" show-navigation-control="show-navigation-control" show-sequence-control="show-sequence-control" show-reference-strip="" subscribe="transcription">
+                        </pb-facsimile>
+                                      </template>
+                                     <template title="Register">                                         
+                                         <div class="places" data-template="app:list-places"/>
+                                         <div class="persons" data-template="app:list-persons"/>
+                                         <div class="persons" data-template="app:list-organizations"/>
+                                         <div class="keywords" data-template="app:list-keys"/>
+                                    </template> 
+                                </pb-panel>
+                            </template>
+                            <!-- Transcription is always shown -->
+
+                            <!-- For the transcription, users can choose between diplomatic and normalized view -->
+                            <pb-panel emit="transcription" id="edition">
+                                <template title="Lesefassung">
+                                        <pb-view src="document1" subscribe="transcription" emit="transcription" append-footnotes="append-footnotes">
+                                            <pb-param name="view" value="norm"/>
+                                        </pb-view>
+                                 </template>
+                                <template title="textnahe Fassung">
+                                    <pb-view src="document1" subscribe="transcription" emit="transcription" append-footnotes="append-footnotes">
+                                        <pb-param name="view" value="dipl"/>
+                                    </pb-view>
+                                </template>
+                            </pb-panel>
+                        </pb-grid>
                     </main>
+                <footer data-template="lib:include" data-template-path="templates/footer.html"/>
                 </app-header-layout>
             </app-drawer-layout>
         </pb-page>
