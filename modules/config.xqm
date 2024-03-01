@@ -84,7 +84,7 @@ declare variable $config:default-language := "de";
  : the parameters below for further configuration), or 'page' to browse
  : a document by actual pages determined by TEI pb elements.
  :)
-declare variable $config:default-view :="div";
+declare variable $config:default-view :="body";
 
 (:
  : The default HTML template used for viewing document content. This can be
@@ -420,6 +420,10 @@ declare variable $config:odd-available :=("koenigsfelden.odd", "teipublisher.odd
 declare variable $config:odd-internal := "docx.odd";
 
 declare variable $config:odd-root := $config:app-root || "/resources/odd";
+
+declare variable $config:schema-odd := doc($config:odd-root || "/TEI_Schema_SSRQ.odd")/*;
+
+declare variable $config:abbr := doc($config:odd-root || "/abbr.xml")/*;
 
 declare variable $config:output := "transform";
 
