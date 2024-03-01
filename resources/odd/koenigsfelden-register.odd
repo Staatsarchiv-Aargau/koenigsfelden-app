@@ -28,7 +28,8 @@
             </sourceDesc>
         </fileDesc>
         <encodingDesc>
-            <tagsDecl/>
+            <tagsDecl> <rendition source="koenigsfelden.css"/>
+            </tagsDecl>
         </encodingDesc>
         <revisionDesc>
             <change when="2024-02-06Z">Initial version</change>
