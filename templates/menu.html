@@ -1,19 +1,20 @@
 <app-toolbar class="menubar">
-    <a href="${app}/index.html" class="logo" data-template="pages:parse-params"/>
-        <a href="${app}/index.html" data-template="lib:parse-params">
+    <span class="menu-logos">
+        <a href="${app}/start.html" class="logo-zh" data-template="pages:parse-params">
+        <img src="${app}/resources/images/uzh-white.svg" alt="logo UZH"/>
+    </a>
+    <a href="https://www.ag.ch" class="logo-argau">
+        <img src="${app}/resources/images/aargau-white.png" alt="logo argau"/>
+    </a>
+    </span>
+        <a href="${app}/start.html" data-template="lib:parse-params">
             <pb-i18n key="home">Start</pb-i18n>
         </a>
         <a href="${app}/intro.html" data-template="lib:parse-params">
             <pb-i18n key="intro">Einleitung</pb-i18n>
         </a>
-        <a href="${app}/collection.html" data-template="lib:parse-params">
+        <a href="${app}/index.html" data-template="lib:parse-params">
             <pb-i18n key="docs">Dokumente</pb-i18n>
-        </a>
-        <a href="${app}/stemma.html" data-template="lib:parse-params">
-            <pb-i18n key="trad">Überlieferung</pb-i18n>
-        </a>
-        <a href="${app}/map.html" data-template="lib:parse-params">
-            <pb-i18n key="map">Karte</pb-i18n>
         </a>
          <paper-menu-button>
             <a href="#" slot="dropdown-trigger" title="Register">
@@ -37,4 +38,11 @@
                 </paper-item>
             </paper-listbox>
         </paper-menu-button>
+        <a href="${app}/stemma.html" data-template="lib:parse-params">
+            <pb-i18n key="trad">Überlieferung</pb-i18n>
+        </a>
+     <!--   <a href="${app}/map.html" data-template="lib:parse-params">
+            <pb-i18n key="map">Karte</pb-i18n>
+        </a> -->
+        
 </app-toolbar>
