@@ -255,6 +255,16 @@
     paper-checkbox {
         --paper-checkbox-checked-color: var(--pb-color-start)
     }
+    
+    .header-short.keyword {
+    color: #59372F;
+    font-weight: 400;
+}
+
+.header-short {
+    padding-bottom: 0.3em;
+    text-align: justify;
+}
     </style>
     </custom-style>
 </head>
@@ -284,10 +294,16 @@
                                 <div class="browse">
                                     <aside data-template="browse:form">
                                         <!--pb-custom-form class="options" auto-submit="[name=sort]" emit="search"-->
+                                        <pb-custom-form class="options">
+                                        <pb-select label="browse.sort" name="sort" value="${sort}" data-template="pages:parse-params">
+                                                    <paper-item value="date-min">Datum</paper-item>
+                                                    <paper-item value="title">Titel</paper-item>
+                                            </pb-select> 
+                                            </pb-custom-form>
                                 <pb-custom-form id="genre" class="genre">
-                                    <h4>
+                                    <h3>
                                                     <pb-i18n key="genre"/>
-                                                </h4>
+                                                </h3>
                                     <paper-checkbox id="bearbeitungstext" data-template="pages:parse-params">
                                                     <pb-i18n key="searchText"/>
                                                 </paper-checkbox>
