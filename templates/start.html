@@ -1,126 +1,115 @@
 <html>
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport"
-            content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" />
-        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png"
-            sizes="16x16" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png"
-            sizes="24x24" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png"
-            sizes="32x32" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png"
-            sizes="64x64" />
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"/>
+        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png" sizes="24x24"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png" sizes="64x64"/>
         <title data-template="config:app-title">App Title</title>
-        <meta name="pb-template" content="start.html" />
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap" />
-        <link rel="stylesheet" href="resources/css/theme.css" />
-        <link rel="stylesheet" href="resources/css/koenigsfelden.css" />
-        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"></script>
+        <meta name="pb-template" content="start.html"/>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap"/>
+
+        <link rel="stylesheet" href="resources/css/theme.css"/>
+        <link rel="stylesheet" href="resources/css/koenigsfelden.css"/>
+        
+
+        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
     </head>
     <body>
-        <pb-page data-template="pages:pb-page" unresolved="unresolved"
-            locales="resources/i18n/{{ns}}/{{lng}}.json" require-language="" url-ignore="view">
+        <pb-page data-template="pages:pb-page" unresolved="unresolved" locales="resources/i18n/{{ns}}/{{lng}}.json" require-language="" url-ignore="view">
             <app-drawer-layout force-narrow="force-narrow">
-                <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"></app-drawer>
+                <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
                 <app-header-layout fullbleed="">
                     <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
-                        <app-toolbar data-template="lib:include"
-                            data-template-path="templates/menu.html"></app-toolbar>
+                        <app-toolbar data-template="lib:include" data-template-path="templates/menu.html"/>
                     </app-header>
-                    <main class="content-body single-col">
-                        <header class="start focus">
-                            <div>
-                                <h1> Die Urkunden und Akten des Klosters und des Oberamts
-                                    Königsfelden </h1>
-                                <h2> 1308-1662 </h2>
-                                <h3>Herausgegeben von Colette Halter-Pernet, Tobias Hodel und Simon
-                                    Teuscher</h3>
-                                <h4>Bearbeitet von L. Barwitzki, S. Egloff, C. Halter-Pernet, F.
-                                    Henggeler, T. Hodel, M. Nadig, A. Steinmann und S. Stettler.
-                                    Technisch umgesetzt durch I. Prada Ziegler</h4>
-                            </div>
-                            <img src="resources/images/start-seite.png"
-                                alt="facsimile of one of the documents with seals" />
-                        </header>
-                        <div class="panel-start">
-                            <section>
-                                <h3 class="panel-title">
+                   <main class="content-body single-col">
+                   <header class="start focus">
+                   <div>
+                       <h1>
+                           Die Urkunden und Akten des Klosters und des Oberamts Königsfelden
+                        </h1>
+                        <h2>
+                            1308-1662
+                        </h2>
+                        <h3>Herausgegeben von Colette Halter-Pernet, Tobias Hodel und Simon Teuscher</h3>
+                         <h4>Bearbeitet von L. Barwitzki, S. Egloff, C. Halter-Pernet, F. Henggeler, T. Hodel, M. Nadig, A. Steinmann und S. Stettler. Technisch umgesetzt durch I. Prada Ziegler</h4>
+                     </div>    
+                     <img src="resources/images/start-seite.png" alt="facsimile of one of the documents with seals"/>
+                             
+                         </header>
+                         <div class="panel-start">
+                         <section>
+                    <h2>
                                     <pb-i18n key="introduction">Königsfelden Online</pb-i18n>
-                                </h3>
-                                <p> Geschichte des habsburgischen Dienstadels,
-                                    der Monarchien und der städtischen Eliten im Gebiet der heutigen
-                                    Schweiz, Wirtschaftsgeschichte eines Klosters, Adelsgeschichte
-                                    aus Frauenperspektive, Archivierungstechniken und mehr – das
-                                    Schriftgut Königsfeldens bietet Einblicke in vielfältige
-                                    Themenbereiche. Die Zeugen ebendieser Geschichte(n), die
-                                    Urkunden und Akten des Klosters und der nachmaligen Berner
-                                    Hofmeisterei Königsfelden, die seit der Gründung des Klosters
-                                    durch die Habsburger anfangs des 14. Jahrhunderts entstanden
-                                    sind, wurden in einem mehrjährigen Projekt am Historischen
-                                    Seminar der Universität Zürich digital aufbereitet. Dank der
-                                    Auszeichnung der Urkunden – und Aktentranskriptionen mit
-                                    Registerdaten wie auch der Verlinkung dieser zu externen
-                                    Datenbanken eröffnet diese Online-Edition neue Dimensionen zur
-                                    Erforschung vielfältiger historischer Fragestellungen. </p>
-                                <p> Zur besseren Übersicht sind die Dokumente in Sammlungen
-                                    gegliedert, die einen Zugang über einzelne Zeitabschnitte,
-                                    Dorsualschichten oder nach Schlagwörtern ermöglichen. </p>
-                                <p> Mit der Volltextsuche kann auch nach Personen, Organisationen
-                                    oder Orten gesucht und der Zeitraum dazu beliebig gewählt
-                                    werden. Unter Register können die einzelnen Entitäten
-                                    durchstöbert werden: <a href="people.html">Personen</a> und <a
-                                        href="organisation.html">Organisationen</a>, <a
-                                        href="places.html">Orte</a> und <a href="keywords.html"
-                                        >Schlagworte</a>. </p>
-                                <p> In der <a href="intro.html">Einleitung</a> findet sich eine
-                                    Einführung zur Geschichte Königsfeldens wie auch zum digitalen
-                                    Editionsprojekt. </p>
-                                <p> Der Reiter <a href="stemma.html">Überlieferung</a> erlaubt einen
-                                    experimentellen und visuellen Zugriff auf die Urkunden,
-                                    Kopialbücher und Dorsualnotizen aus der Zeit bis 1500 und
-                                    vermittelt die erste umfassende Archivordnung, die im 16.
-                                    Jahrhundert entstanden ist. </p>
-                                <p> Eine interaktive und zoombare <a href="places.html">Karte</a>
-                                    ermöglicht den Zugriff auf die Dokumente aus geographischer
-                                    Perspektive. </p>
-                                <p> Hier geht's zur Berichterstattung zum Projekt: <a
-                                        href="intro.html#berichterstattung">Medien und Berichte</a>.
-                                </p>
-                            </section>
-                            <aside>
-                                <div class="panel-body">
-                                    <script type="text/javascript">
-                                    //
-                                    function openDoc(formfield) {
-                                        var number = formfield[0].value;
-                                        number = number.replace("/", "_")
-                                        var link = "data/docs/U-17_" + number + ".xml"
-                                        window.open(link, "_blank")
-                                    }</script>
-                                    <form onsubmit="openDoc(this);return false">
-                                        <div class="form-group">
-                                            <small class="form-text text-muted">Gib die Nummer eines
-                                                Dokuments (inkl. vorgestellten Nullen!) ein und
-                                                drücke den Knopf, um unmittelbar das entsprechende
-                                                Dokument zu öffnen.</small>
-                                            <input class="form-control" type="text" id="docnum"
-                                                name="docname" placeholder="zB. 0727/01" />
-                                        </div>
-                                        <button type="submit" class="btn btn-primary focus"
-                                            >Öffnen</button>
-                                    </form>
-                                </div>
-                            </aside>
-                        </div>
+                                </h2>
+              
+                <p text-align="justify">
+               Geschichte des habsburgischen Dienstadels, der Monarchien und der städtischen Eliten im Gebiet der heutigen Schweiz, Wirtschaftsgeschichte eines Klosters, Adelsgeschichte aus Frauenperspektive, Archivierungstechniken und mehr – das Schriftgut Königsfeldens bietet Einblicke in vielfältige Themenbereiche. Die Zeugen ebendieser Geschichte(n), die Urkunden und Akten des Klosters und der nachmaligen Berner Hofmeisterei Königsfelden, die seit der Gründung des Klosters durch die Habsburger anfangs des 14. Jahrhunderts entstanden sind, wurden in einem mehrjährigen Projekt am Historischen Seminar der Universität Zürich digital aufbereitet. Dank der Auszeichnung der Urkunden – und Aktentranskriptionen mit Registerdaten wie auch der Verlinkung dieser zu externen Datenbanken eröffnet diese Online-Edition neue Dimensionen zur Erforschung vielfältiger historischer Fragestellungen.
+               </p>
+               <p>
+      
+                
+                Zur besseren Übersicht sind die Dokumente in Sammlungen gegliedert, die einen Zugang über einzelne Zeitabschnitte, Dorsualschichten oder nach Schlagwörtern ermöglichen.
+                </p>
+                <p>
+                
+                Mit der Volltextsuche kann auch nach Personen, Organisationen oder Orten gesucht und der Zeitraum dazu beliebig gewählt werden.
+                Unter Register können die einzelnen Entitäten durchstöbert werden: 
+                <a href="people.html">Personen</a> und <a href="organisation.html">Organisationen</a>, <a href="places.html">Orte</a> und <a href="keywords.html">Schlagworte</a>.
+                
+                </p>
+                <p>
+                In der <a href="intro.html">Einleitung</a> findet sich eine Einführung zur Geschichte Königsfeldens wie auch zum digitalen Editionsprojekt.
+                </p>
+                <p>
+                Der Reiter <a href="stemma.html">Überlieferung</a> erlaubt einen experimentellen und visuellen Zugriff auf die Urkunden, Kopialbücher und Dorsualnotizen aus der Zeit bis 1500 und vermittelt die erste umfassende Archivordnung, die im 16. Jahrhundert entstanden ist. </p>
+                
+                <p>
+                Eine interaktive und zoombare <a href="places.html">Karte</a> ermöglicht den Zugriff auf die Dokumente aus geographischer Perspektive.
+                </p>
+                <p>
+                Hier geht's zur Berichterstattung zum Projekt: <a href="intro.html#berichterstattung">Medien und Berichte</a>.
+                </p>
+                </section>
+                 <aside>
+                                       <div class="panel-body">
+                       
+                        <form onsubmit="openDoc(this);return false">
+                            <div class="form-group">
+                                <small class="form-text text-muted">Gib die Nummer eines Dokuments (inkl. vorgestellten Nullen!) ein und drücke den Knopf, um unmittelbar das entsprechende Dokument zu öffnen.</small>
+                                <input class="form-control" type="text" id="docnum" name="docname" placeholder="zB. 0727/01"/>
+                            </div>
+                            <button type="submit" class="btn btn-primary focus">Öffnen</button>
+                        </form>
+                    </div>
+                 </aside>
+                 </div>
+                 <div class="acknowledgement">
+                     <h3>Mit freundlicher Unterstützung von</h3>
+                     <div class="logos">
+                         <img src="resources/images/snf_logo.png" alt="fns logo"/>
+                         <img src="resources/images/swisslos_logo_aargau.jpg" alt="swisslos kanton aargau logo"/>
+                     </div>
+                 </div>
                     </main>
-                    <footer data-template="templates:include"
-                        data-template-path="templates/footer.html"></footer>
+                    <footer data-template="templates:include" data-template-path="templates/footer.html"/>
                 </app-header-layout>
             </app-drawer-layout>
         </pb-page>
-        <div class="splash"></div>
+        <div class="splash"/>
+         <script type="text/javascript">
+                        //
+                        function openDoc(formfield) {
+                            var number = formfield[0].value;
+                            number = number.replace("/", "_")
+                            var link = "data/docs/U-17_" + number + ".xml"
+                            window.open(link, "_blank")
+                        }
+                        //
+         </script>
     </body>
 </html>
