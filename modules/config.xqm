@@ -133,7 +133,7 @@ declare variable $config:facets := [
     },
     map {
         "dimension": "collection",
-        "heading": "collections",
+        "heading": "facets.collection",
         "source": "api/search/facets/collection",
         "max": 5,
         "hierarchical": false(),
@@ -143,7 +143,7 @@ declare variable $config:facets := [
     },
     map {
         "dimension": "dorsual",
-        "heading": "dorsual",
+        "heading": "facets.dorsual",
         "max": 5,
         "source": "api/search/facets/dorsual",
         "hierarchical": false(),
@@ -159,7 +159,7 @@ declare variable $config:facets := [
     },
     map {
         "dimension": "keywords",
-        "heading": "keywords",
+        "heading": "facets.keywords",
         "source": "api/search/facets/keywords",
         "max": 5,
         "hierarchical": false()
