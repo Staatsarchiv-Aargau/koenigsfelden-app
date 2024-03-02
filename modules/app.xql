@@ -177,5 +177,9 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
         </div>
         else ()
     }; 
-    
+
+declare function app:current-date($node as node(), $model as map(*)) {
+    let $date := current-date()
+    return format-date($date, '[D1].[M1].[Y0001]')
+};
 
