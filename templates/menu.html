@@ -15,7 +15,26 @@
         <a href="${app}/map.html" data-template="lib:parse-params">
             <pb-i18n key="map">Karte</pb-i18n>
         </a>
-        <a href="${app}/registry.html" data-template="lib:parse-params">
-            <pb-i18n key="registry">Register</pb-i18n>
-        </a>
+         <paper-menu-button>
+            <a href="#" slot="dropdown-trigger" title="Register">
+                <pb-i18n key="registry">Register</pb-i18n>
+            </a>
+            <paper-listbox slot="dropdown-content">
+                <paper-item>
+                    <a href="${app}/people.html" data-template="pages:parse-params">
+                        <pb-i18n key="person"/>
+                    </a>
+                </paper-item>
+                <paper-item>
+                    <a href="${app}/places.html" data-template="pages:parse-params">
+                        <pb-i18n key="places"/>
+                    </a>
+                </paper-item>
+                <paper-item>
+                    <a href="${app}/organisations.html" data-template="pages:parse-params">
+                        <pb-i18n key="organisations"/>
+                    </a>
+                </paper-item>
+            </paper-listbox>
+        </paper-menu-button>
 </app-toolbar>
