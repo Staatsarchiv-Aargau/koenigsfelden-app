@@ -1,13 +1,5 @@
 @import url("../fonts/font.css");
 
-/* Due to a safari issue, relative paths to background images won't work as variables, so we list them here */
-
-.logo {
-    background-image: url("../images/LogoUZH.png");
-    --application-logo-width: 350px;
-    --application-logo-width-small:  280px;
-
-}
 
 .splash {
     background-image: url("../images/tei-publisher-logo-color.svg");
@@ -26,6 +18,7 @@ app-header {
 }
 
 body {
+    --pb-color-start: #730202;
     --pb-splash-image-size: 360px auto;
     --pb-splash-background-color: var(--pb-color-inverse);
     --pb-logo-image-width: 140px;
@@ -44,14 +37,14 @@ body {
     --pb-heading-line-height: 1.2;
     --pb-breadcrumbs-font-size: 18px;
     --pb-color-primary: #35424b;
-    --pb-color-inverse: #f6a623;
+    --pb-color-inverse: #F2EAD0;
     --pb-color-lighter:  #d1dae0;
     --pb-color-focus: #d6911f;
     --pb-annotation-stripes-light: #e0e0ef;
     --pb-annotation-stripes-dark: #50505f;
     --pb-annotation-selection: #f9ea7643;
     --pb-drawer-background-color: var(--pb-color-inverse);
-    --pb-menubar-background-color: #35424b;
+    --pb-menubar-background-color: black;
     --pb-menubar-color: var(--pb-color-inverse);
     --pb-toolbar-background-color: #d1dae0;
     --pb-toolbar-color: var(--pb-color-primary);
@@ -69,7 +62,7 @@ body {
     --pb-popover-fallback-placement: "top right left";
     --pb-lang-input-color: var(--pb-color-inverse);
     --pb-lang-label-color: var(--pb-color-inverse);
-    --pb-link-color: #303F9F;
+    --pb-link-color: var(--pb-color-start);
     --pb-link-font-family: var(--pb-serif-font-family);
     --pb-highlight-color: #F9E976;
     --paper-input-container-focus-color: var(--pb-color-focus);

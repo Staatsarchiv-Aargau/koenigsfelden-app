@@ -6,3 +6,126 @@
 .search-result-tag.field-edition { background-color:#777777; }
 .search-result-tag.field-text { background-color:#740502; }
 .search-result-tag.field-title { background-color:#35424b; }
+
+
+
+/* Menu */
+.menu-logos {
+    display: flex;
+}
+.logo-zh img, .logo-argau img  {
+    height: 3em;
+}
+
+.menubar a {
+    font-weight: bold;
+}
+
+.menubar a:hover {
+    text-decoration:none;
+}
+
+
+/* Body */
+
+.focus {
+    background-color: var(--pb-color-start);
+    color: #F2EAD0;
+}
+
+main {
+    width: 75%;
+    margin:auto;
+}
+
+a {
+    color: var(--pb-link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.panel p {
+    text-align:justify;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.biblio {
+    text-indent: -2.5em; 
+    padding-left: 2.5em;
+}
+
+/*static pages toc links*/
+
+.block-title {
+    font-size: larger;
+}
+
+/*Start seite*/
+
+header.start {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-left:1em;
+}
+
+header img {
+    width: 40%;
+    margin-left: 1em;
+}
+
+.panel-start {
+    display: flex;
+    text-align: justify;
+    align-items: center;
+}
+
+.panel-start aside {
+    margin-left: 2em;
+}
+
+.logos {
+    display: flex;
+}
+
+.logos img {
+    width: 10em;
+    margin-right: 5em;
+}
+
+
+/* Footer */
+
+footer {
+    display:flex;
+    justify-content: space-between;
+    margin-top: 1em;
+    padding: 1em 2em 1em 2em;
+    background-color: #837A82;
+    
+}
+
+footer p {
+    font-size: 10pt;
+    margin: 5px 0;
+    color: #F2EAD0;
+}
+
+footer h5 {
+    font-size: smaller;
+    margin: 0.3em 0;
+    color: #F2EAD0;
+}
+
+footer a {
+    color: white;
+}
+
+
