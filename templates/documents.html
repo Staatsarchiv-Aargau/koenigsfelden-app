@@ -5,23 +5,27 @@
             <iron-icon icon="icons:folder"/>
             <pb-i18n key="browse.up">Up</pb-i18n>
         </paper-button>
-        <ul class="documents" data-template="browse:browse" data-template-per-page="10">
+        <ul class="documents" data-template="browse:browse" data-template-per-page="15">
             <li class="document">
                 <div class="document-info">
                     <header data-template="browse:short-header"/>
                     <div class="matches" data-template="browse:show-hits"/>
                     <!-- TODO this toolbar should only appear once per Documents papercard -->
-                    <app-toolbar>
+            <!--        <app-toolbar>
                         <pb-restricted group="tei">
                             <pb-ajax url="api/document/${ident}" method="delete" emit="search" event="pb-search-resubmit" confirm="browse.confirmDeletion" quiet="" data-template="pages:parse-params">
                                 <paper-icon-button icon="icons:delete"/>
-                                <h3 slot="title"><pb-i18n key="browse.delete"/></h3>
+                                <h3 slot="title">
+                                    <pb-i18n key="browse.delete"/>
+                                </h3>
                             </pb-ajax>
                         </pb-restricted>
                         <paper-menu-button>
                             <paper-button slot="dropdown-trigger" data-i18n="[title]menu.download.title" title="i18n(download)">
                                 <iron-icon icon="file-download"/>
-                                <span class="label"><pb-i18n key="menu.download.title">Download</pb-i18n></span>
+                                <span class="label">
+                                    <pb-i18n key="menu.download.title">Download</pb-i18n>
+                                </span>
                             </paper-button>
                             <paper-listbox slot="dropdown-content" data-template="pages:parse-params">
                                 <paper-item data-template="pages:if-supported" data-template-media="print">
@@ -59,7 +63,7 @@
                                 </paper-item>
                             </paper-listbox>
                         </paper-menu-button>
-                    </app-toolbar>
+                    </app-toolbar> -->
                 </div>
             </li>
         </ul>

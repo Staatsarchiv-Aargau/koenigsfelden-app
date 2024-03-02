@@ -14,16 +14,9 @@
     <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
     <custom-style>
     <style>
-        main {
-            margin: 0 20px 0 20px;
-            --pb-browse-toolbar-justify-content: space-between;
-        }
         
         app-header-layout {
-            background-image: url('resources/images/triangle-background.jpg');
-            background-size: 100% auto;
-            background-repeat-x: no-repeat;
-            background-color: #e8fafa;
+        
             min-height: 100vh;
         }
         
@@ -67,11 +60,6 @@
             .toolbar {
                 display: none;
             }
-            .panels {
-                display: grid;
-                grid-template-columns: 1fr minmax(220px, 20vw);
-                column-gap: 16px;
-            }
         }
         
         .panels {
@@ -79,6 +67,7 @@
         }
         
         .panels .doclist {
+            width: 100%;
             --paper-tabs-selection-bar-color: #607D8B;
             --paper-tab-content: {
                 font-family: var(--pb-heading-font-family);
@@ -116,6 +105,8 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            width: 25em;
+            margin-right: 2em;
         }
         
         aside .odds,
@@ -190,7 +181,7 @@
         
         .documents a,
         .documents a:visited {
-            color: #303F9F;
+            color: var(--pb-color-start);
             text-decoration: none;
         }
         
@@ -256,6 +247,14 @@
             display: none;
         }
         
+        .subtype {
+            list-style-type: none;
+            accent-color: var(--pb-color-start)
+        }
+        
+    paper-checkbox {
+        --paper-checkbox-checked-color: var(--pb-color-start)
+    }
     </style>
     </custom-style>
 </head>
@@ -277,14 +276,10 @@
                     </app-toolbar>
                 </app-header>
                 <main>
-                    <section>
-                        <h1 class="tp-title" data-template="config:app-title"/>
-                         <h2>1308-1662</h2>
-                         <h3>Herausgegeben von Colette Halter-Pernet, Tobias Hodel und Simon Teuscher</h3>
-                        <h4>Bearbeitet von L. Barwitzki, S. Egloff, C. Halter-Pernet, F. Henggeler, T. Hodel, M. Nadig, A. Steinmann und S. Stettler. Technisch umgesetzt durch I. Prada Ziegler</h4>
-                       </section>
+                         <h1 class="tp-title" data-template="config:app-title"/>
+                     
                     <section class="panels">
-                        <paper-card class="doclist" data-i18n="[heading]browse.documents" heading="documents">
+                        <paper-card class="doclist" elevation="0">
                             <div class="card-content">
                                 <div class="browse">
                                     <aside data-template="browse:form">
@@ -339,23 +334,9 @@
                                 </div>
                             </div>
                         </paper-card>
-                        <pb-restricted class="upload-panel">
-                            <aside>
-                                <paper-card class="upload" data-i18n="[heading]upload.upload" heading="Upload">
-                                    <div class="card-content">
-                                        <pb-upload id="upload" subscribe="search" emit="search" accept=".xml, .tei, .odd, .docx, .md, .mei" event="pb-search-resubmit"/>
-                                    </div>
-                                </paper-card>
-                            </aside>
-                        </pb-restricted>
                     </section>
                 </main>
-                <footer class="version">
-                    TEI Publisher <span data-template="pages:version"/> /
-                    web components <pb-version/> /
-                    API <span data-template="pages:api-version"/> /
-                    background by <a href="https://www.freepik.com/free-vector/white-background-with-triangle-patterns_4403214.htm">starline</a>
-                </footer>
+                <footer data-template="templates:include" data-template-path="templates/footer.html"/>
             </app-header-layout>
         </app-drawer-layout>
         <paper-dialog id="downloadDialog">
