@@ -185,6 +185,68 @@ declare function api:organization-list($request as map(*)){
         }
 };
 
+declare function api:list-all-keywords() {
+    let $collection := collection($config:data-default)
+    return distinct-values($collection/descendant::tei:term[string-length(.) gt 0])
+    };
+
+declare function api:keyword-list($request as map(*)){
+    let $search := normalize-space($request?parameters?search)
+    let $letterParam := $request?parameters?category
+    let $sortDir := $request?parameters?dir
+    let $limit := $request?parameters?limit
+    let $all-keywords := api:list-all-keywords()
+    let $keywords :=
+            if ($search and $search != '') then 
+                 $all-keywords[matches(., $search, 'i')]
+            else
+                $all-keywords
+    let $byKey := for-each($keywords, function($keyword as element()) {
+        let $name := $keyword
+        let $label := $keyword
+        let $sortKey := $label
+        return
+            [lower-case($sortKey), $label, $keyword]
+    })
+    let $sorted := api:sort($byKey, $sortDir)
+    let $letter := 
+        if (count($keywords) < $limit) then 
+            "Alle"
+        else if ($letterParam = '') then
+            substring($sorted[1]?1, 1, 1) => upper-case()
+        else
+            $letterParam
+    let $byLetter :=
+        if ($letter = 'Alle') then
+            $sorted
+        else
+            filter($sorted, function($entry) {
+                starts-with($entry?1, lower-case($letter))
+            })
+    return
+        map {
+            "items": api:output-register-all($byLetter, 'keyword'),
+            "categories":
+                if (count($keywords) < $limit) then
+                    []
+                else array {
+                    for $index in 1 to string-length('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+                    let $alpha := substring('ABCDEFGHIJKLMNOPQRSTUVWXYZ', $index, 1)
+                    let $hits := count(filter($sorted, function($entry) { starts-with($entry?1, lower-case($alpha))}))
+                    where $hits > 0
+                    return
+                        map {
+                            "category": $alpha,
+                            "count": $hits
+                        },
+                    map {
+                        "category": "Alle",
+                        "count": count($sorted)
+                    }
+                }
+        }
+};
+
 declare function api:place-list($request as map(*)){
     let $search := normalize-space($request?parameters?search)
     let $letterParam := $request?parameters?category
@@ -262,6 +324,8 @@ declare function api:output-register-all($list, $type as xs:string) {
                             </pb-geolocation>  else ()
                     }
                     </span>
+                case 'keyword' return
+                    <span><a href="detail.html?ref=key-{$item?1}">{$item?2}</a></span>
                 default return
                     <span><a href="detail.html?ref={$item?3/@xml:id}">{$item?2}</a></span>
     }

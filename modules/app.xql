@@ -28,7 +28,7 @@ declare
 %templates:default("ref","")
 function app:load-model($node as node(), $model as map(*), $ref as xs:string) {
     let $ref := xmldb:decode($ref)
-    let $type := if (starts-with($ref, 'per')) then 'person' else if (starts-with($ref, 'loc')) then 'place' else 'org'
+    let $type := if (starts-with($ref, 'per')) then 'person' else if (starts-with($ref, 'loc')) then 'place' else if(starts-with($ref, 'key')) then 'keyword' else 'org'
     return
         map:merge(($model, map {"key" : $ref, "type": $type}))
 };
@@ -65,8 +65,12 @@ declare function app:list-keys($node as node(), $model as map(*)) {
         (<h2>Schlagwörter</h2>,
         <ul>{
             for $keyword in $keywords
+            let $id := 'key-' || lower-case($keyword)
             return
-                <li>{$keyword}</li>
+                <li data-ref="{$id}">
+                    <a target="_new"
+                        href="../../detail.html?ref={$id}">
+                        {$keyword}</a></li>
     }</ul>)
 };
 
@@ -133,6 +137,10 @@ function app:show-list-items($node as node(), $model as map(*)) {
 
 declare function app:get-entity-info($node as node(), $model as map(*)) {
     let $id := $model?key
+    return 
+        if (starts-with($id, 'key-')) then (
+            let $keyword := substring-after($id, 'key-')
+            return <h1>{upper-case(substring($keyword,1,1)) || substring($keyword, 2)}</h1>) else (
     let $entity := collection($config:registers)/id($id)[1]
     let $info :=  $pm-config:web-transform(
                             $entity,
@@ -145,7 +153,7 @@ declare function app:get-entity-info($node as node(), $model as map(*)) {
             <div class="panel">
                     {$info}
             </div>
-            };
+            )};
 
 declare function app:get-entity-mentions($node as node(), $model as map(*)) {
     let $id := $model?key
@@ -158,7 +166,8 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
             collection($config:data-default)//tei:text[ft:query(., 'place-mentioned:' || $id, map { 'fields' : ('place-mentioned' , 'date')})]
         case 'org' 
             return  collection($config:data-default)//tei:text[ft:query(., 'org-mentioned:' || $id, map { 'fields' : ('org-mentioned' , 'date')})]
-        default return ()
+        default 
+            return collection($config:data-default)//tei:TEI[descendant::tei:term[matches(., substring-after($id, 'key-'), 'i')]]//tei:text
    let $docs :=  for $text in $docsCollection
         let $d := ft:field($text, 'date')
         order by $d ascending
