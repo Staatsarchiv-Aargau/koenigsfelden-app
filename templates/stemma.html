@@ -1,45 +1,36 @@
 <html>
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport"
-            content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" />
-        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png"
-            sizes="16x16" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png"
-            sizes="24x24" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png"
-            sizes="32x32" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png"
-            sizes="64x64" />
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"/>
+        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png" sizes="24x24"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png" sizes="64x64"/>
         <title>Visualisierung der Urkundenproduktion, Kopien und Dorsualnotizen</title>
-        <meta name="pb-template" content="stemma.html" />
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap" />
-        <link rel="stylesheet" href="resources/css/theme.css" />
-        <link rel="stylesheet" href="resources/css/koenigsfelden.css" />
+        <meta name="pb-template" content="stemma.html"/>
+
+        
         <!-- D3.js -->
-        <script src="https://d3js.org/d3.v4.js"></script>
+        <script type="text/javascript" src="https://d3js.org/d3.v4.js"/>
         <!-- D3-voronoi with .find(x,y) -->
         <!-- <script src="d3-voronoi.min.js"></script> -->
         <!-- <script src="d3-tip.js"></script> -->
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
         <!-- jQuery -->
-        <script type="text/javascript" src="resources/scripts/vendor/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="resources/scripts/vendor/jquery-1.11.3.min.js"/>
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/foundation.min.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css" />
-        <link href="https://www.Lokalbericht.ch/assets/foundationLB/dist/assets/css/app.css"
-            rel="stylesheet" type="text/css" />
-        <!-- Open Sans & CSS --> // <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:700,400,300" rel="stylesheet"
-            type="text/css" />
-        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/foundation.min.js"/>
+        <script crossorigin="anonymous" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" src="https://code.jquery.com/jquery-3.2.1.min.js"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css"/>
+        <link href="https://www.Lokalbericht.ch/assets/foundationLB/dist/assets/css/app.css" rel="stylesheet" type="text/css"/>
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap"/>
+        <link rel="stylesheet" href="resources/css/theme.css"/>
+        <link rel="stylesheet" href="resources/css/koenigsfelden.css"/>
+        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
         <style>
             /*	  	div.side_by_side_link {
     			  position: absolute;	
@@ -85,14 +76,14 @@
                 opacity: 0.4;
             }
             
-            body {
+           /*  body {
                 font-family: 'Open Sans', sans-serif;
                 font-size: 12px;
                 font-weight: 400;
                 color: #525252;
-                /*text-align: center;*/
+               text-align: center;
             }
-            
+            */
             li {
                 list-style-type: disc;
             }
@@ -216,7 +207,7 @@
             
             }
             
-            .links > .link {
+            .links &gt; .link {
                 stroke: #999 !important;
                 opacity: 0.175 !important;
                 stroke-width: 1px !important;
@@ -230,7 +221,7 @@
             
             }
             
-            .svg-wrapper > svg {
+            .svg-wrapper &gt; svg {
                 display: block;
                 margin: 0 auto;
             }
@@ -273,67 +264,66 @@
                 text-align: justify;
                 max-width: 100% !important;
                 margin: 0 !important;
+                display: flex;
             }
             #menuAndSvgContainer {
                 padding-right: 0;
                 padding-left: 0;
                 margin-right: 0;
                 margin-left: 0;
-            }</style>
+            }
+            
+            
+          .panel {
+              margin-top: 2.5em;
+          } 
+          
+          .source h1 {
+              margin: 1em 0;
+              font-size: 2em;
+          }</style>
     </head>
     <body>
-        <pb-page data-template="pages:pb-page" unresolved="unresolved"
-            locales="resources/i18n/{{ns}}/{{lng}}.json" url-ignore="view">
+        <pb-page data-template="pages:pb-page" unresolved="unresolved" locales="resources/i18n/{{ns}}/{{lng}}.json" url-ignore="view">
             <app-drawer-layout force-narrow="force-narrow">
-                <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"></app-drawer>
+                <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
                 <app-header-layout fullbleed="">
-                    <app-header slot="header" effects="waterfall" reveals="reveals"
-                        condenses="condenses" fixed="fixed">
-                        <app-toolbar data-template="templates:include"
-                            data-template-path="templates/banner.html"></app-toolbar>
-                        <app-toolbar data-template="lib:include"
-                            data-template-path="templates/menu.html"></app-toolbar>
+                    <app-header slot="header" effects="waterfall" reveals="reveals" condenses="condenses" fixed="fixed">
+                        <app-toolbar data-template="templates:include" data-template-path="templates/banner.html"/>
+                        <app-toolbar data-template="lib:include" data-template-path="templates/menu.html"/>
                     </app-header>
-                    <main class="content-body single-col">
-                        <div class="page-header">
+                    <main>
+                     <div class="source">
                             <h1>
-                                <pb-i18n key="trad"></pb-i18n>
+                                <pb-i18n key="trad"/>
                             </h1>
-                        </div>
-                        <div class="tp-row">
-                            <div class="tp-row" style="padding-bottom: 20px">
+                       
+                            
                                 <ul>
                                     <li>
-                                        <a class="block-title" href="#visualisierung" target="_self"
-                                            >Visualisierung der Urkundenproduktion, Kopien und
+                                        <a class="block-title" href="#visualisierung" target="_self">Visualisierung der Urkundenproduktion, Kopien und
                                             Dorsualnotizen</a>
                                     </li>
                                     <li>
-                                        <a class="block-title"
-                                            href="#Dorsualnotizschichtenzeitlinienvisualisierung"
-                                            >Visualisierung der Dorsualschichten</a>
+                                        <a class="block-title" href="#Dorsualnotizschichtenzeitlinienvisualisierung">Visualisierung der Dorsualschichten</a>
                                     </li>
                                     <li>
-                                        <a class="block-title" href="#archivordnungen"
-                                            target="_self">Archivordnungen</a>
+                                        <a class="block-title" href="#archivordnungen" target="_self">Archivordnungen</a>
                                     </li>
                                     <li>
-                                        <a class="block-title" href="#archivordnung_bern"
-                                            target="_self">Archivordnung von 1570 in Bern</a>
+                                        <a class="block-title" href="#archivordnung_bern" target="_self">Archivordnung von 1570 in Bern</a>
                                     </li>
                                 </ul>
-                            </div>
+                           
                         </div>
-                        <div class="tp-row">
-                            <a class="anchor" id="visualisierung"></a>
-                            <div id="code" class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
+                            <a class="anchor" id="visualisierung"/>
+                            <div id="code">
+                                <div class="panel">
+                                    <h2>
                                         <pb-i18n key="">Visualisierung der Urkundenproduktion,
                                             Kopien und Dorsualnotizen</pb-i18n>
-                                    </h3>
-                                </div>
-                                <div class="panel-body scatter">
+                                    </h2>
+                                
                                     <div>
                                         <p>Mit dieser Grafik wird die Urkundenproduktion sowie die
                                             Kopiertätigkeit in Bezug auf die Königsfelder Dokumente
@@ -356,18 +346,15 @@
                                             Abschriften verbunden. Anhand der Position des gelben
                                             Punktes über der X-Achse kann eruiert werden, auf
                                             welcher Folioseite sich die Abschrift im entsprechenden
-                                            Kopialbuch befindet.<br /> Mit Klick auf die Punkt wird
+                                            Kopialbuch befindet.<br/> Mit Klick auf die Punkt wird
                                             die entsprechende Urkunde oder Abschrift in einem neuen
                                             Fenster geöffnet. </p>
                                     </div>
-                                    <div class="off-canvas position-right" id="offCanvas"
-                                        data-off-canvas="" data-transition="overlap">
+                                    <div class="off-canvas position-right" id="offCanvas" data-off-canvas="" data-transition="overlap" style="display:flex">
                                         <!-- Your menu or Off-canvas content goes here -->
                                         <div>
-                                            <button class="button float-left" type="button"
-                                                data-toggle="instruction">Benutzungshinweis</button>
-                                            <div class="dropdown-pane bottom" style="width: 250px;"
-                                                id="instruction" data-dropdown="">
+                                            <button class="button float-left" type="button" data-toggle="instruction">Benutzungshinweis</button>
+                                            <div class="dropdown-pane bottom" style="width: 250px;" id="instruction" data-dropdown="">
                                                 <p>Mittels Mouseover über den Links lassen sich die
                                                   entsprechenden Symbole in der Visualisierung
                                                   hervorheben.</p>
@@ -375,27 +362,26 @@
                                                   synoptische Ansicht der ausgewählten
                                                   Dokumente.</p>
                                             </div>
-                                            <button class="close-button" aria-label="Close menu"
-                                                type="button" data-close="">
+                                            <button class="close-button" aria-label="Close menu" type="button" data-close="">
                                                 <span aria-hidden="true">×</span>
                                             </button>
                                         </div>
-                                        <hr />
+                                        <hr/>
                                         <div id="ancestors">
                                             <!-- D3 generiert -->
                                             <!-- <strong>Textvorstufen</strong> -->
                                         </div>
-                                        <hr />
+                                        <hr/>
                                         <div id="off-canvas">
                                             <!-- D3 generiert -->
                                         </div>
-                                        <hr />
+                                        <hr/>
                                         <div id="descendants">
                                             <!-- D3 generiert -->
                                             <!-- <strong>Textfolgestufen</strong> -->
                                         </div>
                                     </div>
-                                    <div class="off-canvas-content" data-off-canvas-content="">
+                                    <div class="off-canvas-content" data-off-canvas-content="" style="display:flex">
                                         <!-- <h5 style="color: #3B3B3B;">Visualisierung der Urkundenproduktion, Kopien und Dorsualnotizen</h5> -->
                                         <!-- <h6 style="color: #A6A6A6;">Look ma! No SVG overlay!</h6> -->
                                         <!--<span class="experimental">
@@ -403,43 +389,34 @@
                             </span>-->
                                         <!-- href="#" -->
                                         <div class="col-sm-9">
-                                            <div id="chart" style="cursor:crosshair"></div>
+                                            <div id="chart" style="cursor:crosshair"/>
                                         </div>
-                                        <div id="legend" class="col-sm-3"
-                                            style="padding-right: 0px; padding-left: 0px;">
+                                        <div id="legend" class="col-sm-3" style="padding-right: 0px; padding-left: 0px;">
                                             <div class="button-group">
                                                 <a class="button small" id="zoom_in">
-                                                  <span class="fi-plus" title="Vergrößern"
-                                                  aria-hidden="true"></span>
+                                                  <span class="fi-plus" title="Vergrößern" aria-hidden="true"/>
                                                 </a>
                                                 <a class="button small" id="zoom_out">
-                                                  <span class="fi-minus" title="Verkleinern"
-                                                  aria-hidden="true"></span>
+                                                  <span class="fi-minus" title="Verkleinern" aria-hidden="true"/>
                                                 </a>
                                                 <a class="button small" id="zoom_init">
-                                                  <span class="fi-loop-circular" title="Neu laden"
-                                                  aria-hidden="true"></span>
+                                                  <span class="fi-loop-circular" title="Neu laden" aria-hidden="true"/>
                                                 </a>
-                                                <a class="button small" id="info"
-                                                  data-open="infoModal">
-                                                  <span class="fi-info" title="Bedienungshinweis"
-                                                  aria-hidden="true"></span>
+                                                <a class="button small" id="info" data-open="infoModal">
+                                                  <span class="fi-info" title="Bedienungshinweis" aria-hidden="true"/>
                                                 </a>
                                             </div>
                                             <div class="legend" id="legendMacro">
                                                 <div class="legendTitle" style="font-size: 12px;">
                                                   <form>
-                                                  <input type="checkbox" id="checkMacro"
-                                                  name="catCheckbox" onclick="modifyState(this);" />
+                                                  <input type="checkbox" id="checkMacro" name="catCheckbox" onclick="modifyState(this);"/>
                                                   Urkunden/Kopialbücher</form>
                                                 </div>
                                             </div>
                                             <div class="legend" id="legendPretexts">
                                                 <div class="legendTitle" style="font-size: 12px;">
                                                   <form>
-                                                  <input type="checkbox" id="checkPretexts"
-                                                  name="catCheckbox" onclick="modifyState(this);"
-                                                   />Dorsualnotizen</form>
+                                                  <input type="checkbox" id="checkPretexts" name="catCheckbox" onclick="modifyState(this);"/>Dorsualnotizen</form>
                                                 </div>
                                             </div>
                                             <div class="legend" id="legendBio">
@@ -496,8 +473,7 @@
                                         <!-- <input type="text" id="infobox"></div> -->
                                     </div>
                                 </div>
-                                <div class="reveal" id="infoModal" style="text-align: left;"
-                                    data-reveal="">
+                                <div class="reveal" id="infoModal" style="text-align: left;" data-reveal="">
                                     <!-- <h1>Awesome. I Have It.</h1> -->
                                     <p class="lead">Visualisierte Urkunden- und
                                         Kopialbuchproduktion, sowie Dorsualnotizschichten</p>
@@ -527,55 +503,47 @@
                                     <p>Durch Klicken auf die Kreissymbole lässt sich eine Liste mit
                                         Links zu den jeweiligen Ansichten anzeigen [noch nicht
                                         umgesetzt].</p>
-                                    <button class="close-button" data-close=""
-                                        aria-label="Close modal" type="button">
+                                    <button class="close-button" data-close="" aria-label="Close modal" type="button">
                                         <span aria-hidden="true">×</span>
                                     </button>
                                 </div>
-                                <script src="resources/scripts/stemma-data.js"></script>
-                                <script src="resources/scripts/stemma.js"></script>
+                                <script src="resources/scripts/stemma-data.js"/>
+                                <script src="resources/scripts/stemma.js"/>
                                 <script>
                                     $(document).foundation();</script>
                                 <div>
                                     <p>Weiterentwicklung eines digitalen Stemmas (ursprüngliche
-                                        Entwicklung: <a
-                                            href="http://cceh.uni-koeln.de/mitarbeiterinnen/">Peter
+                                        Entwicklung: <a href="http://cceh.uni-koeln.de/mitarbeiterinnen/">Peter
                                             Dängeli, damals CCeH</a>)</p>
                                 </div>
                             </div>
-                        </div>
+                        
                         <!-- START Dorsualnotizschichtenzeitlinienvisualisierung -->
-                        <a class="anchor" id="Dorsualnotizschichtenzeitlinienvisualisierung"></a>
-                        <div class="tp-row">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Häufigkeit und Vorkommen von
-                                        Dorsualnotizschichten</h3>
-                                </div>
-                                <div class="panel-body">
+                        <a class="anchor" id="Dorsualnotizschichtenzeitlinienvisualisierung"/>
+                        <div>
+                            <div class="panel">
+                                    <h2>Häufigkeit und Vorkommen von
+                                        Dorsualnotizschichten</h2>
+                                 
+                                <div>
                                     <p>Die Abbildung zeigt den jeweiligen zeitlichen Umfang
                                         einzelner Dorsualnotizschichten und ermöglicht so einen
                                         visuellen Vergleich der fokussierten Dokumente. Die Labels
                                         der Dorsualschichten sind mit den Editionsdaten
                                         verlinkt.</p>
                                     <!-- Visualization SVG Graphics -->
-                                    <iframe title="Dorsuals Timelines Visualization"
-                                        id="frame_Dorsuals_Timelines" src="dorsuals_timelines.html"
-                                        loading="lazy" width="750" height="500"
-                                        style="margin-top: 1em; border-width: 0px;"></iframe>
+                                    <iframe title="Dorsuals Timelines Visualization" id="frame_Dorsuals_Timelines" src="dorsuals_timelines.html" loading="lazy" width="750" height="500" style="margin-top: 1em; border-width: 0px;"/>
                                 </div>
                             </div>
                         </div>
                         <!-- END Dorsualnotizschichtenzeitlinienvisualisierung -->
                         <!-- START Dorsualschichtnetzwerkvisualisierung -->
-                        <a class="anchor" id="Dorsualschichtnetzwerkvisualisierung"></a>
-                        <div class="tp-row">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Netzwerkvisualiserung der
-                                        Dorsualschichten</h3>
-                                </div>
-                                <div class="panel-body">
+                        <a class="anchor" id="Dorsualschichtnetzwerkvisualisierung"/>
+                        <div>
+                            <div class="panel">
+                                    <h2>Netzwerkvisualiserung der
+                                        Dorsualschichten</h2>
+                                <div>
                                     <p>Diese Netzwerkvisualisierung zeigt die Verbindung eines
                                         Dokuments mit einer oder mehreren Dorsualschichten. Jede
                                         Dorsualschicht wird durch eine andere Farbe dargestellt und
@@ -593,69 +561,59 @@
                                                   <div class="row">
                                                   <div class="col-md">
                                                   <form id="label-controls">
-                                                  <label for="show-labels">Labels einblenden <input
-                                                  checked="checked" id="show-labels" name="mode"
-                                                  type="radio" value="show-label" />
+                                                  <label for="show-labels">Labels einblenden <input checked="checked" id="show-labels" name="mode" type="radio" value="show-label"/>
                                                   </label>
-                                                  <label for="hide-labels">Labels verbergen <input
-                                                  id="hide-labels" name="mode" type="radio"
-                                                  value="no-label" />
+                                                  <label for="hide-labels">Labels verbergen <input id="hide-labels" name="mode" type="radio" value="no-label"/>
                                                   </label>
                                                   </form>
                                                   </div>
                                                   </div>
                                                   <div class="row">
                                                   <div class="col-md">
-                                                  <div class="btn-group-toggle"
-                                                  data-toggle="buttons">
-                                                  <label class="btn btn-default active"
-                                                  id="uncheckAllLabel">
-                                                  <input autocomplete="off" class="form-check-input"
-                                                  checked="false" id="unCheckAll"
-                                                  onClick="selectAll(this)" type="checkbox"
-                                                  value="0" />
+                                                  <div class="btn-group-toggle" data-toggle="buttons">
+                                                  <label class="btn btn-default active" id="uncheckAllLabel">
+                                                  <input autocomplete="off" class="form-check-input" checked="false" id="unCheckAll" onClick="selectAll(this)" type="checkbox" value="0"/>
                                                   <span>Alle Dorsualschichten einblenden</span>
                                                   </label>
                                                   </div>
                                                   </div>
                                                   </div>
-                                                  <div class="row" id="GroupCheckboxDiv1"></div>
-                                                  <div class="row" id="GroupCheckboxDiv2"></div>
-                                                  <div class="row" id="GroupCheckboxDiv3"></div>
-                                                  <div class="row" id="GroupCheckboxDiv4"></div>
-                                                  <div class="row" id="GroupCheckboxDiv5"></div>
-                                                  <div class="row" id="GroupCheckboxDiv6"></div>
-                                                  <div class="row" id="GroupCheckboxDiv7"></div>
-                                                  <div class="row" id="GroupCheckboxDiv8"></div>
-                                                  <div class="row" id="GroupCheckboxDiv9"></div>
-                                                  <div class="row" id="GroupCheckboxDiv10"></div>
-                                                  <div class="row" id="GroupCheckboxDiv11"></div>
-                                                  <div class="row" id="GroupCheckboxDiv12"></div>
-                                                  <div class="row" id="GroupCheckboxDiv13"></div>
-                                                  <div class="row" id="GroupCheckboxDiv14"></div>
-                                                  <div class="row" id="GroupCheckboxDiv15"></div>
-                                                  <div class="row" id="GroupCheckboxDiv16"></div>
-                                                  <div class="row" id="GroupCheckboxDiv17"></div>
+                                                  <div class="row" id="GroupCheckboxDiv1"/>
+                                                  <div class="row" id="GroupCheckboxDiv2"/>
+                                                  <div class="row" id="GroupCheckboxDiv3"/>
+                                                  <div class="row" id="GroupCheckboxDiv4"/>
+                                                  <div class="row" id="GroupCheckboxDiv5"/>
+                                                  <div class="row" id="GroupCheckboxDiv6"/>
+                                                  <div class="row" id="GroupCheckboxDiv7"/>
+                                                  <div class="row" id="GroupCheckboxDiv8"/>
+                                                  <div class="row" id="GroupCheckboxDiv9"/>
+                                                  <div class="row" id="GroupCheckboxDiv10"/>
+                                                  <div class="row" id="GroupCheckboxDiv11"/>
+                                                  <div class="row" id="GroupCheckboxDiv12"/>
+                                                  <div class="row" id="GroupCheckboxDiv13"/>
+                                                  <div class="row" id="GroupCheckboxDiv14"/>
+                                                  <div class="row" id="GroupCheckboxDiv15"/>
+                                                  <div class="row" id="GroupCheckboxDiv16"/>
+                                                  <div class="row" id="GroupCheckboxDiv17"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-7" id="colSVG">
-                                                <div class="svg-wrapper"></div>
+                                                <div class="svg-wrapper"/>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <script src="resources/scripts/dorsuallayersGraph.js"></script>
+                            <script src="resources/scripts/dorsuallayersGraph.js"/>
                         </div>
                         <!-- END Dorsualschichtnetzwerkvisualisierung -->
-                        <a class="anchor" id="archivordnungen"></a>
-                        <div class="tp-row">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
+                        <a class="anchor" id="archivordnungen"/>
+                        <div>
+                            <div class="panel">
+                                    <h2>
                                         <pb-i18n key="introduction">Archivordnungen</pb-i18n>
-                                    </h3>
-                                </div>
+                                    </h2>
+                               
                                 <div class="panel-body">
                                     <p> Die Dokumente Königsfeldens wurden erst nach dem Abtransport
                                         nach Bern (1528) in eine übergreifende Ordnung gebracht.
@@ -665,14 +623,12 @@
                                         Archivordnung vor 1570 und die Herstellung eines
                                         Regestenwerks zu rekonstruieren. Es ist jedoch möglich, die
                                         Vorstufen visuell darzustellen wie die obigen Stemmata
-                                        zeigen. <br /> Die damit erste gesamthafte Ordnung der
+                                        zeigen. <br/> Die damit erste gesamthafte Ordnung der
                                         Dokumente, wie sie in Bern realisiert wurde, ist im
                                         Folgenden tabellarisch abgebildet und lässt den Aufbau des
                                         Bestandes in der Berner Zentrale während des 16. bis anfangs
                                         des 19. Jahrhunderts nachvollziehen. Abschriften der
-                                        Dokumente wurden bereits um 1540 angefertigt (<a
-                                            href="https://www.ag.ch/staatsarchiv/suche/detail.aspx?id=303753"
-                                            >Kopialbuch III, StAAG AA/0430-0434</a>), dadurch waren
+                                        Dokumente wurden bereits um 1540 angefertigt (<a href="https://www.ag.ch/staatsarchiv/suche/detail.aspx?id=303753">Kopialbuch III, StAAG AA/0430-0434</a>), dadurch waren
                                         die Dokumente auch in Königsfelden greifbar und die
                                         Hofmeister hatten Zugriff auf den Inhalt der Rechtstitel.
                                         Die Königsfelder Urkunden und Akten wurden erst nach Ende
@@ -684,21 +640,19 @@
                                         Signatur U.17 zu finden, wobei die Dokumente nun einer
                                         chronologischen Ordnung unterliegen. Damit hat die
                                         wechselvolle Geschichte des Königsfelders Bestandes seinen
-                                        (vorläufigen) Abschluss gefunden. <br /> Siehe auch: <a
-                                            href="https://doi.org/10.2357/9783739880600">Hodel,
+                                        (vorläufigen) Abschluss gefunden. <br/> Siehe auch: <a href="https://doi.org/10.2357/9783739880600">Hodel,
                                             Schriftordnungen 2020, S. 229-263</a>. </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="tp-row">
-                            <a class="anchor" id="archivordnung_bern"></a>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
+                        <div>
+                            <a class="anchor" id="archivordnung_bern"/>
+                            <div class="panel">
+                                    <h2>
                                         <pb-i18n key="">Archivordnung von 1570 in Bern</pb-i18n>
-                                    </h3>
-                                </div>
-                                <div class="panel-body">
+                                    </h2>
+                                 
+                                <div>
                                     <table class="table table-striped">
                                         <tr>
                                             <th>Bild</th>
@@ -708,9 +662,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_A_0618_01.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_A_0618_01.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K A</td>
                                             <td>Stiftungsurkunden, Rechte und verschiedene
@@ -722,9 +674,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_B_0035.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_B_0035.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K B</td>
                                             <td>Eigenamt, Habsburg, Lindhof, Italen, Eitenberg,
@@ -736,9 +686,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_C_0296.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_C_0296.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K C</td>
                                             <td>Brugg (Stadt, Kirchensatz, Pfandsummen und
@@ -748,9 +696,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_D_0022.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_D_0022.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K D</td>
                                             <td>Windisch (Fahr und Kirchensatz), Eigenamt, Birr,
@@ -764,9 +710,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_E_0177.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_E_0177.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K E</td>
                                             <td>Grafschaft Baden, Gebenstorf, Birmenstorf, Oberhard,
@@ -780,9 +724,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_F_0508.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_F_0508.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K F</td>
                                             <td>Mellingen, Eckwil.</td>
@@ -790,9 +732,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_G_0824.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_G_0824.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K G</td>
                                             <td>Bremgarten, Wohlenschwil, Dottikon, Büblikon,
@@ -805,9 +745,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_H_0250.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_H_0250.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K H</td>
                                             <td>Lenzburg, Staufen, Niederlenz, Möriken, Schafisheim,
@@ -821,9 +759,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_I_0291.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_I_0291.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K I</td>
                                             <td>Seon, Seengen, Rupperswil, Hunzenschwil,
@@ -833,9 +769,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_K_0099.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_K_0099.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K K</td>
                                             <td>Ober- und Unterentfelden, Suhr, Buchs, Gränichen,
@@ -845,9 +779,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_L_0097.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_L_0097.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K L</td>
                                             <td>Kölliken, Ober- und Unterkulm, Schöftland, Schloss-
@@ -858,9 +790,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_M_0175.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_M_0175.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K M</td>
                                             <td>Zofingen, Aarburg, Aarau, Olten, Lostorf.</td>
@@ -868,9 +798,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_N_0285.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_N_0285.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K N</td>
                                             <td>Erlinsbach (Kellerhof und Kirchensatz), Biberstein,
@@ -880,9 +808,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_O_0674.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_O_0674.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K O</td>
                                             <td>Auenstein, Schinznach, Thalheim, Veltheim,
@@ -892,9 +818,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_P_0461.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_P_0461.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K P</td>
                                             <td>Bözberg, Ursprung, Mönthal, Iberg, Bözen, Villigen,
@@ -905,9 +829,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_Q_0040.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_Q_0040.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K Q</td>
                                             <td>Elfingen, Bözen, Effingen, Gallenkirch, Mandach,
@@ -917,9 +839,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_R_0194.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_R_0194.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K R</td>
                                             <td>Waldshut, Dogern, Remetschwiel, Schwarzwald, Bad
@@ -931,19 +851,17 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <img
-                                                  src="resources/images/archivordnung/K_S_0638.png"
-                                                  alt="K_A" width="100" height="100" />
+                                                <img src="resources/images/archivordnung/K_S_0638.png" alt="K_A" width="100" height="100"/>
                                             </td>
                                             <td>K S</td>
                                             <td>Oberwaldshut.</td>
                                             <td>Ober Waltzhuͦtt.</td>
                                         </tr>
                                     </table>
-                                    <br />
-                                    <br />
+                                    <br/>
+                                    <br/>
                                     <p>* Transkription aus StAAG AA/0437, Regestensammlung
-                                        entstanden als Archivfindmittel 1570 in Bern. <br />
+                                        entstanden als Archivfindmittel 1570 in Bern. <br/>
                                         Marginaleinträge späterer Zeit und Seitenzahlen werden nicht
                                         wiedergegeben, Abkürzungen sind stillschweigend aufgelöst
                                         und Zeilensprünge nicht berücksichtigt. Die originale
@@ -953,11 +871,10 @@
                             </div>
                         </div>
                     </main>
-                    <footer data-template="templates:include"
-                        data-template-path="templates/footer.html"></footer>
+                    <footer data-template="templates:include" data-template-path="templates/footer.html"/>
                 </app-header-layout>
             </app-drawer-layout>
         </pb-page>
-        <div class="splash"></div>
+        <div class="splash"/>
     </body>
 </html>
