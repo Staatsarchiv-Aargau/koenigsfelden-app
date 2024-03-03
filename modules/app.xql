@@ -183,3 +183,18 @@ declare function app:current-date($node as node(), $model as map(*)) {
     return format-date($date, '[D1].[M1].[Y0001]')
 };
 
+declare
+    %templates:wrap
+function app:get-dorsual-collection($id as xs:string) {
+    let $results := collection($config:data-root)/tei:TEI[descendant::tei:p/substring(data(@rend), 1, 10)=$id]
+    return
+        <ul xmlns="http://www.w3.org/1999/xhtml"> {
+    for $result in $results
+            let $idno := util:document-name($result)
+            let $key  := $result/tei:teiHeader/tei:fileDesc/tei:sourceDesc//tei:altIdentifier/tei:idno[@type="short"]/text()
+            let $date := $result/tei:teiHeader/descendant::tei:origDate/text()
+            order by $idno
+            return
+                <li><a href="../data/docs/{$idno}">{$key}</a>. {$date}</li>
+        }</ul>
+    };

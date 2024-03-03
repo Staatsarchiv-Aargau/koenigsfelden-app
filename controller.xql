@@ -48,7 +48,8 @@ else if ($exist:path eq '/api.html') then
 (: static resources from the resources, transform, templates, odd or modules subirectories are directly returned :)
 else if (matches($exist:path, "^.*/(resources|transform|templates)/.*$")
     or matches($exist:path, "^.*/odd/.*\.css$")
-    or matches($exist:path, "^.*/modules/.*\.json$")) then
+    or matches($exist:path, "^.*/modules/.*\.json$")
+    or matches($exist:path, "^.*/modules/custom-query.xql")) then
     let $dir := replace($exist:path, "^.*/(resources|transform|modules|templates|odd)/.*$", "$1")
     return
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
