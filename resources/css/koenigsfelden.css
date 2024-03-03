@@ -128,4 +128,19 @@ footer a {
     color: white;
 }
 
+/* Main register pages */
 
+.register-container {
+    width: 60%;
+    min-height: 73vh;
+    margin: auto;
+    justify-content: center;
+}
+
+.transcript {
+    max-width: none;
+    margin:auto
+}
+.register-container pb-custom-form {
+    margin-bottom: 1em;
+}

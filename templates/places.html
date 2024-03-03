@@ -19,25 +19,9 @@
         <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
       
         <style>
-            .content-body.single-col {
-                grid-template-columns: minmax(auto, 64rem);
-                justify-content: center;
-                width: 50%;
-                margin: auto;
-            }
-
-            .content-body.single-col .transcript {
-                max-width: none;
-            }
-
-
-            pb-custom-form {
-                margin-bottom: 1em;
-            }
-            
            pb-leaflet-map {
                 margin-top: 2em;
-                height: 80%;
+                height: 20em;
                 width: 100%;
             }
             
@@ -53,11 +37,11 @@
                         <app-toolbar data-template="lib:include" data-template-path="templates/menu.html"/>
                     </app-header>
                     <main>
-                     <pb-leaflet-map id="map" subscribe="map" emit="map" zoom="3" cluster="" latitude="48.856614" longitude="2.3522219">
+                     <pb-leaflet-map id="map" subscribe="map" emit="map" zoom="8" cluster="" latitude="47.480278" longitude="8.218056">
                             <pb-map-layer show="" base="" label="Mapbox OSM" url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}" max-zoom="19" access-token="pk.eyJ1Ijoid29sZmdhbmdtbSIsImEiOiJjam1kMjVpMnUwNm9wM3JwMzdsNGhhcnZ0In0.v65crewF-dkNsPF3o1Q4uw" attribution="© Mapbox © OpenStreetMap">
                             </pb-map-layer>
                         </pb-leaflet-map>
-                        <div class="content-body single-col">
+                        <div class="register-container">
                         <div class="transcript">
                             <pb-custom-form id="options" auto-submit="input,paper-input,paper-icon-button" emit="transcription">
                                 <paper-input name="search" label="Search" data-template="templates:form-control">
