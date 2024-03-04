@@ -164,10 +164,10 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
             collection($config:data-default)//tei:text[ft:query(., 'person-mentioned:' || $id, map { 'fields' : ('person-mentioned' , 'date')})]
         case 'place' return  
             collection($config:data-default)//tei:text[ft:query(., 'place-mentioned:' || $id, map { 'fields' : ('place-mentioned' , 'date')})]
-        case 'org' 
-            return  collection($config:data-default)//tei:text[ft:query(., 'org-mentioned:' || $id, map { 'fields' : ('org-mentioned' , 'date')})]
-        default 
-            return collection($config:data-default)//tei:TEI[descendant::tei:term[matches(., substring-after($id, 'key-'), 'i')]]//tei:text
+        case 'org' return  
+            collection($config:data-default)//tei:text[ft:query(., 'org-mentioned:' || $id, map { 'fields' : ('org-mentioned' , 'date')})]
+        default return 
+            collection($config:data-default)//tei:text[ft:query(., 'keyword-mentioned:' || $id, map { 'fields' : ('keyword-mentioned' , 'date')})]
    let $docs :=  for $text in $docsCollection
         let $d := ft:field($text, 'date')
         order by $d ascending
