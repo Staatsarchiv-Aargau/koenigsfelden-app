@@ -37,7 +37,11 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     });
-
+    
+    document.querySelector('[name=sort]').addEventListener('change', () => {
+        pbEvents.emit('pb-search-resubmit', 'search');
+    });
+    
     const facets = document.querySelector('.facets');
     if (facets) {
         facets.addEventListener('pb-custom-form-loaded', function(ev) {
