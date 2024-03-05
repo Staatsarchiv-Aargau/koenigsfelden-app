@@ -1,21 +1,16 @@
 <html>
     <head>
-        <meta charset="utf-8" />
-        <title data-template="config:app-title"></title>
-        <meta name="viewport"
-            content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" />
-        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png"
-            sizes="16x16" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png"
-            sizes="24x24" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png"
-            sizes="32x32" />
-        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png"
-            sizes="64x64" />
-        <link rel="stylesheet" href="resources/css/theme.css" />
-        <link rel="stylesheet" href="resources/css/koenigsfelden.css" />
-        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"></script>
+        <meta charset="utf-8"/>
+        <title data-template="config:app-title"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"/>
+        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png" sizes="24x24"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png" sizes="64x64"/>
+        <link rel="stylesheet" href="resources/css/theme.css"/>
+        <link rel="stylesheet" href="resources/css/koenigsfelden.css"/>
+        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
         <script src="resources/scripts/browse.js"/>
     <custom-style>
         <style>
@@ -272,9 +267,10 @@ text-align: justify;
 }
 
    .timeline {
-    --pb-timeline-padding: 0 10px;
-    height: 150px;
-    overflow: auto;
+    --pb-timeline-padding: 0;
+    height: 160px;
+    overflow-x: auto;
+    overflow-y: clip;
 }
 
 </style>
@@ -282,24 +278,19 @@ text-align: justify;
     </head>
     
 <body>
-    <pb-page data-template="pages:pb-page" locales="resources/i18n/{{ns}}/{{lng}}.json"
-        require-language="require-language" unresolved="unresolved" api-version="1.0.0"
-        supported-languages="de" theme="resources/css/components.css">
+    <pb-page data-template="pages:pb-page" locales="resources/i18n/{{ns}}/{{lng}}.json" require-language="require-language" unresolved="unresolved" api-version="1.0.0" supported-languages="de" theme="resources/css/components.css">
         <app-drawer-layout force-narrow="force-narrow">
             <app-drawer slot="drawer" align="right">
                 <div class="drawer-content">
                     <pb-media-query query="(max-width: 1023px)">
-                        <div data-template="lib:include"
-                            data-template-path="templates/menu-drawer.html"/>
+                        <div data-template="lib:include" data-template-path="templates/menu-drawer.html"/>
                     </pb-media-query>
                 </div>
             </app-drawer>
             <app-header-layout>
                 <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
-                    <app-toolbar data-template="lib:include"
-                        data-template-path="templates/menu.html">
-                        <pb-progress subscribe="search" indeterminate="indeterminate"
-                            bottom-item="bottom-item" data-target="menubar-after"/>
+                    <app-toolbar data-template="lib:include" data-template-path="templates/menu.html">
+                        <pb-progress subscribe="search" indeterminate="indeterminate" bottom-item="bottom-item" data-target="menubar-after"/>
                     </app-toolbar>
                 </app-header>
                 <main style="width:90%">
@@ -310,8 +301,7 @@ text-align: justify;
                                 <div class="browse">
                                     <aside data-template="browse:form">
                                         <pb-custom-form class="sort">
-                                            <pb-select label="browse.sort" name="sort"
-                                                value="${sort}" data-template="pages:parse-params">
+                                            <pb-select label="browse.sort" name="sort" value="${sort}" data-template="pages:parse-params">
                                                 <paper-item value="date">Datum</paper-item>
                                                 <paper-item value="title">Titel</paper-item>
                                             </pb-select>
@@ -320,78 +310,61 @@ text-align: justify;
                                             <h3>
                                                 <pb-i18n key="genre"/>
                                             </h3>
-                                            <paper-checkbox id="bearbeitungstext"
-                                                data-template="pages:parse-params">
+                                            <paper-checkbox id="bearbeitungstext" data-template="pages:parse-params">
                                                 <pb-i18n key="searchText"/>
                                             </paper-checkbox>
                                             <ul class="subtype">
                                                 <li>
-                                                  <paper-checkbox name="subtype"
-                                                  class="bearbeitungstext" value="title">
+                                                  <paper-checkbox name="subtype" class="bearbeitungstext" value="title">
                                                   <pb-i18n key="title"/>
                                                   </paper-checkbox>
                                                 </li>
                                                 <li>
-                                                  <paper-checkbox name="subtype"
-                                                  class="bearbeitungstext" value="regest">
+                                                  <paper-checkbox name="subtype" class="bearbeitungstext" value="regest">
                                                   <pb-i18n key="regest"/>
                                                   </paper-checkbox>
                                                 </li>
                                                 <li>
-                                                  <paper-checkbox name="subtype"
-                                                  class="bearbeitungstext" value="comment">
+                                                  <paper-checkbox name="subtype" class="bearbeitungstext" value="comment">
                                                   <pb-i18n key="comment"/>
                                                   </paper-checkbox>
                                                 </li>
                                                 <li>
-                                                  <paper-checkbox name="subtype"
-                                                  class="bearbeitungstext" value="notes">
+                                                  <paper-checkbox name="subtype" class="bearbeitungstext" value="notes">
                                                   <pb-i18n key="notes"/>
                                                   </paper-checkbox>
                                                 </li>
                                             </ul>
-                                            <paper-checkbox id="editionstext" name="subtype"
-                                                value="edition" data-template="pages:parse-params">
+                                            <paper-checkbox id="editionstext" name="subtype" value="edition" data-template="pages:parse-params">
                                                 <pb-i18n key="searchEdition"/>
                                             </paper-checkbox>
                                         </pb-custom-form>
-                                        <pb-search id="search-form" subscribe="search"
-                                            data-template="pages:parse-params" value="${query}"
-                                            subforms=".facets,.sort,.genre,.options"
-                                            submit-on-load="submit-on-load">
+                                        <pb-search id="search-form" subscribe="search" data-template="pages:parse-params" value="${query}" subforms=".facets,.sort,.genre,.options" submit-on-load="submit-on-load">
                                             <paper-button slot="searchButton">
                                                 <pb-i18n key="search.search">Search</pb-i18n>
                                             </paper-button>
                                         </pb-search>
                                        <pb-custom-form class="options">
-                                            <input type="hidden" name="collection" value=""
-                                                data-template="templates:form-control"/>
-                                            <input type="hidden" name="dates" value=""
-                                                data-template="templates:form-control"/>
+                                            <input type="hidden" name="collection" value="" data-template="templates:form-control"/>
+                                            <input type="hidden" name="dates" value="" data-template="templates:form-control"/>
                                         </pb-custom-form> 
-                                        <pb-custom-form class="facets" id="facets"  url="api/search/facets"
-                                            event="pb-results-received" subscribe="search" emit="search"/>
+                                        <pb-custom-form class="facets" id="facets" url="api/search/facets" event="pb-results-received" subscribe="search" emit="search"/>
                                     </aside>
                                     <div id="document-list">
                                         <div class="timeline">
-                                            <pb-timeline url="api/timeline"
-                                                scopes='["D", "M", "Y", "5Y", "10Y"]' resettable=""
-                                                max-interval="80" subscribe="search" emit="search">
+                                            <pb-timeline url="api/timeline" scopes="[&#34;D&#34;, &#34;M&#34;, &#34;Y&#34;, &#34;5Y&#34;, &#34;10Y&#34;]" resettable="" max-interval="80" subscribe="search" emit="search">
                                                 <span slot="label">Angezeigter Zeitraum: </span>
                                             </pb-timeline>
                                         </div>
-                                        <pb-paginate id="paginate" per-page="10" range="5"
-                                            subscribe="search" emit="search"/>
-                                        <pb-load url="api/collection/{collection}" expand=""
-                                            emit="search"/>
+                                        <pb-paginate id="paginate" per-page="10" range="5" subscribe="search" emit="search"/>
+                                        <pb-load url="api/collection/{collection}" expand="" emit="search"/>
                                     </div>
                                 </div>
                             </div>
                         </paper-card>
                     </section>
                 </main>
-                <footer data-template="templates:include" data-template-path="templates/footer.html"
-                />
+                <footer data-template="templates:include" data-template-path="templates/footer.html"/>
             </app-header-layout>
         </app-drawer-layout>
     </pb-page>
