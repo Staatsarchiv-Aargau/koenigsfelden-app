@@ -51,6 +51,14 @@
         </modelSequence>
                 </elementSpec>
                 <elementSpec ident="summary" mode="add">
+                    <model predicate="$parameters?header='edition'" behaviour="pass-through">
+            <pb:template xmlns="" xml:space="preserve"><pb-collapse>
+   <div slot="collapse-trigger">
+      <h3>Regest</h3>
+   </div>
+  <p slot="collapse-content">[[content]]</p>
+</pb-collapse></pb:template>
+        </model>
                     <model behaviour="block"/>
                 </elementSpec>
             <elementSpec ident="pb" mode="change">
@@ -114,8 +122,12 @@
             
             
             
+            
+            
             margin-top: 1ex;
 margin-bottom: 1ex;
+            
+            
             
             
             
@@ -182,7 +194,12 @@ margin-bottom: 1ex;
         </model>
                     <model predicate="$parameters?view='norm'" behaviour="paragraph" useSourceRendition="true">
             <outputRendition xml:space="preserve">
-            text-align: justify;
+            text-align: justify; display: inline-table;
+            </outputRendition>
+        </model>
+                    <model behaviour="paragraph">
+            <outputRendition xml:space="preserve">
+            display: inline-table;
             </outputRendition>
         </model>
                 </elementSpec>
@@ -249,11 +266,15 @@ margin-bottom: 1ex;
             
             
             
+            
+            
             display: block;
 font-weight: 700;
 line-height: 1.2;
 margin-top: 20px;
 margin-bottom: 10px;
+            
+            
             
             
             
@@ -898,8 +919,14 @@ margin-bottom: 10px;
                 </elementSpec>
                 <elementSpec ident="msDesc" mode="add">
                     <desc>Stückbeschreibung ausgeben</desc>
-                    <model behaviour="list">
-            <param name="content" value="(msIdentifier,history/origin/origDate,msContents/msItem/filiation[@type='current'], physDesc/objectDesc/supportDesc/condition, physDesc/objectDesc/supportDesc, physDesc, history/origin/origPlace, msContents/msItem/textLang, msContents/msItem/author[@role=&#34;scribe&#34;], additional)"/>
+                    <model predicate="$parameters?header='edition'" behaviour="pass-through">
+            <param name="content" value="(msIdentifier, history/origin/origDate, history/origin/origPlace, msContents/msItem/textLang, msContents/msItem/filiation[@type='current'], physDesc/objectDesc/supportDesc/condition, physDesc/objectDesc/supportDesc, physDesc, msContents/msItem/author[@role=&#34;scribe&#34;], additional)"/>
+            <pb:template xmlns="" xml:space="preserve"><pb-collapse>
+   <div slot="collapse-trigger">
+        <h3>Stückbeschreibung</h3>
+   </div>
+   <ul slot="collapse-content">[[content]]</ul>
+</pb-collapse></pb:template>
         </model>
                 </elementSpec>
                 <elementSpec ident="msIdentifier">
@@ -933,20 +960,21 @@ margin-bottom: 10px;
                     <model predicate="text() and origDate/@from" behaviour="inline">
             <param name="content" value="(ec:label('other-source'), ec:colon(), text()[1], ', ', format-date(xs:date(origDate/@from), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()), ' – ', format-date(xs:date(origDate/@to), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ()))"/>
         </model>
-                    <model predicate="text()" behaviour="inline">
-            <param name="content" value="(ec:label('other-source'), ec:colon(), text()[1])"/>
+                    <model predicate="text()" behaviour="listItem">
+            <param name="content" value="'Überlieferung: ' || ."/>
         </model>
                     <model behaviour="omit"/>
                 </elementSpec>
                 <elementSpec ident="condition">
-                    <model behaviour="listItem">
+                    <model predicate="text()" behaviour="listItem">
             <param name="content" value="(ec:label('condition'), ec:colon(), .)"/>
         </model>
                 </elementSpec>
                 <elementSpec ident="physDesc">
-                    <model behaviour="listItem">
+                    <model predicate="sealDesc" behaviour="listItem">
             <param name="content" value="sealDesc"/>
         </model>
+                    <model predicate="$parameters?header='edition'" behaviour="omit"/>
                 </elementSpec>
                 <elementSpec ident="supportDesc">
                     <modelSequence>
@@ -1010,7 +1038,7 @@ margin-bottom: 10px;
         </model>
                 </elementSpec>
                 <elementSpec ident="listBibl" mode="change">
-                    <modelSequence predicate="not($parameters?mode = 'filiation')">
+                    <modelSequence predicate="not($parameters?mode = 'filiation') and (matches(descendant::text(), '\w'))">
             <desc>Ausgabe Bibliographie, aber nicht in "weitere Überlieferungen"</desc>
             <model behaviour="heading">
                 <desc>Titel des Bibliographieabschnitts</desc>
@@ -1040,7 +1068,7 @@ margin-bottom: 10px;
                     <model behaviour="inline"/>
                 </elementSpec>
                 <elementSpec ident="additional" mode="add">
-                    <model behaviour="listItem"/>
+                    <model predicate="descendant::bibl/text()" behaviour="listItem"/>
                 </elementSpec>
                 <elementSpec ident="textLang" mode="add">
                     <model behaviour="listItem">
@@ -1059,6 +1087,11 @@ margin-bottom: 10px;
                     <model predicate="$parameters?view='dipl'" behaviour="omit"/>
                 </elementSpec>
             <elementSpec ident="titleStmt" mode="change">
+                    <model predicate="$parameters?header='short'" behaviour="pass-through">
+            <param name="content" value="title[1]"/>
+            <param name="uri" value="$parameters?doc"/>
+            <pb:template xmlns="" xml:space="preserve"><a href="[[uri]]">[[content]]</a></pb:template>
+        </model>
                     <model output="latex" behaviour="meta">
             <param name="content" value="."/>
         </model>
@@ -1067,20 +1100,33 @@ margin-bottom: 10px;
             <param name="content" value="title[not(@type)]"/>
             <param name="level" value="5"/>
         </model>
-                    <modelSequence output="web" predicate="$parameters?header='short'">
-            <model behaviour="pass-through">
+                    <modelSequence output="web" predicate="$parameters?header='edition'">
+            <model behaviour="heading">
                 <param name="content" value="title[1]"/>
-                <param name="uri" value="$parameters?doc"/>
-                <pb:template xmlns="" xml:space="preserve"><a href="[[uri]]">[[content]]</a></pb:template>
+                <param name="level" value="2"/>
             </model>
-            <model behaviour="block">
-                <param name="content" value="subsequence(title, 2)"/>
-            </model>
-            <model behaviour="block">
-                <param name="content" value="author"/>
+            <model behaviour="heading">
+                <param name="content" value="parent::*/descendant::origDate/string()"/>
+                <param name="level" value="4"/>
             </model>
         </modelSequence>
                     <model output="web" behaviour="block"/>
+                </elementSpec>
+            <elementSpec ident="teiHeader" mode="change">
+                    <model output="web" predicate="$parameters?header='short'" behaviour="block">
+            <param name="content" value="descendant::fileDesc"/>
+        </model>
+                    <model output="latex" behaviour="metadata"/>
+                    <model output="fo" behaviour="omit"/>
+                    <model output="web" predicate="$parameters?header='edition'" behaviour="block" cssClass="header-edition">
+            <param name="content" value="(descendant::titleStmt, descendant::summary, descendant::msDesc)"/>
+        </model>
+                    <model output="web" behaviour="metadata"/>
+                </elementSpec>
+                <elementSpec ident="keywords" mode="add">
+                    <model predicate="$parameters?header='edition'" behaviour="inline" cssClass="keywords-header">
+            <param name="content" value="string-join(descendant::term, ', ')"/>
+        </model>
                 </elementSpec>
             </schemaSpec>
         </body>

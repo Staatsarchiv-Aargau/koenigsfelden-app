@@ -11,6 +11,7 @@
 
 .toolbar {
     background-image: none;
+    height: 3em;
 }
 
 app-header {
