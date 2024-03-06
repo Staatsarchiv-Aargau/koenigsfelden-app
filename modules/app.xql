@@ -192,6 +192,13 @@ declare function app:current-date($node as node(), $model as map(*)) {
     return format-date($date, '[D1].[M1].[Y0001]')
 };
 
+declare function app:get-url($node as node(), $model as map(*)) {
+    let $host := 'https://www.koenigsfelden.uzh.ch/'
+    let $doc := $model?doc
+    let $url := $host || $doc
+    return ('&lt;', <a href="{$url}">{$url}</a>, '&gt;')
+};
+
 declare
     %templates:wrap
 function app:get-dorsual-collection($id as xs:string) {

@@ -60,6 +60,18 @@ a:hover {
     padding-left: 2.5em;
 }
 
+.citation {
+    font-family: var(--pb-base-font-family);
+    margin: 0 16px;
+}
+
+.citation h3 {
+    color: #364954;
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+}
+
 /*static pages toc links*/
 
 .block-title {
