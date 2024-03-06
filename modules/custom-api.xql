@@ -12,6 +12,7 @@ module namespace api="http://teipublisher.com/api/custom";
 import module namespace rutil="http://e-editiones.org/roaster/util";
 import module namespace app="teipublisher.com/app" at "app.xql";
 import module namespace config="http://www.tei-c.org/tei-simple/config" at "config.xqm";
+import module namespace ext-common="http://www.tei-c.org/tei-simple/xquery/functions/koenigsfelden-common" at "ext-common.xql";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
@@ -365,3 +366,17 @@ declare function api:timeline($request as map(*)) {
                 })
         )
 };
+
+declare function api:get-entity($request as map(*)) {
+    let $id := $request?parameters?id
+    let $entity := collection($config:registers)/id($id)
+    let $dates := if ($entity/descendant::tei:death) then ' (' || string-join(($entity/tei:birth, $entity/tei:death), '–') || ')' else ()
+    let $country := if ($entity/descendant::tei:country) then ' (' || string-join($entity/descendant::tei:country, '–') || ')' else () 
+    let $name := 
+        typeswitch($entity) 
+            case element(tei:person) return 'Person: ' || $entity/tei:persName[1] || $dates
+            case element(tei:place) return 'Orte: ' || $entity/tei:placeName[1] || $country
+            case element(tei:org) return 'Organisation: ' || $entity/tei:orgName[1]
+            default return $id || ' not found'
+    return $name
+    };

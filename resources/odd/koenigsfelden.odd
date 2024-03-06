@@ -124,8 +124,12 @@
             
             
             
+            
+            
             margin-top: 1ex;
 margin-bottom: 1ex;
+            
+            
             
             
             
@@ -186,22 +190,25 @@ margin-bottom: 1ex;
         </model>
                 </elementSpec>
                 <elementSpec ident="p" mode="change">
-                    <model predicate="parent::body/div and parent::div[@n]/*[1] is . and $parameters?view='norm'" behaviour="paragraph" useSourceRendition="true">
+                    <model predicate="@rend eq 'Signaturverweis_Boner'" behaviour="alternate" cssClass="p">
+            <param name="default" value="."/>
+            <param name="alternate" value="'Signaturverweis Boner'"/>
+            <outputRendition xml:space="preserve">
+            display:block;
+            </outputRendition>
+        </model>
+                    <model predicate="parent::body/div and parent::div[@n]/*[1] is . and $parameters?view='norm'" behaviour="paragraph" cssClass="p" useSourceRendition="true">
             <param name="content" value="('[', parent::div/@n, '] ', .)"/>
             <outputRendition xml:space="preserve">
             text-align: justify;
             </outputRendition>
         </model>
-                    <model predicate="$parameters?view='norm'" behaviour="paragraph" useSourceRendition="true">
+                    <model predicate="$parameters?view='norm'" behaviour="paragraph" cssClass="p" useSourceRendition="true">
             <outputRendition xml:space="preserve">
-            text-align: justify; display: inline-table;
+            text-align: justify;
             </outputRendition>
         </model>
-                    <model behaviour="paragraph">
-            <outputRendition xml:space="preserve">
-            display: inline-table;
-            </outputRendition>
-        </model>
+                    <model behaviour="paragraph" cssClass="p"/>
                 </elementSpec>
                 <elementSpec ident="head" mode="change">
                     <model predicate="$parameters?header='short'" behaviour="inline">
@@ -268,11 +275,15 @@ margin-bottom: 1ex;
             
             
             
+            
+            
             display: block;
 font-weight: 700;
 line-height: 1.2;
 margin-top: 20px;
 margin-bottom: 10px;
+            
+            
             
             
             
@@ -574,6 +585,18 @@ margin-bottom: 10px;
         </model>
                 </elementSpec>
                 <elementSpec ident="hi" mode="change">
+                    <model predicate="(@rend eq 'rubricated') and $parameters?view='dipl'" behaviour="alternate" cssClass="p">
+            <param name="default" value="."/>
+            <param name="alternate" value="'Rubriziert'"/>
+            <outputRendition xml:space="preserve">
+            display: block
+            </outputRendition>
+        </model>
+                    <model predicate="(@rend eq 'rubricated') and $parameters?view='norm'" behaviour="alternote">
+            <param name="content" value="."/>
+            <param name="alternate" value="'Rubriziert'"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
                     <model predicate="@rend='sup'" behaviour="inline">
             <outputRendition xml:space="preserve">
             font-size: 80%; vertical-align: top;
@@ -660,37 +683,25 @@ margin-bottom: 10px;
             </outputRendition>
         </model>
                 </elementSpec>
-                <elementSpec ident="term" mode="change">
-                    <model behaviour="reference" cssClass="semantic term">
-            <desc>Semantic highlighting of keywords and lemmata with dark-red text
-                            color</desc>
-            <param name="content" value="."/>
-            <param name="ref" value="@ref"/>
-            <param name="label" value="ec:label('term')"/>
-        </model>
-                </elementSpec>
                 <elementSpec ident="persName" mode="add">
-                    <model behaviour="pass-through">
+                    <model output="web" predicate="@ref" behaviour="semantic-ref" cssClass="person reference">
             <desc>Semantic highlighting of person with blue text color</desc>
-            <param name="uri" value="'../../detail.html?ref=' || @ref"/>
-            <pb:template xmlns="" xml:space="preserve"><a class="semantic person" href="[[uri]]">[[content]]</a></pb:template>
+            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{.}&lt;/a&gt;"/>
+            <param name="ref" value="@ref"/>
         </model>
                 </elementSpec>
                 <elementSpec ident="orgName" mode="add">
-                    <model behaviour="reference" cssClass="semantic organization">
-            <desc>Semantic highlighting of organization names with tooltip and blue text
-                            color</desc>
-            <param name="content" value="."/>
+                    <model predicate="@ref" behaviour="semantic-ref" cssClass="reference organization">
+            <desc>Semantic highlighting of organization names with tooltip and blue text color</desc>
+            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{.}&lt;/a&gt;"/>
             <param name="ref" value="@ref"/>
-            <param name="label" value="ec:label('organisation')"/>
         </model>
                 </elementSpec>
                 <elementSpec ident="placeName" mode="add">
-                    <model behaviour="pass-through">
-            <desc>Semantic highlighting of place names with tooltip and green text
-                            color</desc>
-            <param name="uri" value="'../../detail.html?ref=' || @ref"/>
-            <pb:template xmlns="" xml:space="preserve"><a class="semantic place" href="[[uri]]">[[content]]</a></pb:template>
+                    <model predicate="@ref" behaviour="semantic-ref" cssClass="place reference">
+            <desc>Semantic highlighting of place names with tooltip and green text color</desc>
+            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{.}&lt;/a&gt;"/>
+            <param name="ref" value="@ref"/>
         </model>
                 </elementSpec>
                 <elementSpec ident="origPlace" mode="add">
@@ -700,11 +711,11 @@ margin-bottom: 10px;
                     <model predicate="parent::origin" behaviour="omit">
             <desc>Leeres Element im header</desc>
         </model>
-                    <model predicate="@ref" behaviour="pass-through">
+                    <model predicate="@ref" behaviour="semantic-ref" cssClass="reference place">
             <desc>Semantic highlighting of origPlace names with tooltip and green text
                             color</desc>
-            <param name="uri" value="'../../detail.html?ref=' || @ref"/>
-            <pb:template xmlns="" xml:space="preserve"><a class="semantic place" href="[[uri]]">[[content]]</a></pb:template>
+            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{.}&lt;/a&gt;"/>
+            <param name="ref" value="@ref"/>
         </model>
                     <model behaviour="alternate" cssClass="semantic place">
             <desc>Semantic highlighting of origPlace names with tooltip and green text
@@ -745,7 +756,7 @@ margin-bottom: 10px;
         </model>
                 </elementSpec>
                 <elementSpec ident="measure" mode="change">
-                    <model behaviour="alternate" cssClass="text-critical">
+                    <model predicate="@quantity" behaviour="alternate" cssClass="text-critical">
             <desc>Display measurement with given parameters in tooltip and highlight
                             text with color</desc>
             <param name="default" value="."/>
@@ -1015,18 +1026,18 @@ margin-bottom: 10px;
                     <model behaviour="omit"/>
                 </elementSpec>
                 <elementSpec ident="ref" mode="change">
-                    <model predicate="not(@target) and matches(., '^(?:SSRQ|SDS|FDS)_')" behaviour="link">
+                    <model predicate="not(@target) and matches(., '^(?:SSRQ|SDS|FDS)_')" behaviour="link" cssClass="link">
             <desc>Link auf ein anderes Dokument innerhalb Portal</desc>
             <param name="link" value="string() || &#34;.xml&#34;"/>
         </model>
                     <model predicate="not(@target)" behaviour="inline">
             <desc>Link ohne Verweisadresse</desc>
         </model>
-                    <model predicate="not(text())" behaviour="link">
+                    <model predicate="not(text())" behaviour="link" cssClass="link">
             <param name="content" value="@target"/>
             <param name="link" value="@target"/>
         </model>
-                    <model behaviour="link">
+                    <model behaviour="link" cssClass="link">
             <param name="link" value="@target"/>
             <param name="target" value="'_new'"/>
         </model>

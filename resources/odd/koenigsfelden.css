@@ -1,3 +1,26 @@
+.footnotes::before {
+    content: 'Anmerkungen';
+    display: block;
+    font-size: 1em;
+    font-weight: bold;
+    color: #364954;
+    margin: 1em 0 0.5em 0;
+    font-family: var(--pb-base-font-family);
+}
+
+.footnotes a {
+    color: var(--pb-color-start);
+}
+
+.p {
+     display: inline-table;  
+     margin: 0.3em 0;
+}
+
+.link {
+    color: var(--pb-color-start);
+}
+
 .header-edition {
     font-family: var(--pb-base-font-family);
     margin-bottom: 2em;

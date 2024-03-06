@@ -596,6 +596,38 @@
 				}
 			}
 		},
+		"/api/entity/{id}": {
+			"get": {
+				"summary": "Get name of entity for display in tooltip",
+				"description": "Get name of entity for display in tooltip",
+				"tags": ["view"],
+				"operationId": "api:get-entity",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id",
+						"required": true,						
+						"schema":{
+							"type": "string",
+							"default": "all"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "content of tooltip",
+						"content": {
+							"text/html": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/api/timeline": {
 			"get": {
 				"summary": "Retrieve timeline data",

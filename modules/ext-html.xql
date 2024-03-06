@@ -21,24 +21,13 @@ declare function pmf:link($config as map(*), $node as node(), $class as xs:strin
     }</a>
 };
 
-declare function pmf:reference($config as map(*), $node as element(), $class as xs:string+, $content,
+declare function pmf:semantic-ref($config as map(*), $node as element(), $class as xs:string+, $content,
     $ref, $label) {
-    let $lang := (session:get-attribute("ssrq.lang"), "de")[1]
-    let $url :=
-        typeswitch($node)
-            case element(tei:persName) | element(tei:orgName) return
-                "https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/detail.html?ref=" || $ref[1]
-            case element(tei:placeName)  | element(tei:origPlace)  return
-                "https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/detail.html?ref=" || $ref
-            default return $ref
+    let $url := "api/entity/" || $ref
     return
-        <span class="reference {$class}">
-            <span><span data-url="{$url}">{$config?apply-children($config, $node, $content)}</span></span>
-            <span class="altcontent">
-                {$label, if (empty($ref)) then () else <span class="ref" data-ref="{$ref}"/>}
-            </span>
-        </span>
+        <pb-popover class="{$class}" remote="{$url}" trigger="mouseenter focus">{$content} <span slot="alternate"></span></pb-popover>
 };
+
 
 declare function pmf:term-reference($config as map(*), $node as element(), $class as xs:string+, $content,
     $ref, $label) {
