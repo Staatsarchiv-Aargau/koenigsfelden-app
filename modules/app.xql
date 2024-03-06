@@ -48,11 +48,11 @@ declare function app:list-places($node as node(), $model as map(*)) {
                 else ()
             return
                 <li data-ref="{$id}">
-                    <a target="_new"
+                    <pb-highlight key="{$id}" highlight-self="highlight-self"><a target="_new"
                         href="../../detail.html?ref={$id}">
                         {$place/tei:placeName}
                     </a>
-                    <span class="info">{$region}</span>
+                    <span class="info">{$region}</span></pb-highlight>
                 </li>
     }</ul>)
 };
@@ -87,7 +87,7 @@ declare function app:list-persons($node as node(), $model as map(*)) {
             let $person :=  collection($config:registers)/id($id)[1]
             return
                 <li data-ref="{$id}">
-                    <a target="_new"
+                     <pb-highlight key="{$id}" highlight-self="highlight-self"><a target="_new"
                         href="../../detail.html?ref={$id}">
                         {$person/tei:persName}
                     </a>
@@ -96,7 +96,7 @@ declare function app:list-persons($node as node(), $model as map(*)) {
                             <span class="info"> ({string-join(($person/tei:birth, $person/tei:death), '–')})</span>
                         else
                             ()
-                    }
+                    }</pb-highlight>
                 </li>
         }</ul>)
 };
@@ -111,7 +111,7 @@ declare function app:list-organizations($node as node(), $model as map(*)) {
             for $id in distinct-values($ids)
             let $organization :=  collection($config:registers)/id($id)[1]
             return
-                <li data-ref="{$id}">
+                 <li data-ref="{$id}"><pb-highlight key="{$id}" highlight-self="highlight-self">
                     <a target="_new"
                         href="../../detail.html?ref={$id}">
                         {$organization/tei:orgName/string()}
@@ -121,7 +121,7 @@ declare function app:list-organizations($node as node(), $model as map(*)) {
                             <span class="info"> ({$organization/tei:desc[@xml:lang eq 'de']})</span>
                         else
                             ()
-                    }
+                    }</pb-highlight>
                 </li>
     }</ul>)
 };

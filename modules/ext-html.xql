@@ -25,7 +25,7 @@ declare function pmf:semantic-ref($config as map(*), $node as element(), $class 
     $ref, $label) {
     let $url := "api/entity/" || $ref
     return
-        <pb-popover class="{$class}" remote="{$url}" trigger="mouseenter focus">{$content} <span slot="alternate"></span></pb-popover>
+        <pb-highlight key="{$ref}"><pb-popover class="{$class}" remote="{$url}" trigger="mouseenter focus">{$content} <span slot="alternate"></span></pb-popover></pb-highlight>
 };
 
 

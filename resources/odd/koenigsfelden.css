@@ -73,11 +73,11 @@
 .term {
     color: #b5221f;
 }
-.place {
+.place, .place a:visited {
     color: #007e00;
 }
-.person,
-.organization {
+.person, .person a:visited
+.organization, .organization a:visited {
     color: #4478b5;
 }
 

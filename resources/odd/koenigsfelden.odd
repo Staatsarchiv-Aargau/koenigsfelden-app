@@ -126,8 +126,10 @@
             
             
             
+            
             margin-top: 1ex;
 margin-bottom: 1ex;
+            
             
             
             
@@ -277,11 +279,13 @@ margin-bottom: 1ex;
             
             
             
+            
             display: block;
 font-weight: 700;
 line-height: 1.2;
 margin-top: 20px;
 margin-bottom: 10px;
+            
             
             
             
@@ -686,21 +690,21 @@ margin-bottom: 10px;
                 <elementSpec ident="persName" mode="add">
                     <model output="web" predicate="@ref" behaviour="semantic-ref" cssClass="person reference">
             <desc>Semantic highlighting of person with blue text color</desc>
-            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{.}&lt;/a&gt;"/>
+            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{./string()}&lt;/a&gt;"/>
             <param name="ref" value="@ref"/>
         </model>
                 </elementSpec>
                 <elementSpec ident="orgName" mode="add">
                     <model predicate="@ref" behaviour="semantic-ref" cssClass="reference organization">
             <desc>Semantic highlighting of organization names with tooltip and blue text color</desc>
-            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{.}&lt;/a&gt;"/>
+            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{./string()}&lt;/a&gt;"/>
             <param name="ref" value="@ref"/>
         </model>
                 </elementSpec>
                 <elementSpec ident="placeName" mode="add">
                     <model predicate="@ref" behaviour="semantic-ref" cssClass="place reference">
             <desc>Semantic highlighting of place names with tooltip and green text color</desc>
-            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{.}&lt;/a&gt;"/>
+            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{./string()}&lt;/a&gt;"/>
             <param name="ref" value="@ref"/>
         </model>
                 </elementSpec>
@@ -711,10 +715,10 @@ margin-bottom: 10px;
                     <model predicate="parent::origin" behaviour="omit">
             <desc>Leeres Element im header</desc>
         </model>
-                    <model predicate="@ref" behaviour="semantic-ref" cssClass="reference place">
+                    <model predicate="@ref" behaviour="semantic-ref" cssClass="place reference">
             <desc>Semantic highlighting of origPlace names with tooltip and green text
                             color</desc>
-            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{.}&lt;/a&gt;"/>
+            <param name="content" value="&lt;a href=&#34;../../detail.html?ref={@ref}&#34;&gt;{./string()}&lt;/a&gt;"/>
             <param name="ref" value="@ref"/>
         </model>
                     <model behaviour="alternate" cssClass="semantic place">
