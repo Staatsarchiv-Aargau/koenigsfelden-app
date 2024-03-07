@@ -134,8 +134,6 @@ declare variable $config:facets := [
     map {
         "dimension": "collection",
         "heading": "facets.collection",
-        "source": "api/search/facets/collection",
-        "max": 5,
         "hierarchical": false(),
         "output": function ($label) {
             $config:collections-root//collection[@ref eq $label]/@name/string()

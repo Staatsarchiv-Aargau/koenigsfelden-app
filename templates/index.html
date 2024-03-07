@@ -345,10 +345,9 @@ text-align: justify;
                                             </paper-button>
                                         </pb-search>
                                        <pb-custom-form class="options">
-                                            <input type="hidden" name="collection" value="" data-template="templates:form-control"/>
                                             <input type="hidden" name="dates" value="" data-template="templates:form-control"/>
                                         </pb-custom-form> 
-                                        <pb-custom-form class="facets" id="facets" url="api/search/facets" event="pb-results-received" subscribe="search" emit="search"/>
+                                        <pb-custom-form class="facets" url="api/search/facets" event="pb-results-received" subscribe="search" emit="search"/>
                                     </aside>
                                     <div id="document-list">
                                         <div class="timeline">
