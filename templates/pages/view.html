@@ -17,6 +17,7 @@
         
      
         <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
+        <script src="resources/scripts/edition.js"/>
         <style>
         body {
             --pb-view-height: calc(100vh - 212px);
@@ -100,7 +101,7 @@
                         </pb-view>
                     </section>
                 <main class="content-body">
-                        <pb-grid id="grid" panels="[2]" subscribe="transcription" emit="transcription">
+                        <pb-grid id="grid" panels="[3]">
                             <template>
                                 <!-- template used for adding a new column: user can choose between normalized edition, diplomatic edition, facsimile and register  -->
                                 <pb-panel>
@@ -119,14 +120,14 @@
                                     </pb-view>
                                 </template>
                                      <template title="Digitalisat">
-                                     <pb-facsimile show-rotation-control="show-rotation-control" style="height:600px" show-full-page-control="show-full-page-control" show-navigation-control="show-navigation-control" show-sequence-control="show-sequence-control" show-reference-strip="" subscribe="transcription">
+                                     <pb-facsimile id="facsimile" show-rotation-control="show-rotation-control" style="height:600px" show-full-page-control="show-full-page-control" show-navigation-control="show-navigation-control" show-sequence-control="show-sequence-control" show-reference-strip="" subscribe="transcription">
                         </pb-facsimile>
+                        <p id="status"/>
                                       </template>
-                                     <template title="Register">                                         
-                                         <div class="places" data-template="app:list-places"/>
-                                         <div class="persons" data-template="app:list-persons"/>
-                                         <div class="persons" data-template="app:list-organizations"/>
-                                         <div class="keywords" data-template="app:list-keys"/>
+                                     <template title="Register" id="register">        
+                                     <pb-view src="document1" subscribe="none" emit="register" view="single">
+                                        <pb-param name="view" value="register"/>
+                                    </pb-view>
                                     </template> 
                                 </pb-panel>
                             </template>

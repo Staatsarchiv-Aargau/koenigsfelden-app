@@ -16,13 +16,29 @@
      margin: 0.3em 0;
 }
 
-.link {
+.register {
+    margin-top:  1em;
+}
+
+.register ul {
+    list-style: none;
+    font-family: var(--pb-serif-font-family);
+    
+}
+
+paper-checkbox {
+--paper-checkbox-checked-color: var(--pb-color-start)
+}
+
+
+.link, .register a {
     color: var(--pb-color-start);
 }
 
-.header-edition {
+.header-edition, .register {
     font-family: var(--pb-base-font-family);
     margin-bottom: 2em;
+    
 }
 .header-edition h2 {
     font-size: 1em;
@@ -35,10 +51,10 @@
     margin: 0;
 }
 
-.header-edition h3 {
+.header-edition h3, .register h3 {
     color: #364954;
     margin:0;
-    font-size: 1em;
+    font-size: 18px;
 }
 
 .header-edition pb-collapse {
@@ -80,8 +96,9 @@
     color: #4478b5;
 }
 
-.reference {
+.reference a {
     cursor: pointer;
+    color: inherit;
 }
 
 .text-critical {

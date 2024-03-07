@@ -9,8 +9,114 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 import module namespace html="http://www.tei-c.org/tei-simple/xquery/functions";
 import module namespace pmc="http://www.tei-c.org/tei-simple/xquery/functions/koenigsfelden-common" at "ext-common.xql";
+import module namespace config="http://www.tei-c.org/tei-simple/config" at "config.xqm";
 
-declare function pmf:link($config as map(*), $node as node(), $class as xs:string+, $content, $link, $target) {
+
+(: Register :)
+
+declare function pmf:list-places($doc as element()) {
+    let $ids := $doc//tei:placeName/@ref
+    where exists($ids)
+    return
+        (<h3>Orte</h3>,
+        <ul>{
+            for $id in  distinct-values($ids)
+            let $place := collection($config:registers)/id($id)[1]
+            let $region := if ($place/descendant::tei:region) then ' (' || string-join($place/descendant::tei:region, ', ') ||  ')' else 
+                if ($place/descendant::tei:country) then ' (' || $place/descendant::tei:country || ')'
+                else ()
+            return
+                <li data-ref="{$id}">
+                   <paper-checkbox class="select-facet" title="i18n(highlight-facet)"/> <a target="_new"
+                        href="../../detail.html?ref={$id}">
+                        {$place/tei:placeName/string()}
+                    </a>
+                    <span class="info">{$region}</span>
+                </li>
+    }</ul>)
+};
+
+declare function pmf:list-keys($doc as element()) {
+    let $keywords := $doc//tei:keywords/tei:term/string()
+    where exists($keywords)
+    return  
+        (<h3>Schlagwörter</h3>,
+        <ul>{
+            for $keyword in $keywords
+            let $id := doc($config:registers || '/keywords.xml')//tei:catDesc[. = $keyword]/parent::*/@xml:id
+            return
+                <li data-ref="{$id}">
+                    <a target="_new"
+                        href="../../detail.html?ref={$id}">
+                        {$keyword}</a></li>
+    }</ul>)
+};
+
+
+declare function pmf:list-people($doc as element()) {
+ let $ids := $doc//tei:text//tei:persName/@ref |
+        $doc//@scribe[starts-with(., 'per')]
+    where exists($ids)
+    return
+        (<h3>Personen</h3>,
+        <ul>{
+            for $id in distinct-values($ids)
+            let $person :=  collection($config:registers)/id($id)[1]
+            return
+                <li data-ref="{$id}">
+                     <paper-checkbox class="select-facet" title="i18n(highlight-facet)"/> <a target="_new"
+                        href="../../detail.html?ref={$id}">
+                        {$person/tei:persName/string()}
+                    </a>
+                    {
+                        if ($person/tei:death) then
+                            <span class="info"> ({string-join(($person/tei:birth, $person/tei:death), '–')})</span>
+                        else
+                            ()
+                    } 
+                </li>
+        }</ul>)
+};
+
+declare function pmf:list-organizations($doc as element()) {
+    let $ids := $doc//tei:text//tei:orgName/@ref
+    where exists($ids)
+    return 
+        (<h3>Organisationen</h3>,
+        <ul>{
+            for $id in distinct-values($ids)
+            let $organization :=  collection($config:registers)/id($id)[1]
+            return
+                 <li data-ref="{$id}"> <paper-checkbox class="select-facet" title="i18n(highlight-facet)"/>
+                    <a target="_new"
+                        href="../../detail.html?ref={$id}">
+                        {$organization/tei:orgName/string()}
+                    </a>
+                    {
+                        if ($organization/tei:desc) then
+                            <span class="info"> ({$organization/tei:desc[@xml:lang eq 'de']})</span>
+                        else
+                            ()
+                    } 
+                </li>
+    }</ul>)
+};
+
+declare function pmf:register-data($config as map(*), $node as element(), $content) {
+    <div class="register">{
+    (pmf:list-people($node), pmf:list-organizations($node), pmf:list-places($node), pmf:list-keys($node))
+    }</div>
+};
+
+
+declare function pmf:semantic-ref($config as map(*), $node as element(), $class as xs:string+, $content,
+    $ref, $label) {
+    let $url := "api/entity/" || $ref
+    return
+        <pb-popover data-ref="{$ref}" class="{$class}" remote="{$url}" trigger="mouseenter focus">{$content} <span slot="alternate"></span></pb-popover> 
+};
+
+declare function pmf:link($config as map(*), $node as element(), $class as xs:string+, $content, $link, $target) {
     <a href="{$link}" class="{$class}">
     {
         if ($target) then
@@ -21,17 +127,10 @@ declare function pmf:link($config as map(*), $node as node(), $class as xs:strin
     }</a>
 };
 
-declare function pmf:semantic-ref($config as map(*), $node as element(), $class as xs:string+, $content,
-    $ref, $label) {
-    let $url := "api/entity/" || $ref
-    return
-        <pb-highlight key="{$ref}"><pb-popover class="{$class}" remote="{$url}" trigger="mouseenter focus">{$content} <span slot="alternate"></span></pb-popover></pb-highlight>
-};
-
 
 declare function pmf:term-reference($config as map(*), $node as element(), $class as xs:string+, $content,
     $ref, $label) {
-    let $lang := (session:get-attribute("ssrq.lang"), "de")[1]
+    let $lang := 'de'
     let $url :=
         typeswitch($node)
             case element(tei:persName) | element(tei:orgName) return
@@ -50,7 +149,7 @@ declare function pmf:term-reference($config as map(*), $node as element(), $clas
 
 declare function pmf:dorsualparagraph($config as map(*), $node as element(), $class as xs:string+, $content,
     $ref, $label) {
-    let $lang := (session:get-attribute("ssrq.lang"), "de")[1]
+    let $lang := 'de'
     return
         <p class="alternate {$class}">
             <span>{$config?apply-children($config, $node, $content)}</span>
@@ -62,7 +161,7 @@ declare function pmf:dorsualparagraph($config as map(*), $node as element(), $cl
 
 declare function pmf:marginalparagraph($config as map(*), $node as element(), $class as xs:string+, $content,
     $ref, $label) {
-    let $lang := (session:get-attribute("ssrq.lang"), "de")[1]
+    let $lang := 'de'
     return
         <p class="alternate {$class}">
             <span>{$config?apply-children($config, $node, $content)}</span>
