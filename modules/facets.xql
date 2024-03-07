@@ -23,6 +23,8 @@ import module namespace config="http://www.tei-c.org/tei-simple/config" at "conf
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
+declare default collation "http://exist-db.org/collation?lang=DE";
+
 declare function facets:sort($config as map(*), $lang as xs:string?, $facets as map(*)?) {
     array {
         if (exists($facets)) then
