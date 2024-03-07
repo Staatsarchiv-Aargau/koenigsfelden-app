@@ -86,7 +86,7 @@
     </head>
 
     <body>
-        <pb-page data-template="pages:pb-page" unresolved="unresolved">
+        <pb-page data-template="pages:pb-page" unresolved="unresolved" url-ignore="view,odd">
             <pb-document id="document1" data-template="pages:pb-document"/>
             <app-drawer-layout force-narrow="force-narrow">
                 <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
@@ -101,7 +101,7 @@
                         </pb-view>
                     </section>
                 <main class="content-body">
-                        <pb-grid id="grid" panels="[3]">
+                        <pb-grid id="grid" panels="[2,3]">
                             <template>
                                 <!-- template used for adding a new column: user can choose between normalized edition, diplomatic edition, facsimile and register  -->
                                 <pb-panel>
@@ -115,7 +115,7 @@
                                         </pb-view>
                                     </template> 
                                     <template title="textnahe Fassung">
-                                    <pb-view src="document1" subscribe="transcription" emit="transcription">
+                                    <pb-view src="document1" subscribe="transcription" emit="transcription" append-footnotes="append-footnotes">
                                         <pb-param name="view" value="dipl"/>
                                     </pb-view>
                                 </template>
@@ -141,7 +141,7 @@
                                         </pb-view>
                                  </template>
                                 <template title="textnahe Fassung">
-                                    <pb-view src="document1" subscribe="transcription" emit="transcription">
+                                    <pb-view src="document1" subscribe="transcription" emit="transcription" append-footnotes="append-footnotes">
                                         <pb-param name="view" value="dipl"/>
                                     </pb-view>
                                 </template>

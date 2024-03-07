@@ -65,7 +65,7 @@ body {
     --pb-lang-label-color: var(--pb-color-inverse);
     --pb-link-color: var(--pb-color-start);
     --pb-link-font-family: var(--pb-serif-font-family);
-    --pb-highlight-color: #F9E976;
+    --pb-highlight-color: #F2EAD0;
     --paper-input-container-focus-color: var(--pb-color-focus);
     --pb-view-max-width: 920px;
     --font-monospace: "Ubuntu Mono", Menlo, Consolas, Courier, monospace;

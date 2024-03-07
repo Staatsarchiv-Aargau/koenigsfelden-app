@@ -18,7 +18,7 @@ declare function pmf:list-places($doc as element()) {
     let $ids := $doc//tei:placeName/@ref
     where exists($ids)
     return
-        (<h3>Orte</h3>,
+        (<h3 class="place">Orte</h3>,
         <ul>{
             for $id in  distinct-values($ids)
             let $place := collection($config:registers)/id($id)[1]
@@ -58,7 +58,7 @@ declare function pmf:list-people($doc as element()) {
         $doc//@scribe[starts-with(., 'per')]
     where exists($ids)
     return
-        (<h3>Personen</h3>,
+        (<h3 class="person">Personen</h3>,
         <ul>{
             for $id in distinct-values($ids)
             let $person :=  collection($config:registers)/id($id)[1]
@@ -82,7 +82,7 @@ declare function pmf:list-organizations($doc as element()) {
     let $ids := $doc//tei:text//tei:orgName/@ref
     where exists($ids)
     return 
-        (<h3>Organisationen</h3>,
+        (<h3 class="organization">Organisationen</h3>,
         <ul>{
             for $id in distinct-values($ids)
             let $organization :=  collection($config:registers)/id($id)[1]
@@ -113,7 +113,7 @@ declare function pmf:semantic-ref($config as map(*), $node as element(), $class 
     $ref, $label) {
     let $url := "api/entity/" || $ref
     return
-        <pb-popover data-ref="{$ref}" class="{$class}" remote="{$url}" trigger="mouseenter focus">{$content} <span slot="alternate"></span></pb-popover> 
+        <pb-popover data-ref="{$ref}" class="{$class}" remote="{$url}" trigger="mouseenter focus"><a href="../../detail.html?ref={$ref}">{html:apply-children($config, $node, $content)}</a> <span slot="alternate"></span></pb-popover> 
 };
 
 declare function pmf:link($config as map(*), $node as element(), $class as xs:string+, $content, $link, $target) {
@@ -200,10 +200,10 @@ declare function pmf:alternote($config as map(*), $node as element(), $class as 
             </span>
         else
             (),
-        <span class="alternate {$class}">
-            <span>{html:apply-children($config, $node, $content)}</span>
-            <span class="altcontent">{$prefix}{$alternate}</span>
-        </span>,
+        <pb-popover class="{$class}">
+            <span slot="default">{html:apply-children($config, $node, $content)}</span>
+            <template slot="alternate">{$prefix}{$alternate}</template>
+        </pb-popover>,
         <span id="fnref:{$id}" class="note-wrap">
             <a class="note note-end" rel="footnote" href="#fn:{$id}">
             { $labelEnd }

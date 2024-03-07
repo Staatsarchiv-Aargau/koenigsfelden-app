@@ -4,8 +4,12 @@
     font-size: 1em;
     font-weight: bold;
     color: #364954;
-    margin: 1em 0 0.5em 0;
+    margin: 1em 0 0.5em -1em;
     font-family: var(--pb-base-font-family);
+}
+
+.footnotes {
+    margin-left: 1em;
 }
 
 .footnotes a {
@@ -51,11 +55,16 @@ paper-checkbox {
     margin: 0;
 }
 
-.header-edition h3, .register h3 {
-    color: #364954;
+.header-edition h3,  {
+  /*  color: #364954; */
     margin:0;
-    font-size: 18px;
+    
 }
+
+.register h3 {
+    margin: 0;
+    font-size: 18px;
+};
 
 .header-edition pb-collapse {
     margin-top: 1em;
@@ -91,7 +100,7 @@ paper-checkbox {
 .place, .place a:visited {
     color: #007e00;
 }
-.person, .person a:visited
+.person, .person a:visited,
 .organization, .organization a:visited {
     color: #4478b5;
 }
@@ -102,9 +111,14 @@ paper-checkbox {
 }
 
 .text-critical {
-    color: var(--color-text-critical);
+    text-decoration:underline;
+    text-decoration-style: dotted;
+    text-decoration-color: #333;
 }
 
+.date {
+    color: #800080;
+}
 
 .orig::before {
     content: '«';
