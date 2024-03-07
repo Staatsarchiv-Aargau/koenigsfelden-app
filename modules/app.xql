@@ -137,10 +137,6 @@ function app:show-list-items($node as node(), $model as map(*)) {
 
 declare function app:get-entity-info($node as node(), $model as map(*)) {
     let $id := $model?key
-    return 
-        if (starts-with($id, 'key-')) then (
-            let $keyword := substring-after($id, 'key-')
-            return <h1>{upper-case(substring($keyword,1,1)) || substring($keyword, 2)}</h1>) else (
     let $entity := collection($config:registers)/id($id)[1]
     let $info :=  $pm-config:web-transform(
                             $entity,
@@ -153,11 +149,13 @@ declare function app:get-entity-info($node as node(), $model as map(*)) {
             <div class="panel">
                     {$info}
             </div>
-            )};
+            };
 
 declare function app:get-entity-mentions($node as node(), $model as map(*)) {
-    let $id := $model?key
+    let $key := $model?key
     let $type := $model?type
+    (: Until @ref attribute is added to the keywords within the documents, mentions are based on full form  :)
+    let $id := if ($type eq 'keyword') then doc($config:registers || '/keywords.xml')/id($key)/tei:catDesc else $key
     let $docsCollection := 
     switch ($type) 
         case 'person' return

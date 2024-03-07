@@ -196,15 +196,16 @@ declare function api:keyword-list($request as map(*)){
     let $letterParam := $request?parameters?category
     let $sortDir := $request?parameters?dir
     let $limit := $request?parameters?limit
-    let $all-keywords := api:list-all-keywords()
+(:  :    let $all-keywords := api:list-all-keywords() :)
+    let $all-keywords := doc($config:registers || '/keywords.xml')//tei:category
     let $keywords :=
             if ($search and $search != '') then 
-                 $all-keywords[matches(., $search, 'i')]
+                 $all-keywords[matches(tei:catDesc, $search, 'i')]
             else
                 $all-keywords
     let $byKey := for-each($keywords, function($keyword as element()) {
-        let $name := $keyword
-        let $label := $keyword
+        let $name := $keyword/tei:catDesc/string()
+        let $label := $keyword/tei:catDesc/string()
         let $sortKey := $label
         return
             [lower-case($sortKey), $label, $keyword]
@@ -326,7 +327,7 @@ declare function api:output-register-all($list, $type as xs:string) {
                     }
                     </span>
                 case 'keyword' return
-                    <span><a href="detail.html?ref=key-{$item?1}">{$item?2}</a></span>
+                    <span><a href="detail.html?ref={$item?3/@xml:id}">{$item?2}</a></span>
                 default return
                     <span><a href="detail.html?ref={$item?3/@xml:id}">{$item?2}</a></span>
     }

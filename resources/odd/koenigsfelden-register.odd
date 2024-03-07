@@ -28,7 +28,8 @@
             </sourceDesc>
         </fileDesc>
         <encodingDesc>
-            <tagsDecl> <rendition source="koenigsfelden.css"/>
+            <tagsDecl>
+                <rendition source="koenigsfelden.css"/>
             </tagsDecl>
         </encodingDesc>
         <revisionDesc>
@@ -41,6 +42,7 @@
                     <modelSequence>
             <model behaviour="heading">
                 <param name="content" value="persName"/>
+                <param name="level" value="2"/>
             </model>
             <model predicate="descendant::death" behaviour="heading">
                 <param name="content" value="string-join((birth, death), '–')"/>
@@ -143,6 +145,14 @@
             </model>
         </modelSequence>
                 </elementSpec>
+            <elementSpec ident="category" mode="add">
+        <modelSequence>
+            <model behaviour="heading">
+                <param name="content" value="catDesc"/>
+                <param name="level" value="2"/>
+            </model>
+        </modelSequence>
+    </elementSpec>
             </schemaSpec>
         </body>
     </text>
