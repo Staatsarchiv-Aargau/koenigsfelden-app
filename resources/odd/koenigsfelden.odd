@@ -40,7 +40,10 @@
         <body>
             <schemaSpec start="TEI teiCorpus" ident="koenigsfelden" source="teipublisher.odd">   
              <elementSpec ident="TEI" mode="change">
-                    <model behaviour="document"/>
+                    <model predicate="$parameters?view='register'" behaviour="register-data"/>
+                    <model behaviour="document">
+            <param name="content" value="descendant::body"/>
+        </model>
                 </elementSpec>
                 <elementSpec ident="body" mode="change">
                     <modelSequence>
@@ -128,8 +131,10 @@
             
             
             
+            
             margin-top: 1ex;
 margin-bottom: 1ex;
+            
             
             
             
@@ -276,11 +281,13 @@ margin-bottom: 1ex;
             
             
             
+            
             display: block;
 font-weight: 700;
 line-height: 1.2;
 margin-top: 20px;
 margin-bottom: 10px;
+            
             
             
             
@@ -586,7 +593,7 @@ margin-bottom: 10px;
         </model>
                 </elementSpec>
                 <elementSpec ident="hi" mode="change">
-                    <model predicate="(@rend eq 'rubricated') and $parameters?view='dipl'" behaviour="alternate">
+                    <model predicate="(@rend eq 'rubricated') and $parameters?view='dipl'" behaviour="alternate" cssClass="block">
             <param name="default" value="."/>
             <param name="alternate" value="'Rubriziert'"/>
         </model>
