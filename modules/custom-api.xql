@@ -314,17 +314,15 @@ declare function api:output-register-all($list, $type as xs:string) {
                     let $label := $item?3/tei:placeName/string()
                     let $coords := tokenize($item?3//tei:geo)
                     return
-                    <span><a href="detail.html?ref={$item?3/@xml:id}">{$label} ({$item?3//tei:country/string()})</a> 
+                    <span class="register-item"><a href="detail.html?ref={$item?3/@xml:id}">{$label} ({$item?3//tei:country/string()})</a> 
                     {if (count($coords) eq 2) then 
                           <pb-geolocation latitude="{$coords[1]}" longitude="{$coords[2]}" label="{$label}" emit="map" event="click">
                                 <iron-icon icon="maps:map"></iron-icon>
                             </pb-geolocation>  else ()
                     }
                     </span>
-                case 'keyword' return
-                    <span><a href="detail.html?ref={$item?3/@xml:id}">{$item?2}</a></span>
                 default return
-                    <span><a href="detail.html?ref={$item?3/@xml:id}">{$item?2}</a></span>
+                    <span class="register-item"><a href="detail.html?ref={$item?3/@xml:id}">{$item?2}</a></span>
     }
 };
 

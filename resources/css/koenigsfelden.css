@@ -143,10 +143,11 @@ footer a {
 /* Main register pages */
 
 .register-container {
-    width: 60%;
+    width: 50%;
     min-height: 73vh;
     margin: auto;
     justify-content: center;
+    display:block;
 }
 
 .transcript {
@@ -156,3 +157,19 @@ footer a {
 .register-container pb-custom-form {
     margin-bottom: 1em;
 }
+
+pb-split-list::part(items) {
+    margin-top: 1em;
+    display:block !important;
+    column-count: 2;
+}
+
+pb-split-list::part(items) span {
+    display:block !important;
+}
+
+.register-item {
+    display:block;
+}
+
+
