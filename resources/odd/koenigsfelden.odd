@@ -133,8 +133,12 @@
             
             
             
+            
+            
             margin-top: 1ex;
 margin-bottom: 1ex;
+            
+            
             
             
             
@@ -160,10 +164,18 @@ margin-bottom: 1ex;
         </model>
                 </elementSpec>
                    <elementSpec ident="choice" mode="change">
-                    <model predicate="sic and corr and $parameters?view='norm'" behaviour="alternote" cssClass="text-critical">
+                    <model predicate="sic and corr  and $parameters?view='norm'" behaviour="alternote" cssClass="text-critical">
             <param name="content" value="corr"/>
             <param name="alternate" value="(ec:label('corrected-from'), ec:colon(), sic)"/>
             <param name="type" value="'text-critical'"/>
+        </model>
+                    <model predicate="abbr and expan and $parameters?view='norm'" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="expan[1]"/>
+            <param name="alternate" value="(ec:label('abbr-nonexpanded'), ec:colon(), abbr[1])"/>
+        </model>
+                    <model predicate="orig and reg and $parameters?view='norm'" behaviour="alternate" cssClass="text-critical">
+            <param name="default" value="reg[1]"/>
+            <param name="alternate" value="orig[1]"/>
         </model>
                     <model predicate="sic and corr" behaviour="alternote" cssClass="text-critical">
             <param name="content" value="sic"/>
@@ -171,18 +183,10 @@ margin-bottom: 1ex;
             <param name="alternate" value="corr"/>
             <param name="type" value="'text-critical'"/>
         </model>
-                    <model predicate="abbr and expan and $parameters?view='norm'" behaviour="alternate" cssClass="text-critical">
-            <param name="default" value="expan[1]"/>
-            <param name="alternate" value="'In der Vorlage: ' || abbr[1]"/>
-        </model>
                     <model predicate="abbr and expan" behaviour="alternate" cssClass="text-critical">
             <param name="default" value="abbr[1]"/>
             <param name="prefix" value="(ec:label('abbr-expanded'), ec:colon())"/>
             <param name="alternate" value="expan[1]"/>
-        </model>
-                    <model predicate="orig and reg and $parameters?view='norm'" behaviour="alternate" cssClass="text-critical">
-            <param name="default" value="reg[1]"/>
-            <param name="alternate" value="orig[1]"/>
         </model>
                     <model predicate="orig and reg" behaviour="alternate" cssClass="text-critical">
             <param name="default" value="orig[1]"/>
@@ -285,11 +289,15 @@ margin-bottom: 1ex;
             
             
             
+            
+            
             display: block;
 font-weight: 700;
 line-height: 1.2;
 margin-top: 20px;
 margin-bottom: 10px;
+            
+            
             
             
             
@@ -603,7 +611,7 @@ margin-bottom: 10px;
         </model>
                 </elementSpec>
                 <elementSpec ident="hi" mode="change">
-                    <model predicate="(@rend eq 'rubricated')" behaviour="alternote">
+                    <model predicate="@rend eq 'rubricated'" behaviour="alternote">
             <param name="content" value="."/>
             <param name="alternate" value="'Rubriziert'"/>
             <param name="type" value="'text-critical'"/>
@@ -943,12 +951,6 @@ margin-bottom: 10px;
                     <desc>Stückbeschreibung ausgeben</desc>
                     <model predicate="$parameters?header='edition'" behaviour="pass-through">
             <param name="content" value="(msIdentifier, history/origin/origDate, history/origin/origPlace, msContents/msItem/textLang, msContents/msItem/filiation[@type='current'], physDesc/objectDesc/supportDesc/condition, physDesc/objectDesc/supportDesc, physDesc, msContents/msItem/author[@role=&#34;scribe&#34;], additional)"/>
-            <pb:template xmlns="" xml:space="preserve"><pb-collapse>
-   <div slot="collapse-trigger">
-        <h3>Stückbeschreibung</h3>
-   </div>
-   <ul slot="collapse-content">[[content]]</ul>
-</pb-collapse></pb:template>
         </model>
                 </elementSpec>
                 <elementSpec ident="msIdentifier">
@@ -1100,7 +1102,7 @@ margin-bottom: 10px;
                 </elementSpec>
             <elementSpec ident="reg" mode="add">
                     <model predicate="@type = ('star', 'lb') and $parameters?view='dipl'" behaviour="inline"/>
-                    <model predicate="@type = ('star', 'lb') and $parameters?view='norm'" behaviour="omit">
+                    <model predicate="@type = ('star', 'lb', 'hyphen') and $parameters?view='norm'" behaviour="omit">
             <outputRendition xml:space="preserve">
             
             </outputRendition>
@@ -1141,7 +1143,7 @@ margin-bottom: 10px;
                     <model output="latex" behaviour="metadata"/>
                     <model output="fo" behaviour="omit"/>
                     <model output="web" predicate="$parameters?header='edition'" behaviour="block" cssClass="header-edition">
-            <param name="content" value="(descendant::titleStmt, descendant::summary, descendant::msDesc)"/>
+            <param name="content" value="(descendant::titleStmt, descendant::summary, descendant::listWit)"/>
         </model>
                     <model output="web" behaviour="metadata"/>
                 </elementSpec>
@@ -1151,13 +1153,41 @@ margin-bottom: 10px;
         </model>
                 </elementSpec>
             <elementSpec ident="unclear" mode="change">
-        <model behaviour="alternote" cssClass="text-critical">
+                    <model predicate="ancestor::back//orig" behaviour="inline"/>
+                    <model predicate="parent::del or parent::abbr or parent::corr" behaviour="inline"/>
+                    <model predicate="parent::damage" behaviour="alternote" cssClass="text-critical">
             <param name="content" value="."/>
-            <param name="alternate" value="'Unsichere Lesung'"/>
-            <param name="place" value="'footnote'"/>
+            <param name="alternate" value="(ec:translate(parent::damage/@agent), ', ', ec:label('unclear-rdg', false()))"/>
             <param name="type" value="'text-critical'"/>
         </model>
-    </elementSpec>
+                    <model behaviour="alternote" cssClass="text-critical">
+            <param name="content" value="."/>
+            <param name="alternate" value="ec:label('unclear-rdg')"/>
+            <param name="type" value="'text-critical'"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="listWit" mode="add">
+                    <modelSequence predicate="$parameters?header='edition'">
+            <model behaviour="pass-through">
+                <param name="content" value="witness[not(@copyOf)]/msDesc"/>
+                <pb:template xmlns="" xml:space="preserve"><pb-collapse>
+   <div slot="collapse-trigger">
+        <h3>Stückbeschreibung</h3>
+   </div>
+   <ul slot="collapse-content">[[content]]</ul>
+</pb-collapse></pb:template>
+            </model>
+            <model predicate="witness[@copyOf]" behaviour="pass-through">
+                <param name="content" value="witness[@copyOf]/msDesc"/>
+                <pb:template xmlns="" xml:space="preserve"><pb-collapse>
+   <div slot="collapse-trigger">
+        <h3>Weitere Überlieferungen</h3>
+   </div>
+   <ul slot="collapse-content">[[content]]</ul>
+</pb-collapse></pb:template>
+            </model>
+        </modelSequence>
+                </elementSpec>
             </schemaSpec>
         </body>
     </text>

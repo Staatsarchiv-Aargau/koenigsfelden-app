@@ -86,7 +86,7 @@
     </head>
 
     <body>
-        <pb-page data-template="pages:pb-page" unresolved="unresolved" url-ignore="view,odd">
+        <pb-page data-template="pages:pb-page" unresolved="unresolved" url-ignore="view,odd,panels">
             <pb-document id="document1" data-template="pages:pb-document"/>
             <app-drawer-layout force-narrow="force-narrow">
                 <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
@@ -120,7 +120,7 @@
                                     </pb-view>
                                 </template>
                                      <template title="Digitalisat">
-                                     <pb-facsimile id="facsimile" show-rotation-control="show-rotation-control" style="height:600px" show-full-page-control="show-full-page-control" show-navigation-control="show-navigation-control" show-sequence-control="show-sequence-control" show-reference-strip="" subscribe="transcription">
+                                     <pb-facsimile id="facsimile" show-navigator="show-navigator" show-rotation-control="show-rotation-control" style="height:600px" show-full-page-control="show-full-page-control" show-navigation-control="show-navigation-control" show-sequence-control="show-sequence-control" show-reference-strip="" subscribe="transcription">
                         </pb-facsimile>
                         <p id="status"/>
                                       </template>
