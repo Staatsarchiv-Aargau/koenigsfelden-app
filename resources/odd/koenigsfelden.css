@@ -100,9 +100,12 @@ paper-checkbox {
 .place, .place a:visited {
     color: #007e00;
 }
-.person, .person a:visited,
-.organization, .organization a:visited {
+.person, .person a:visited {
     color: #4478b5;
+}
+
+.organization, .organization a:visited {
+    color: #4C698B;
 }
 
 .reference a {
