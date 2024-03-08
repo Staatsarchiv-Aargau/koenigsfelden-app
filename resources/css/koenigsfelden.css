@@ -20,7 +20,7 @@ pb-grid {
     position: relative;
     display: flex;
     justify-content: center;
-    padding: 0 20px;
+    width: 95%;
 }
 .edition .content-body pb-view {
     flex: 1 1;
@@ -200,14 +200,14 @@ pb-panel {
     margin-right: 20px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.edition h1,
+.edition h2,
+.edition h3,
+.edition h4,
+.edition h5,
+.edition h6 {
     font-family: var(--pb-heading-font-family);
-    font-weight: 400 !important;
+    font-weight: 400;
     line-height: 1.2;
 }
 
@@ -329,15 +329,14 @@ a:hover {
 }
 
 .citation {
-    font-family: var(--pb-base-font-family);
-    margin: 0 16px;
+    margin: 0 18px;
 }
 
 .citation h3 {
     color: #364954;
     font-family: 'Roboto', 'Noto', sans-serif;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 21px;
 }
 
 /*static pages toc links*/
