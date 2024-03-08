@@ -1,17 +1,9 @@
 window.addEventListener("DOMContentLoaded", () => {
   let blocks = [];
 
-  pbEvents.subscribe('pb-start-update', 'transcription', (ev) => {
-    blocks = [];
-  });
-  
-  
-  pbEvents.subscribe("pb-update", "transcription", (ev) => {
+ pbEvents.subscribe("pb-update", "transcription", (ev) => {
     blocks.push(ev.detail.root);
     console.log('blocks: %d', blocks.length);
-    if (blocks.length === 2) {
-      register._refresh();
-    }
   });
   
   
