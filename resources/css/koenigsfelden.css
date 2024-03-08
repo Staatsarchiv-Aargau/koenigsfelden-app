@@ -10,7 +10,7 @@ body.edition {
 }
 pb-grid {
     --pb-content-theme: {
-        font-family: "Junicode", Georgia, "Times New Roman", serif;
+        font-family: var(--pb-serif-font-family);
         font-size: 14pt;
         line-height: 1.42857143;
         margin: 0 16px;
