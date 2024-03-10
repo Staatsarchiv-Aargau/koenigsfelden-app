@@ -47,11 +47,14 @@ declare function api:places-all($request as map(*)) {
         array { 
             for $place in $places
                 let $tokenized := tokenize($place/tei:location/tei:geo)
+                let $label := if ($place/tei:placeName[@xml:lang eq 'deu']) then $place/tei:placeName[@xml:lang eq 'deu'] else $place/tei:placeName[1] 
+                let $id := $place/@xml:id/string()
                 return 
                     map {
                         "latitude":$tokenized[1],
                         "longitude":$tokenized[2],
-                        "label":string(count($place/preceding-sibling::tei:place))
+                        "label":$label/string(),
+                        "id":$id
                     }
             }        
 };
@@ -259,7 +262,7 @@ declare function api:place-list($request as map(*)){
             else
                 $doc//tei:place
     let $byKey := for-each($places, function($place as element()) {
-        let $name := $place/tei:placeName[@xml:lang eq 'deu'] 
+        let $name := if ($place/tei:placeName[@xml:lang eq 'deu']) then $place/tei:placeName[@xml:lang eq 'deu'] else $place/tei:placeName[1] 
         let $label := string($name)
         let $sortKey := $label
         return
@@ -311,7 +314,7 @@ declare function api:output-register-all($list, $type as xs:string) {
         return
             switch ($type)
                 case 'place' return
-                    let $label := $item?3/tei:placeName/string()
+                    let $label := $item?2
                     let $coords := tokenize($item?3//tei:geo)
                     return
                     <span class="register-item"><a href="detail.html?ref={$item?3/@xml:id}">{$label} ({$item?3//tei:country/string()})</a> 

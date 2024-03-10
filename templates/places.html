@@ -47,9 +47,8 @@
                 });
 
                 pbEvents.subscribe('pb-leaflet-marker-click', 'map', function(ev) {
-                    const label = ev.detail.label;
-                    const category = label.substring(0, 1);
-                    window.location = `${label}?category=${category}`;
+                    const id = ev.detail.id;
+                    window.location = `detail.html?ref=${id}`;
                 });
                 
                 setTimeout(function () {
