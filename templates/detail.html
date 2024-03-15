@@ -3,7 +3,7 @@
         <script data-target="script-preload" type="module" src="pb-leaflet-map.js" data-template="pages:load-components"/>
     </head>
     <body>
-        <pb-page data-template="pages:pb-page" unresolved="unresolved" locales="resources/i18n/{{ns}}/{{lng}}.json" url-ignore="view" require-language="">
+        <pb-page data-template="pages:pb-page" unresolved="unresolved" locales="resources/i18n/{{ns}}/{{lng}}.json" ignore-url="view" require-language="require-language">
             <app-drawer-layout force-narrow="force-narrow">
                 <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
                 <app-header-layout fullbleed="">
@@ -11,7 +11,7 @@
                     <app-toolbar data-template="templates:include" data-template-path="templates/banner.html"/>
                         <app-toolbar data-template="lib:include" data-template-path="templates/menu.html"/>
                  </app-header>
-                        <main class="register-container">
+                        <main>
                             <div data-template="app:get-entity-info" class="panel"/>
                              <pb-leaflet-map class="map-detail" id="map" zoom="6" toggle="">
                     <pb-map-layer show="" base="" label="OpenTopo Map" url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png" max-zoom="19" attribution="© Mapbox © OpenStreetMap"/>

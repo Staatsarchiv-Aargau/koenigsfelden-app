@@ -32,10 +32,6 @@ function app:load-model($node as node(), $model as map(*), $ref as xs:string) {
     return
         map:merge(($model, map {"key" : $ref, "type": $type}))
 };
-
-
-
-
 declare
     %templates:wrap
 function app:show-list-items($node as node(), $model as map(*)) {
@@ -76,23 +72,49 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
             collection($config:data-default)//tei:text[ft:query(., 'org-mentioned:' || $id, map { 'fields' : ('org-mentioned' , 'date')})]
         default return 
             collection($config:data-default)//tei:text[ft:query(., 'keyword-mentioned:' || $id, map { 'fields' : ('keyword-mentioned' , 'date')})]
-   let $docs :=  for $text in $docsCollection
+   let $docs := for $text in $docsCollection
         let $d := ft:field($text, 'date')
+        let $root := $text/ancestor::tei:TEI
+        let $keywords := $root/tei:teiHeader/descendant::tei:term
+        let $mentions := for $mention in $text//*[@ref = $model?key] return string-join(app:dispatch($mention), '')
         order by $d ascending
-        return
-            element a {
-                attribute href {'data/docs/' || ft:field($text, 'file') },
-                $text/ancestor::tei:TEI//tei:titleStmt/tei:title/text()
-                }
+        return 
+            <tr>
+                <td><a href="data/docs/{ft:field($text, 'file')}">{$root/descendant::tei:titleStmt/tei:title/text()}</a></td>
+                <td>{string-join(distinct-values($mentions), '; ')}</td>
+                <td>{string-join($keywords, '; ')}</td>
+                <td>{$root/descendant::tei:summary/string()}</td>
+            </tr>
     return 
-        if ($docs) then
+        if ($docs and ($model?type ne 'keyword')) then
         <div class="panel">
             <h3 class="panel-title">Vorkommen in Dokumenten</h3>
-            <ol>{for $doc in $docs 
-                return element li { $doc } }
-            </ol>
+            <table>
+                <tr><th>Dokument</th><th>Erwähnung</th><th>Schlagwörter</th></tr>
+                {for $doc in $docs 
+                return 
+                    <tr>
+                        {$doc/subsequence(td, 1, 3)}
+                    </tr>
+                    
+            }</table>
         </div>
-        else ()
+        else 
+            if ($docs) then 
+                <div class="panel">
+            <h3 class="panel-title">Vorkommen in Dokumenten</h3>
+            <table>
+                <tr><th>Dokument</th><th>Schlagwörter</th><th>Regest</th></tr>
+                 {for $doc in $docs 
+                return 
+                    <tr>
+                        {$doc/td[1], $doc/subsequence(td, 3)}
+                    </tr>
+                    
+            }
+            </table>
+        </div>
+            else ()
     }; 
 
 declare function app:current-date($node as node(), $model as map(*)) {
@@ -122,3 +144,23 @@ function app:get-dorsual-collection($id as xs:string) {
                 <li><a href="../data/docs/{$idno}">{$key}</a>. {$date}</li>
         }</ul>
     };
+
+declare function app:dispatch($node as node()) as item() * {
+    typeswitch($node)
+        case text() return $node
+        case element(tei:choice) return app:choice($node)
+        case element(tei:reg) return app:reg($node)
+        default return app:passthru($node)
+};
+
+declare function app:passthru($node as node()) as item()* {
+    for $child in $node/node() return app:dispatch($child)
+};
+
+declare function app:choice($node as element(tei:choice)) as item()+ {
+app:passthru($node/tei:corr|$node/tei:reg|$node/tei:expan)};
+
+declare function app:reg($node as element(tei:reg)) as item()* {
+    if ($node/@type) then () else $node/node()};
+
+

@@ -439,6 +439,14 @@ pb-split-list::part(items) span {
     display:block;
 }
 
+/* Detail page*/
+
+.panel tr {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-collapse: collapse;
+}
+
 /* Maps */
 
 pb-leaflet-map.map-global {
