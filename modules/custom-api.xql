@@ -69,11 +69,11 @@ declare function api:person-list($request as map(*)){
             if ($search and $search != '') then
 (:                $doc//tei:person[@xml:id][ft:query(., 'name:(' || $search || '*)')]
  : for some reason that field is not indexing properly :)
-                 $doc//tei:person[@xml:id][matches(tei:persName, $search, 'i')]
+                 $doc//tei:person[matches(tei:persName[@type eq 'main'], $search, 'i')]
             else
-                $doc//tei:person[@xml:id]
+                $doc//tei:person
     let $byKey := for-each($people, function($person as element()) {
-        let $name := $person//tei:persName[not(@type)][1]
+        let $name := $person//tei:persName[@type eq 'main']
         let $surname := tokenize($name, '\s+')[last()]
         let $label := $name/string() 
         let $sortKey :=
@@ -131,11 +131,11 @@ declare function api:organization-list($request as map(*)){
     let $orgs :=
             if ($search and $search != '') then 
  (: for some reason that field is not indexing properly :)
-                 $doc//tei:org[matches(tei:orgName, $search, 'i')]
+                 $doc//tei:org[matches(tei:orgName[1], $search, 'i')]
             else
                 $doc//tei:org
     let $byKey := for-each($orgs, function($org as element()) {
-        let $name := $org//tei:orgName
+        let $name := $org//tei:orgName[1]
         let $label := $name/string()
         let $sortKey :=
             if (starts-with($label, "von ")) then
