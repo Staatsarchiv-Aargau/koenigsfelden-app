@@ -66,7 +66,7 @@ declare function pmf:list-people($doc as element()) {
                 <li data-ref="{$id}">
                      <paper-checkbox class="select-facet" title="i18n(highlight-facet)"/> <a target="_new"
                         href="../../detail.html?ref={$id}">
-                        {$person/tei:persName/string()}
+                        {$person/tei:persName[@type eq 'main']/string()}
                     </a>
                     {
                         if ($person/tei:death) then
@@ -90,7 +90,7 @@ declare function pmf:list-organizations($doc as element()) {
                  <li data-ref="{$id}"> <paper-checkbox class="select-facet" title="i18n(highlight-facet)"/>
                     <a target="_new"
                         href="../../detail.html?ref={$id}">
-                        {$organization/tei:orgName/string()}
+                        {$organization/tei:orgName[1]/string()}
                     </a>
                     {
                         if ($organization/tei:desc) then
@@ -106,6 +106,20 @@ declare function pmf:register-data($config as map(*), $node as element(), $conte
     <div class="register">{
     (pmf:list-people($node), pmf:list-organizations($node), pmf:list-places($node), pmf:list-keys($node))
     }</div>
+};
+
+declare function pmf:get-links($ref as xs:string, $type as xs:string) {
+    let $ids := tokenize($ref, '\s+')
+    for $id in $ids 
+    let $entity := collection($config:registers)/id($id)[1]
+    let $personOrgs := if ($type eq 'person') then doc($config:registers || '/people.xml')//tei:person[descendant::tei:affiliation[some $x in tokenize(@ref, '\s+') satisfies $x = $id]] else ()
+    let $type := if ($personOrgs) then 'people' else $type 
+    let $members := for $person in $personOrgs return <li><a href="detail.html?ref={$person/@xml:id}">{$person/tei:persName[@type eq 'main']}</a></li>
+    return
+        switch($type)
+            case 'org' return <li><a href="detail.html?ref={$entity/@xml:id}">{$entity/tei:orgName[1]}</a></li>
+            case 'people' return (<h4>Mitglieder</h4>, <ul>{$members}</ul>)
+            default return ()
 };
 
 

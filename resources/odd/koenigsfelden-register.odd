@@ -41,18 +41,24 @@
             <schemaSpec start="TEI teiCorpus" ident="koenigsfelden-register" source="teipublisher.odd"> <elementSpec ident="person" mode="add">
                     <modelSequence>
             <model behaviour="heading">
-                <param name="content" value="persName"/>
+                <param name="content" value="persName[@type eq 'main']"/>
                 <param name="level" value="2"/>
             </model>
-            <model predicate="descendant::death" behaviour="heading">
-                <param name="content" value="string-join((birth, death), '–')"/>
-                <param name="level" value="3"/>
+            <model behaviour="list">
+                <param name="content" value="(persName[@type eq 'full'], birth, death, occupation, event)"/>
             </model>
             <model behaviour="pass-through">
                 <param name="ref" value="@xml:id"/>
                 <pb:template xmlns="" xml:space="preserve"><h4>Links zu externen Ressourcen</h4>
 <ul>
   <li><a href="https://www.ssrq-sds-fds.ch/persons-db-edit/?query=[[ref]]" target="_blank">ssrq</a></li>
+</ul></pb:template>
+            </model>
+            <model predicate="affiliation[@type eq 'org']" behaviour="inline">
+                <param name="content" value="ext-html:get-links(affiliation/@ref, 'org')"/>
+                <pb:template xmlns="" xml:space="preserve"><h4>Organisationen / Familien</h4>
+<ul>
+  [[content]]
 </ul></pb:template>
             </model>
         </modelSequence>
@@ -60,11 +66,11 @@
                 <elementSpec ident="org" mode="add">
                     <modelSequence>
             <model behaviour="heading">
-                <param name="content" value="orgName"/>
+                <param name="content" value="orgName[1]/string()"/>
                 <param name="level" value="2"/>
             </model>
-            <model predicate="desc" behaviour="paragraph">
-                <param name="content" value="'Typ: ' || desc[@xml:lang eq 'de']"/>
+            <model behaviour="list">
+                <param name="content" value="(orgName[2], head((desc[@xml:lang eq 'de'], desc)))"/>
             </model>
             <model behaviour="pass-through">
                 <param name="ref" value="@xml:id"/>
@@ -72,6 +78,9 @@
 <ul>
   <li><a href="https://www.ssrq-sds-fds.ch/persons-db-edit/?query=[[ref]]" target="_blank">ssrq</a></li>
 </ul></pb:template>
+            </model>
+            <model behaviour="pass-through">
+                <param name="content" value="ext-html:get-links(@xml:id, 'person')"/>
             </model>
         </modelSequence>
                 </elementSpec>
@@ -146,13 +155,57 @@
         </modelSequence>
                 </elementSpec>
             <elementSpec ident="category" mode="add">
-        <modelSequence>
+                    <modelSequence>
             <model behaviour="heading">
                 <param name="content" value="catDesc"/>
                 <param name="level" value="2"/>
             </model>
         </modelSequence>
-    </elementSpec>
+                </elementSpec>
+                <elementSpec ident="birth" mode="add">
+                    <model behaviour="pass-through">
+            <param name="content" value="./string()"/>
+            <pb:template xmlns="" xml:space="preserve"><li><strong>Geburtsdatum</strong>: [[content]]</li></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="death" mode="add">
+                    <model behaviour="pass-through">
+            <param name="content" value="./string()"/>
+            <pb:template xmlns="" xml:space="preserve"><li><strong>Todesdatum</strong>: [[content]]</li></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="event" mode="add">
+                    <model behaviour="pass-through">
+            <param name="label" value="label/string()"/>
+            <param name="content" value="date/string()"/>
+            <pb:template xmlns="" xml:space="preserve"><li><strong>[[label]]</strong>: [[content]]</li></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="persName" mode="add">
+                    <model predicate="@type eq 'full'" behaviour="pass-through">
+            <param name="surname" value="string-join(surname, ', ')"/>
+            <param name="forename" value="string-join(forename, ', ')"/>
+            <pb:template xmlns="" xml:space="preserve"><li><strong>Name</strong>: <ul><li>Nachname(n): [[surname]]</li> <li>Vorname(n): [[forename]]</li></ul></li></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="occupation" mode="add">
+                    <model behaviour="pass-through">
+            <param name="content" value="./string()"/>
+            <pb:template xmlns="" xml:space="preserve"><li><strong>Rolle/Beruf</strong>: </li></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="desc" mode="add">
+                    <model predicate="parent::org" behaviour="pass-through">
+            <param name="content" value="./string()"/>
+            <pb:template xmlns="" xml:space="preserve"><li><strong>Typ</strong>: [[content]]</li></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="orgName" mode="add">
+                    <model behaviour="pass-through">
+            <param name="content" value="string-join((., following-sibling::orgName), ', ')"/>
+            <pb:template xmlns="" xml:space="preserve"><li><strong>Andere Namen</strong>: [[content]]</li></pb:template>
+        </model>
+                </elementSpec>
             </schemaSpec>
         </body>
     </text>
