@@ -76,12 +76,13 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
         let $d := ft:field($text, 'date')
         let $root := $text/ancestor::tei:TEI
         let $keywords := $root/tei:teiHeader/descendant::tei:term
-        let $mentions := for $mention in $text//*[@ref = $model?key] return string-join(app:dispatch($mention), '')
+        let $hits := $text//*[@ref = $model?key]
+        let $mentions := for $mention in $hits return string-join(app:dispatch($mention), '')
         order by $d ascending
         return 
             <tr>
                 <td><a href="data/docs/{ft:field($text, 'file')}">{$root/descendant::tei:titleStmt/tei:title/text()}</a></td>
-                <td>{string-join(distinct-values($mentions), '; ')}</td>
+                <td>{(string-join(distinct-values($mentions), '; '), <span style="color:#837A82">{' (' || count($hits) || ' Treffer)'}</span>)}</td>
                 <td>{string-join($keywords, '; ')}</td>
                 <td>{$root/descendant::tei:summary/string()}</td>
             </tr>
