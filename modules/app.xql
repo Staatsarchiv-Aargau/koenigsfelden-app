@@ -106,7 +106,7 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
                 <div class="panel">
             <h3 class="panel-title">Vorkommen in Dokumenten</h3>
             <table>
-                <tr><th>Dokument</th><th>Schlagwörter</th><th>Regest</th></tr>
+                <tr><th>Dokument</th><th>Datum</th><th>Schlagwörter</th><th>Regest</th></tr>
                  {for $doc in $docs 
                 return 
                     <tr>
