@@ -82,7 +82,7 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
         return 
             <tr>
                 <td><a href="data/docs/{ft:field($text, 'file')}">{$root/descendant::tei:titleStmt/tei:title/text()}</a></td>
-                <td>{format-date($d, '[D1].[M1].[Y0001]')}</td>
+                <td>{if (string-length($d) eq 10) then format-date($d, '[D1].[M1].[Y0001]') else $d}</td>
                 <td>{(string-join(distinct-values($mentions), '; '), <span style="color:#837A82">{' (' || count($hits) || ' Treffer)'}</span>)}</td>
                 <td>{string-join($keywords, '; ')}</td>
                 <td>{$root/descendant::tei:summary/string()}</td>
