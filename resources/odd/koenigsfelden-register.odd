@@ -188,7 +188,7 @@
                 <elementSpec ident="occupation" mode="add">
                     <model behaviour="pass-through">
             <param name="content" value="./string()"/>
-            <pb:template xmlns="" xml:space="preserve"><li><strong>Rolle/Beruf</strong>: </li></pb:template>
+            <pb:template xmlns="" xml:space="preserve"><li><strong>Rolle/Beruf</strong>: [[content]]</li></pb:template>
         </model>
                 </elementSpec>
                 <elementSpec ident="desc" mode="add">
