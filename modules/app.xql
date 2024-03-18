@@ -82,6 +82,7 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
         return 
             <tr>
                 <td><a href="data/docs/{ft:field($text, 'file')}">{$root/descendant::tei:titleStmt/tei:title/text()}</a></td>
+                <td>{format-date($d, '[D1].[M1].[Y0001]')}</td>
                 <td>{(string-join(distinct-values($mentions), '; '), <span style="color:#837A82">{' (' || count($hits) || ' Treffer)'}</span>)}</td>
                 <td>{string-join($keywords, '; ')}</td>
                 <td>{$root/descendant::tei:summary/string()}</td>
@@ -91,11 +92,11 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
         <div class="panel">
             <h3 class="panel-title">Vorkommen in Dokumenten</h3>
             <table>
-                <tr><th>Dokument</th><th>Erwähnung</th><th>Schlagwörter</th></tr>
+                <tr><th>Dokument</th><th>Datum</th><th>Erwähnung</th><th>Schlagwörter</th></tr>
                 {for $doc in $docs 
                 return 
                     <tr>
-                        {$doc/subsequence(td, 1, 3)}
+                        {$doc/subsequence(td, 1, 4)}
                     </tr>
                     
             }</table>
@@ -109,7 +110,7 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
                  {for $doc in $docs 
                 return 
                     <tr>
-                        {$doc/td[1], $doc/subsequence(td, 3)}
+                        {$doc/subsequence(td, 1, 2), $doc/subsequence(td, 4)}
                     </tr>
                     
             }
