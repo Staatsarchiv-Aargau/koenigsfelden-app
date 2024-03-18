@@ -304,6 +304,7 @@ text-align: justify;
 main {
     width: 75%;
     margin:auto;
+    min-height: 72vh;
 }
 
 a {
@@ -441,10 +442,18 @@ pb-split-list::part(items) span {
 
 /* Detail page*/
 
-.panel tr {
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
+.panel table {
+    min-width: 80%;
+    text-align:left;
     border-collapse: collapse;
+}
+
+.panel tr {
+    border-bottom: 1px solid #837A82;
+}
+
+.panel th, .panel td {
+    padding: 6px 12px;
 }
 
 /* Maps */
