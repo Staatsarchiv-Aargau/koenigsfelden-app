@@ -26,7 +26,7 @@
                                 <div class="browse">
                                     <aside data-template="browse:form">
                                         <pb-custom-form class="sort">
-                                            <pb-select label="browse.sort" name="sort" value="${sort}" data-template="pages:parse-params">
+                                            <pb-select label="Sortiere nach" name="sort" value="${sort}" data-template="pages:parse-params">
                                                 <paper-item value="date">Datum</paper-item>
                                                 <paper-item value="title">Titel</paper-item>
                                             </pb-select>
@@ -64,10 +64,8 @@
                                                 <pb-i18n key="searchEdition"/>
                                             </paper-checkbox>
                                         </pb-custom-form>
-                                        <pb-search id="search-form" subscribe="search" data-template="pages:parse-params" value="${query}" subforms=".facets,.sort,.genre,.options" submit-on-load="submit-on-load">
-                                            <paper-button slot="searchButton">
-                                                <pb-i18n key="search.search">Search</pb-i18n>
-                                            </paper-button>
+                                        <pb-search place-holder="Suche nach" id="search-form" subscribe="search" data-template="pages:parse-params" value="${query}" subforms=".facets,.sort,.genre,.options" submit-on-load="submit-on-load">
+                                            <paper-button slot="searchButton">Suche</paper-button>
                                         </pb-search>
                                        <pb-custom-form class="options">
                                             <input type="hidden" name="dates" value="" data-template="templates:form-control"/>

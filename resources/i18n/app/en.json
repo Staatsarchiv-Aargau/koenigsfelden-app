@@ -2,7 +2,8 @@
 	"facets": {
 		 "dorsual": "Dorsualschichten",
 		 "keywords": "Häufigste Schlagwörter",
-		 "collection": "Chronologische Aufteilung"
+		 "collection": "Chronologische Aufteilung",
+		 "language": "Sprache"
 	},
     "home": "Start",
     "intro": "Einleitung",
