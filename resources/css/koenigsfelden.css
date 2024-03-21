@@ -31,6 +31,10 @@ pb-panel {
     overflow-y: auto;
 }
 
+.special-font {
+    font-family: var(--pb-serif-font-family);
+}
+
 
 /* Search mask (index.html) */
 
