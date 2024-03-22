@@ -282,6 +282,7 @@ text-align: justify;
 
 
 /* Menu */
+
 .menu-logos {
     display: flex;
 }
@@ -297,7 +298,6 @@ text-align: justify;
     text-decoration:none;
 }
 
-
 /* Body and some elements in “static” pages */
 
 .focus {
@@ -305,11 +305,7 @@ text-align: justify;
     color: #F2EAD0;
 }
 
-main {
-    width: 75%;
-    margin:auto;
-    min-height: 72vh;
-}
+
 
 a {
     color: var(--pb-link-color);
@@ -352,6 +348,14 @@ a:hover {
 
 /*Start seite*/
 
+@media (min-width: 1344px) {
+
+main {
+    width: 75%;
+    margin:auto;
+    min-height: 72vh;
+}
+
 header.start {
     margin-top: 1em;
     display: flex;
@@ -361,9 +365,10 @@ header.start {
 }
 
 header img {
-    width: 40%;
+    width: 34em;
     margin-left: 1em;
-}
+    min-height: 100%;
+} 
 
 .panel-start {
     display: flex;
@@ -373,6 +378,57 @@ header img {
 
 .panel-start aside {
     margin-left: 2em;
+}
+
+}
+
+@media (max-width: 1345px) {
+    
+main {
+    width: 95%;
+    margin:auto;
+    min-height: 72vh;
+}
+
+header.start {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-left:1em;
+}
+
+
+header img {
+    min-width: 10em;
+} 
+
+.panel-start {
+    display: flex;
+    text-align: justify;
+    align-items: center;
+}
+
+.panel-start aside {
+    margin-left: 2em;
+}
+
+}
+
+@media (max-width: 1023px) {
+
+    header img {
+        display: none;
+    }
+    
+    .panel-start {
+    display: block;
+}
+.panel-start aside {
+    margin-left: 0;
+    background-color: lightgray;
+    padding:0.5em;
+}
 }
 
 .logos {
