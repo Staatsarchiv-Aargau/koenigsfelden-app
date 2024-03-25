@@ -19,13 +19,18 @@
                             <div class="card-content">
                                 <div class="browse">
                                     <aside data-template="browse:form">
-                                        <pb-custom-form class="sort">
+                                        <div class="flex">
+                                                <pb-custom-form class="sort">
                                             <pb-select label="Sortiere nach" name="sort" value="${sort}" data-template="pages:parse-params">
                                                 <paper-item value="date">Datum</paper-item>
                                                 <paper-item value="title">Signatur</paper-item>
                                                 <paper-item value="foliant">Foliant</paper-item>
                                             </pb-select>
                                         </pb-custom-form>
+                                        <button>
+                                                    <a href="index.html">Clear</a>
+                                                </button>
+                                        </div>
                                         <pb-custom-form id="genre" class="genre">
                                             <h3>
                                                 <pb-i18n key="genre"/> <pb-popover>

@@ -42,6 +42,27 @@ code {
     font-weight: 600;
 }
 
+.flex {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex button {
+    background-color: var(--pb-color-start);
+    margin-left: 2em;
+}
+
+.flex button a {
+    color: white;
+    font-family: var(--pb-heading-font-family);
+    font-size: larger;
+}
+
+.flex button a:hover {
+    text-decoration: none;
+}
+
 .search-mask app-header-layout {
     min-height: 100vh;
 }
