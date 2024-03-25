@@ -70,7 +70,7 @@
                 <param name="level" value="2"/>
             </model>
             <model behaviour="list">
-                <param name="content" value="(orgName[2], head((desc[@xml:lang eq 'de'], desc)))"/>
+                <param name="content" value="(orgName[2], head((desc[@xml:lang eq 'de'], desc)), event)"/>
             </model>
             <model behaviour="pass-through">
                 <param name="ref" value="@xml:id"/>
@@ -174,7 +174,7 @@
                 <elementSpec ident="event" mode="add">
                     <model behaviour="pass-through">
             <param name="label" value="label/string()"/>
-            <param name="content" value="date/string()"/>
+            <param name="content" value="@when-custom"/>
             <pb:template xmlns="" xml:space="preserve"><li><strong>[[label]]</strong>: [[content]]</li></pb:template>
         </model>
                 </elementSpec>
