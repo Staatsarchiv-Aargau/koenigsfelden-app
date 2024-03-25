@@ -38,6 +38,10 @@ pb-panel {
 
 /* Search mask (index.html) */
 
+code {
+    font-weight: 600;
+}
+
 .search-mask app-header-layout {
     min-height: 100vh;
 }
