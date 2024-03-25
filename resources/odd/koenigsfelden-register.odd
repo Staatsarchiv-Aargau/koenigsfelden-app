@@ -92,7 +92,7 @@
                 <param name="content" value="placeName"/>
             </model>
             <model behaviour="list">
-                <param name="content" value="(location, desc[1])"/>
+                <param name="content" value="(location, note[1])"/>
             </model>
             <model predicate="location/geo" behaviour="pass-through">
                 <param name="content" value="location/geo"/>
@@ -179,7 +179,12 @@
         </model>
                 </elementSpec>
                 <elementSpec ident="persName" mode="add">
-                    <model predicate="@type eq 'full'" behaviour="pass-through">
+                    <model predicate="@type eq 'full' and persName" behaviour="inline">
+            <param name="surname" value="let $surname := for $x in persName return $x/surname || ' (' || $x/@xml:lang || ')' return string-join($surname, ', ')"/>
+            <param name="forename" value="let $forename := for $x in persName return $x/forename || ' (' || $x/@xml:lang || ')' return string-join($forename, ', ')"/>
+            <pb:template xmlns="" xml:space="preserve"><li><strong>Name</strong>: <ul><li>Nachname(n): [[surname]]</li> <li>Vorname(n): [[forename]]</li></ul></li></pb:template>
+        </model>
+                    <model predicate="@type eq 'full' and not(persName)" behaviour="pass-through">
             <param name="surname" value="string-join(surname, ', ')"/>
             <param name="forename" value="string-join(forename, ', ')"/>
             <pb:template xmlns="" xml:space="preserve"><li><strong>Name</strong>: <ul><li>Nachname(n): [[surname]]</li> <li>Vorname(n): [[forename]]</li></ul></li></pb:template>
@@ -192,10 +197,6 @@
         </model>
                 </elementSpec>
                 <elementSpec ident="desc" mode="add">
-                    <model predicate="parent::place" behaviour="pass-through">
-            <param name="content" value="string-join((., following-sibling::desc), ', ')"/>
-            <pb:template xmlns="" xml:space="preserve"><li><strong>Kategorie(n)</strong>: [[content]]</li></pb:template>
-        </model>
                     <model predicate="parent::org" behaviour="pass-through">
             <param name="content" value="./string()"/>
             <pb:template xmlns="" xml:space="preserve"><li><strong>Typ</strong>: [[content]]</li></pb:template>
@@ -213,6 +214,12 @@
             <param name="long" value="tokenize(., '\s+')[2]"/>
             <param name="label" value="ancestor::place/placeName[1]/string()"/>
             <pb:template xmlns="" xml:space="preserve"><pb-geolocation latitude="[[lat]]" longitude="[[long]]" label="[[label]]" event="click" style="color: var(--pb-color-start);font-weight:bold;">Siehe Karte</pb-geolocation></pb:template>
+        </model>
+                </elementSpec>
+            <elementSpec ident="note" mode="change">
+                    <model predicate="parent::place" behaviour="pass-through">
+            <param name="content" value="string-join((., following-sibling::desc), ', ')"/>
+            <pb:template xmlns="" xml:space="preserve"><li><strong>Kategorie(n)</strong>: [[content]]</li></pb:template>
         </model>
                 </elementSpec>
             </schemaSpec>
