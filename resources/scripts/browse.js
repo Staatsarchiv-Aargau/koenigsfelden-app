@@ -65,9 +65,10 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             ev.detail.querySelectorAll('pb-combo-box').forEach((select) => {
+                const regex = /\<.+?\>/i;
                 select.renderFunction = (data, escape) => {
                     if (data) {
-                        return `<div>${escape(data.text)} <span class="freq">${escape(data.freq || '')}</span></div>`;
+                        return `<div>${data.text.replace(regex, '')} <span class="freq">${escape(data.freq || '')}</span></div>`;
                     }
                     return '';
                 }
