@@ -314,8 +314,6 @@ text-align: justify;
     color: #F2EAD0;
 }
 
-
-
 a {
     color: var(--pb-link-color);
     text-decoration: none;
@@ -327,6 +325,10 @@ a:hover {
 
 .panel p {
     text-align:justify;
+}
+
+.panel h2 {
+    margin-top: 2.5em;
 }
 
 .text-center {

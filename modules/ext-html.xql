@@ -27,7 +27,7 @@ declare function pmf:list-places($doc as element()) {
                 else ()
             return
                 <li data-ref="{$id}">
-                   <paper-checkbox class="select-facet" title="i18n(highlight-facet)"/> <a target="_new"
+                   <paper-checkbox class="select-facet" title="i18n(highlight-facet)"/> <a
                         href="../../detail.html?ref={$id}">
                         {$place/tei:placeName/string()}
                     </a>
@@ -46,7 +46,7 @@ declare function pmf:list-keys($doc as element()) {
             let $id := doc($config:registers || '/keywords.xml')//tei:catDesc[. = $keyword]/parent::*/@xml:id
             return
                 <li data-ref="{$id}">
-                    <a target="_new"
+                    <a
                         href="../../detail.html?ref={$id}">
                         {$keyword}</a></li>
     }</ul>)
@@ -64,7 +64,7 @@ declare function pmf:list-people($doc as element()) {
             let $person :=  collection($config:registers)/id($id)[1]
             return
                 <li data-ref="{$id}">
-                     <paper-checkbox class="select-facet" title="i18n(highlight-facet)"/> <a target="_new"
+                     <paper-checkbox class="select-facet" title="i18n(highlight-facet)"/> <a
                         href="../../detail.html?ref={$id}">
                         {$person/tei:persName[@type eq 'main']/string()}
                     </a>
@@ -88,7 +88,7 @@ declare function pmf:list-organizations($doc as element()) {
             let $organization :=  collection($config:registers)/id($id)[1]
             return
                  <li data-ref="{$id}"> <paper-checkbox class="select-facet" title="i18n(highlight-facet)"/>
-                    <a target="_new"
+                    <a
                         href="../../detail.html?ref={$id}">
                         {$organization/tei:orgName[1]/string()}
                     </a>
