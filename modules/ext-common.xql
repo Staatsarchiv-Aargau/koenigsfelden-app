@@ -166,11 +166,11 @@ declare function pmf:format-date($when as xs:string?, $language as xs:string?) {
                 else if (matches($when, "^\d{4}-\d{2}$")) then
                     format-date($when || '-01', "[MNn] [Y0001]")
                 else if (matches($when, "^\d+$")) then
-                    @when
+                    $when
                 else
                     format-date(xs:date($when), "[D1].[M1].[Y0001]", $language, (), ())
             } catch * {
-                @when
+                $when
             }
         }
     else
