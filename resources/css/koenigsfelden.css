@@ -280,7 +280,11 @@ text-align: justify;
 
 /* Search tags results */
 
-.search-result-tag {color:white}
+.search-result-tag {
+    color:white;
+    padding: 3px;
+    margin-right: 0.5em;
+}
 
 .search-result-tag.field-notes { background-color:#363576 }
 .search-result-tag.field-regest { background-color:#00558a; }

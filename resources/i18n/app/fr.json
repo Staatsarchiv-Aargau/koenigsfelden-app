@@ -1,4 +1,8 @@
-{
+{   "browse": {
+		"items": "{{count}} Eintrag gefunden",
+    	"items_plural": "{{count}} Einträge gefunden"
+},
+  
 	"facets": {
 		 "dorsual": "Dorsualschichten",
 		 "keywords": "Häufigste Schlagwörter",
