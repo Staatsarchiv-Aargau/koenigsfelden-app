@@ -388,6 +388,10 @@ a:hover {
 
 /*Start seite*/
 
+#docnum {
+    border: 2px solid darkgray;
+}
+
 @media (min-width: 1344px) {
 
 main {
