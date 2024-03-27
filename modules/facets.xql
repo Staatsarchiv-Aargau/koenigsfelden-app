@@ -30,7 +30,7 @@ declare function facets:sort($config as map(*), $lang as xs:string?, $facets as 
         if (exists($facets)) then
             for $key in map:keys($facets)
             let $value := map:get($facets, $key)
-            let $sortKey := facets:translate($config, $lang, $key)
+            let $sortKey := if ($config?dimension = 'dorsual') then $key else if ($config?dimension = 'collection') then $config:collections-root/collection[@ref = $key]/count(preceding-sibling::collection) else facets:translate($config, $lang, $key)
             order by $sortKey ascending
             return
                 map { $key: $value }
@@ -129,8 +129,9 @@ declare function facets:display($config as map(*), $nodes as element()+) {
                         {
                             for $param in facets:get-parameter("facet-" || $config?dimension)
                             let $label := facets:translate($config, $lang, $param)
+                            
                             return
-                                <option value="{$param}" data-i18n="{$label}" selected="">{$label}</option>
+                                <option value="{$param}" selected="">{replace($label, '<.+?>', '')}</option>
                         }
                         </select>
                     </pb-combo-box>
