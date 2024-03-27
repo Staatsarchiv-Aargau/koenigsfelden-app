@@ -43,11 +43,14 @@ declare function facets:print-table($config as map(*), $nodes as element()+, $va
     let $all := exists($config?max) and facets:get-parameter("all-" || $config?dimension)
     let $lang := tokenize(facets:get-parameter("language"), '-')[1]
     let $count := if ($all) then 50 else $config?max
+    let $dorsualFacets := ft:facets($nodes, 'dorsual', ())
+    let $dorsualKeys := $config:dorsual-root//collection[position() lt 6]/@ref
     let $facets :=
         if (exists($values)) then
             ft:facets($nodes, $config?dimension, $count, $values)
         else
-            ft:facets($nodes, $config?dimension, $count)
+            if ($config?dimension eq 'dorsual') then map:merge(map:for-each($dorsualFacets, function($label, $freq) {
+                if ($label = $dorsualKeys) then map {$label : $freq} else () })) else ft:facets($nodes, $config?dimension, $count)
     return
         if (map:size($facets) > 0) then
             <table>
