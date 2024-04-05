@@ -518,6 +518,19 @@ footer h5 {
 footer a {
     color: white;
 }
+.footer-logos {
+   display:flex;
+   align-items: start;
+   justify-content: space-between;
+}
+
+.footer-logos img {
+    height: 4em;
+}
+
+.logo-aargau {
+    margin-right:2em;
+}
 
 /* Main register pages */
 
