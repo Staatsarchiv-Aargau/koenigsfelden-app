@@ -1,8 +1,15 @@
 @import url("../fonts/font.css");
 
 
+/* custom splash screen */
 .splash {
-    background-image: url("../images/tei-publisher-logo-color.svg");
+    background-image: url("../images/start-seite.png");
+}
+
+@media screen and (min-width: 769px) {
+    .splash {
+        background-size: 20rem auto;
+    }
 }
 
 .menubar {
@@ -217,9 +224,6 @@ app-drawer-layout:not([narrow]) [drawer-toggle] {
     text-decoration: none;
 }
 
-.menubar .logo {
-    margin: 0 16px 0 0;
-}
 
 .menubar .gitlab {
     margin-left: 16px;
@@ -245,15 +249,6 @@ app-drawer-layout:not([narrow]) [drawer-toggle] {
 
 [main-title] {
     display: inline-block;
-}
-
-.logo {
-    background-repeat: no-repeat;
-    background-size: auto auto;
-    background-position: left center;
-    width: var(--pb-logo-image-width);
-    height: var(--pb-logo-image-height);
-    cursor: pointer;
 }
 
 pb-progress {

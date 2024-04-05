@@ -1,4 +1,5 @@
 
+
 /* Edition view page */
 
 body.edition {
@@ -323,8 +324,14 @@ text-align: justify;
 
 .menu-logos {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.logo-zh img, .logo-argau img  {
+
+.logo {
+    display: block;
+}
+.logo img  {
     height: 3em;
 }
 
