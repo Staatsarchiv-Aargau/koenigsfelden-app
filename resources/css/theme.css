@@ -70,7 +70,7 @@ body {
     --pb-popover-fallback-placement: "top right left";
     --pb-lang-input-color: var(--pb-color-inverse);
     --pb-lang-label-color: var(--pb-color-inverse);
-    --pb-link-color: var(--pb-color-start);
+    --pb-link-color: #9c1919;
     --pb-link-font-family: var(--pb-serif-font-family);
     --pb-highlight-color: #F2EAD0;
     --paper-input-container-focus-color: var(--pb-color-focus);
