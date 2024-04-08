@@ -45,7 +45,7 @@
                 <param name="level" value="2"/>
             </model>
             <model behaviour="list">
-                <param name="content" value="(persName[@type eq 'full'], birth, death, occupation, event)"/>
+                <param name="content" value="(persName[@type eq 'full'], birth, death, occupation[1], event)"/>
             </model>
             <model behaviour="pass-through">
                 <param name="ref" value="@xml:id"/>
@@ -184,15 +184,16 @@
             <param name="forename" value="let $forename := for $x in persName return $x/forename || ' (' || $x/@xml:lang || ')' return string-join($forename, ', ')"/>
             <pb:template xmlns="" xml:space="preserve"><li><strong>Name</strong>: <ul><li>Nachname(n): [[surname]]</li> <li>Vorname(n): [[forename]]</li></ul></li></pb:template>
         </model>
-                    <model predicate="@type eq 'full' and not(persName)" behaviour="pass-through">
+                    <model predicate="@type eq 'full'" behaviour="pass-through">
             <param name="surname" value="string-join(surname, ', ')"/>
             <param name="forename" value="string-join(forename, ', ')"/>
-            <pb:template xmlns="" xml:space="preserve"><li><strong>Name</strong>: <ul><li>Nachname(n): [[surname]]</li> <li>Vorname(n): [[forename]]</li></ul></li></pb:template>
+            <param name="genName" value="genName[1]"/>
+            <pb:template xmlns="" xml:space="preserve"><li><strong>Name</strong>: <ul><li>Nachname(n): [[surname]]</li> <li>Vorname(n): [[forename]] [[genName]]</li></ul></li></pb:template>
         </model>
                 </elementSpec>
                 <elementSpec ident="occupation" mode="add">
                     <model behaviour="pass-through">
-            <param name="content" value="./string()"/>
+            <param name="content" value="string-join((., following-sibling::occupation), '; ')"/>
             <pb:template xmlns="" xml:space="preserve"><li><strong>Rolle/Beruf</strong>: [[content]]</li></pb:template>
         </model>
                 </elementSpec>
@@ -220,6 +221,12 @@
                     <model predicate="parent::place" behaviour="pass-through">
             <param name="content" value="string-join((., following-sibling::desc), ', ')"/>
             <pb:template xmlns="" xml:space="preserve"><li><strong>Kategorie(n)</strong>: [[content]]</li></pb:template>
+        </model>
+                </elementSpec>
+            <elementSpec ident="genName" mode="add">
+                    <model behaviour="listItem">
+            <param name="content" value="string-join((., following-sibling::genName), '; ')"/>
+            <pb:template xmlns="" xml:space="preserve">Ordinalzahle(n): [[content]]</pb:template>
         </model>
                 </elementSpec>
             </schemaSpec>
