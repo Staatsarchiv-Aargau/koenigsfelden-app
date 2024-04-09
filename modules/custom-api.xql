@@ -59,6 +59,14 @@ declare function api:places-all($request as map(*)) {
             }        
 };
 
+declare function api:format-name($name as node()) {
+    let $tokens := tokenize($name, '\s+')
+    let $surname := $tokens[last()]
+    let $forename := $tokens[position() < last()]
+    return
+        $surname || ', ' || string-join($forename, ' ')
+    };
+
 declare function api:person-list($request as map(*)){
     let $search := normalize-space($request?parameters?search)
     let $letterParam := $request?parameters?category
@@ -75,7 +83,7 @@ declare function api:person-list($request as map(*)){
     let $byKey := for-each($people, function($person as element()) {
         let $name := $person//tei:persName[@type eq 'main']
         let $surname := tokenize($name, '\s+')[last()]
-        let $label := $name/string() 
+        let $label := if ($surname eq 'NN') then $name/string() else api:format-name($name)
         let $sortKey :=
             if ($surname eq 'NN') then $name
             else
