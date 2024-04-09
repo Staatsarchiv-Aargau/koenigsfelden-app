@@ -345,6 +345,14 @@ text-align: justify;
 
 /* Body and some elements in “static” pages */
 
+iframe {
+    display: block;
+    margin:auto;
+    border: 0;
+    width:100%;
+    overflow-y: clip;
+}
+
 .focus {
     background-color: var(--pb-color-start);
     color: #F2EAD0;
