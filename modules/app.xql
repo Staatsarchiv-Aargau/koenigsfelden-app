@@ -125,7 +125,7 @@ declare function app:current-date($node as node(), $model as map(*)) {
 };
 
 declare function app:get-url($node as node(), $model as map(*)) {
-    let $host := 'https://www.koenigsfelden.uzh.ch/'
+    let $host := 'https://koenigsfelden.sources-online.org/'
     let $doc := $model?doc
     let $url := $host || $doc
     return ('&lt;', <a href="{$url}">{$url}</a>, '&gt;')
