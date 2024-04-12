@@ -1052,7 +1052,7 @@ margin-bottom: 10px;
         </model>
                     <model behaviour="link" cssClass="link">
             <param name="link" value="@target"/>
-            <param name="target" value="'_new'"/>
+            <param name="target" value="if (@type eq 'document') then '_self' else '_new'"/>
         </model>
                 </elementSpec>
                  <elementSpec ident="author" mode="change">
