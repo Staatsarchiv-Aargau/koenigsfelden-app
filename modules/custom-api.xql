@@ -87,7 +87,7 @@ declare function api:person-list($request as map(*)){
         let $sortKey :=
             if ($surname eq 'NN') then $name
             else
-                $surname
+                $label
         return
             [lower-case($sortKey), $label, $person]
     })
