@@ -147,7 +147,8 @@ declare function api:organization-list($request as map(*)){
         let $label := $name/string()
         let $sortKey :=
             if (starts-with($label, "von ")) then
-                substring($label, 5)
+                substring($label, 5) else if (starts-with($label, "[von] ")) then
+                substring($label, 7) 
             else
                 $label
         return
