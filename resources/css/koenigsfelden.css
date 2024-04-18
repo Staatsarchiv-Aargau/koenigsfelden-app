@@ -199,7 +199,7 @@ code {
     }
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
     .search-mask .panels .doclist .browse {
         display: flex;
         flex-direction: column;
@@ -516,7 +516,7 @@ header img {
 
 /* Footer */
 
-@media (max-width: 1099px) {
+@media screen and (max-width: 1099px) {
     footer {
         display:flex;
         flex-direction:column;
@@ -580,6 +580,11 @@ pb-split-list::part(items) {
     margin-top: 1em;
     display:block !important;
     column-count: 2;
+}
+
+@media screen and (max-width: 650px) {
+    pb-split-list::part(items) {
+        column-count: 1;}
 }
 
 pb-split-list::part(items) span {
