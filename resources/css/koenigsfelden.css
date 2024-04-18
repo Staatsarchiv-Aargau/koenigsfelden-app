@@ -204,6 +204,14 @@ code {
         display: flex;
         flex-direction: column;
     }
+    
+    .panel table {
+        font-size: smaller;
+        min-width: 100%;
+    }
+    .panel th, .panel td {
+        padding: 6px;
+    }
 }
 
 .documents ul {
