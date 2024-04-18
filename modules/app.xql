@@ -75,14 +75,15 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
    let $docs := for $text in $docsCollection
         let $d := ft:field($text, 'date')
         let $root := $text/ancestor::tei:TEI
+        let $origDate := $root/descendant::tei:origDate
         let $keywords := $root/tei:teiHeader/descendant::tei:term
         let $hits := $text//*[@ref = $model?key]
         let $mentions := for $mention in $hits return string-join(app:dispatch($mention), '')
         order by $d ascending
         return 
             <tr>
-                <td><a href="data/docs/{ft:field($text, 'file')}">{$root/descendant::tei:titleStmt/tei:title/text()}</a></td>
-                <td>{if (string-length($d) eq 10) then format-date($d, '[D1].[M1].[Y0001]') else $d}</td>
+                <td><a href="data/docs/{ft:field($text, 'file')}">{$root/descendant::tei:idno[@type eq 'short']}</a></td>
+                <td>{$origDate/string()}</td>
                 <td>{(<span class="special-font">{string-join(distinct-values($mentions), '; ')}</span>, <span style="color:#837A82">{' (' || count($hits) || ' Treffer)'}</span>)}</td>
                 <td>{string-join($keywords, '; ')}</td>
                 <td>{$root/descendant::tei:summary/string()}</td>
@@ -91,7 +92,7 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
         if ($docs and ($model?type ne 'keyword')) then
         <div class="panel">
             <h3 class="panel-title">Vorkommen in Dokumenten</h3>
-            <table>
+            <table class="mentions">
                 <tr><th>Dokument</th><th>Datum</th><th>Erwähnung</th><th>Schlagwörter</th></tr>
                 {for $doc in $docs 
                 return 
@@ -105,7 +106,7 @@ declare function app:get-entity-mentions($node as node(), $model as map(*)) {
             if ($docs) then 
                 <div class="panel">
             <h3 class="panel-title">Vorkommen in Dokumenten</h3>
-            <table>
+            <table class="mentions">
                 <tr><th>Dokument</th><th>Datum</th><th>Schlagwörter</th><th>Regest</th></tr>
                  {for $doc in $docs 
                 return 
