@@ -135,8 +135,10 @@
             
             
             
+            
             margin-top: 1ex;
 margin-bottom: 1ex;
+            
             
             
             
@@ -291,11 +293,13 @@ margin-bottom: 1ex;
             
             
             
+            
             display: block;
 font-weight: 700;
 line-height: 1.2;
 margin-top: 20px;
 margin-bottom: 10px;
+            
             
             
             
@@ -389,7 +393,6 @@ margin-bottom: 10px;
         </model>
                     <model predicate="$parameters?header='short'" behaviour="inline">
             <desc>Called to output the sigle of a document</desc>
-            <param name="content" value="format-date(xs:date(@when), '[Y] [MNn] [D1]', (session:get-attribute('ssrq.lang'), 'de')[1], (), ())"/>
         </model>
                     <model predicate="parent::origin and @from and text()" behaviour="listItem">
             <desc>Ausgabe in "Stückbeschreibung"</desc>
