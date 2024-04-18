@@ -82,7 +82,7 @@ declare function pmf:list-organizations($doc as element()) {
     let $ids := $doc//tei:text//tei:orgName/@ref
     where exists($ids)
     return 
-        (<h3 class="organization">Organisationen</h3>,
+        (<h3 class="organization">Familien/Organisationen</h3>,
         <ul>{
             for $id in distinct-values($ids)
             let $organization :=  collection($config:registers)/id($id)[1]
