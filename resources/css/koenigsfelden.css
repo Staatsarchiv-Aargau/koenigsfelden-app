@@ -516,6 +516,13 @@ header img {
 
 /* Footer */
 
+@media (max-width: 1099px) {
+    footer {
+        display:flex;
+        flex-direction:column;
+    }
+}
+
 footer {
     display:flex;
     justify-content: space-between;
@@ -542,17 +549,14 @@ footer a {
 }
 .footer-logos {
    display:flex;
-   align-items: start;
-   justify-content: space-between;
 }
 
 .footer-logos img {
     height: 4em;
 }
 
-.logo-aargau {
-    margin-right:2em;
-}
+
+
 
 /* Main register pages */
 
