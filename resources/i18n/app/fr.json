@@ -7,7 +7,8 @@
 		 "dorsual": "Dorsualschichten",
 		 "keywords": "Häufigste Schlagwörter",
 		 "collection": "Chronologische Aufteilung",
-		 "language": "Sprache"
+		 "language": "Sprache",
+		 "show": "Zeige 50 häufigste"
 	},
     "home": "Start",
     "intro": "Einleitung",
