@@ -367,6 +367,10 @@ a:hover {
     text-decoration: underline;
 }
 
+.panel {
+    margin-bottom: 2em;
+}
+
 .panel p {
     text-align:justify;
 }
