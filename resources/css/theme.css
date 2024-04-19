@@ -26,6 +26,8 @@ app-header {
 }
 
 body {
+    --paper-font-subhead_-_font-family: var(--pb-serif-font-family);
+    --paper-input-container-shared-input-style_-_font-family: var(--pb-serif-font-family);
     --pb-color-start: #730202;
     --pb-splash-image-size: 360px auto;
     --pb-splash-background-color: var(--pb-color-inverse);
