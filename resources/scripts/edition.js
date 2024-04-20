@@ -4,6 +4,7 @@ window.addEventListener("DOMContentLoaded", () => {
  pbEvents.subscribe("pb-update", "transcription", (ev) => {
     blocks.push(ev.detail.root);
     console.log('blocks: %d', blocks.length);
+    changeCursor();
   });
   
   
@@ -42,6 +43,7 @@ window.addEventListener("DOMContentLoaded", () => {
         });
       }
     });
+      changeCursor();
   });  
 
   /**
@@ -59,3 +61,8 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+function changeCursor() {
+    document.querySelectorAll('pb-panel').forEach((panel) => {
+        panel.shadowRoot.getElementById('menu').style.cursor = 'pointer';})
+    };
