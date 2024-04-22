@@ -114,7 +114,7 @@ declare function pmf:get-links($ref as xs:string, $type as xs:string) {
     let $entity := collection($config:registers)/id($id)[1]
     let $personOrgs := if ($type eq 'person') then doc($config:registers || '/people.xml')//tei:person[descendant::tei:affiliation[some $x in tokenize(@ref, '\s+') satisfies $x = $id]] else ()
     let $type := if ($personOrgs) then 'people' else $type 
-    let $members := for $person in $personOrgs return <li><a href="detail.html?ref={$person/@xml:id}">{$person/tei:persName[@type eq 'main']}</a></li>
+    let $members := for $person in $personOrgs order by $person/tei:persName[@type eq 'main'] return <li><a href="detail.html?ref={$person/@xml:id}">{$person/tei:persName[@type eq 'main']}</a></li>
     return
         switch($type)
             case 'org' return <li><a href="detail.html?ref={$entity/@xml:id}">{$entity/tei:orgName[1]}</a></li>
