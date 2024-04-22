@@ -45,6 +45,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const facets = document.querySelector('.facets');
     if (facets) {
         facets.addEventListener('pb-custom-form-loaded', function(ev) {
+            const tables = ev.detail.querySelectorAll('table');
+            tables.forEach(table => {
+                if (table.querySelectorAll('tr').length == 1 && table.querySelectorAll('.facet')[0].checked === false) {
+                    table.style.display = 'none'}
+                });
             const elems = ev.detail.querySelectorAll('.facet');
             // add event listener to facet checkboxes
             elems.forEach(facet => {
@@ -59,7 +64,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                 nested.checked = false;
                             }
                         });
-                    }
+                    };
+
                     facets.submit();
                 });
             });
@@ -73,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return '';
                 }
             });
+            
         });
 
         // if there's a combo box, synchronize any changes to it with existing checkboxes

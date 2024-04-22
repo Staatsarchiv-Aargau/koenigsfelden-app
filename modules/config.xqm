@@ -142,7 +142,7 @@ declare variable $config:facets := [
     map {
         "dimension": "dorsual",
         "heading": "facets.dorsual",
-        "max": 5,
+        "max": 1,
         "source": "api/search/facets/dorsual",
         "hierarchical": false(),
         "output": function ($label) {
@@ -159,7 +159,7 @@ declare variable $config:facets := [
         "dimension": "keywords",
         "heading": "facets.keywords",
         "source": "api/search/facets/keywords",
-        "max": 5,
+        "max": 1,
         "hierarchical": false()
     }
 ];
