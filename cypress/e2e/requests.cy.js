@@ -12,7 +12,7 @@ describe('check error messages on opening every document from every volume in co
         })
     })
 
-    it.only('check status != 200', () => {
+    it('check status != 200', () => {
         let urls = [];
 
         cy.visit('index.html')
@@ -26,6 +26,7 @@ describe('check error messages on opening every document from every volume in co
 
                     //calculating the number of pages based on offset 
                     for (let i = 1; i <= Math.ceil(total / offset); i++) {
+                        // for (let i = 1; i <= 2; i++) {
                         cy.get('#paginate')
                             .shadow()
                             .contains("span", i.toString())
@@ -45,8 +46,15 @@ describe('check error messages on opening every document from every volume in co
                             cy.request(url)
                                 .its('status')
                                 .should('eq', 200)
+                            cy.visit(url)
+                                .contains('The request to the server failed')
+                                .should('not.exist')
+                            cy.visit(url)
+                                .contains('Die Anfrage an den Server schlug fehl')
+                                .should('not.exist')
                         })
                     })
             })
     })
+
 })

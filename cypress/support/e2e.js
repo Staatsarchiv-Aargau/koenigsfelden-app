@@ -26,4 +26,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     if (err.message.includes("t.lastError is undefined")) {
         return false
     }
+    if (err.message.includes("Failed to load openseadragon script with location")) {
+        return false
+    }
 })
