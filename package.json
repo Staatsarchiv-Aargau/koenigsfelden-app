@@ -1,8 +1,11 @@
 {
-  "name" : "koenigsfelden",
-  "version" : "1.0.0",
-  "description" : " Die Urkunden und Akten des Klosters und des Oberamts Königsfelden",
-  "dependencies" : {
-    "@teipublisher/pb-components" : "2.19.0"
+  "name": "koenigsfelden",
+  "version": "1.0.0",
+  "description": " Die Urkunden und Akten des Klosters und des Oberamts Königsfelden",
+  "dependencies": {
+    "@teipublisher/pb-components": "2.19.0"
+  },
+  "devDependencies": {
+    "cypress": "^13.8.1"
   }
 }
