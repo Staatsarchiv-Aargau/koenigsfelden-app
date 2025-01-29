@@ -19,7 +19,7 @@ describe('people page', () => {
        cy.wait(10)
 
        // Check if exists "Abletten" in new page
-       cy.contains('span', 'Abletten').should('be.visible')
+       cy.contains('h2', 'Johannes Abletten').should('be.visible')
        .should('have.class', 'tei-person1');
     })
 })
