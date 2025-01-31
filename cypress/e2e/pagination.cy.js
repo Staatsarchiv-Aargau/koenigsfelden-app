@@ -5,13 +5,13 @@ describe('check pagination', () => { // check if the number of pages and number 
             .get('#paginate')
             .then(paginate => {
                 const total = parseInt(paginate.attr('total'), 10)
-                const perpage = parseInt(paginate.attr('per-page'), 10)
-                const modulo = total % perpage
+                const perPage = parseInt(paginate.attr('per-page'), 10)
+                const modulo = total % perPage
 
                 cy.wrap(total).as('documentsAmount')
-                cy.wrap(perpage).as('typicalPageDocumentsAmount')
+                cy.wrap(perPage).as('typicalPageDocumentsAmount')
                 cy.wrap(modulo).as('lastPageDocumentsAmount')
-                cy.wrap((total - modulo) / perpage + 1).as('pagesAmount')
+                cy.wrap((total - modulo) / perPage + 1).as('pagesAmount')
             })
         })
 
@@ -28,10 +28,10 @@ describe('check pagination', () => { // check if the number of pages and number 
         })
 
     it('Check if number of document in the page is equal to attribute per-page of pagination box', () => {
-        cy.get('@typicalPageDocumentsAmount').then((perpage) => {
+        cy.get('@typicalPageDocumentsAmount').then((perPage) => {
             cy.get('.collection')
             .find('h5.tei-title1')
-            .should('have.length', perpage);
+            .should('have.length', perPage);
         })
     });
 
@@ -52,6 +52,6 @@ describe('check pagination', () => { // check if the number of pages and number 
             })
         })
     });
-    
+
 });
 
