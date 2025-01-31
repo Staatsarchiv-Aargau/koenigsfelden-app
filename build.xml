@@ -69,17 +69,9 @@
         </copy>
     </target>
     
-  <!--  <target name="xar" depends="clean,npm.install,git.revision,prepare">        
+    <target name="xar" depends="clean,npm.install,git.revision,prepare">        
         <zip basedir="${app.build.dir}" destfile="${build.dir}/${project.app}-${project.version}.xar" excludes="${build.dir}/* node_modules/**"/>
-    </target> -->
-    <!-- This project includes local changes to the webcomponents, thus webcomponents are not built at build time.
-    This is why the build process does not call the targets npm.install nor prepare -->
-    <target name="xar" depends="clean,git.revision">
-        <mkdir dir="${build.dir}"/>
-        <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}.xar"
-            excludes="${build.dir}/* node_modules/**"/>
-    </target>
-
+    </target> 
 
     <target name="npm.install">
         <exec executable="${npm}" outputproperty="npm.output">
