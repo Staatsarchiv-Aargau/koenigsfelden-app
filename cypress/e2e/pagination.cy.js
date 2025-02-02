@@ -1,8 +1,8 @@
 describe('check pagination', () => { // check if the number of pages and number of documets on page give the total amount of documents.
     beforeEach('loads', () => {
         cy.visit('index.html')
-            .wait(1000)
-            .get('#paginate')
+        .wait(1000)
+        .get('#paginate')
             .then(paginate => {
                 const total = parseInt(paginate.attr('total'), 10)
                 const perPage = parseInt(paginate.attr('per-page'), 10)

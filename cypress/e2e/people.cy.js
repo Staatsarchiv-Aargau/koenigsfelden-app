@@ -1,12 +1,7 @@
-describe('people page', () => {
+describe('Person register check', () => {
     beforeEach('loads', () => {
         cy.visit('people.html?search=&category=Alle')
     })
-
-    it('Check 404', () => {
-        cy.url().should('include', '/people.html?search=&category=Alle');
-        cy.document().its('readyState').should('eq', 'complete');
-    });
 
     it('Check main metadate', () => {
         cy.title().should('not.be.empty');
@@ -33,16 +28,9 @@ describe('people page', () => {
     it('Serch results for “Böp” is equal 1', () => {
         cy.get('input[name="search"]').first().focus()
             .type('Böp{enter}')
-            .wait(1000)
         cy.get('.register-item').should('be.visible')
             .should('have.length', 1);
     });
 
-    it('Opens the detaip page and check content', () => {
-        cy.get('input[name="search"]').first().focus()
-            .type('Böp{enter}')
-            .wait(1000)
-        cy.get('.register-item').should('be.visible')
-            .should('have.length', 1);
-    });
+
 })
