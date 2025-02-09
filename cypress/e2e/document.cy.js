@@ -19,7 +19,6 @@ describe('Single document check', () => {
   it('Person of name Abletten is in register', () => {
     cy.contains('a', 'Abletten')
       .should('exist')
-      // .and('be.visible')
       .should('have.length', 1)
       .and('have.attr', 'href', '../../detail.html?ref=per017829')
       .invoke('text')
@@ -30,7 +29,6 @@ describe('Single document check', () => {
       .shadow()
     cy.contains('a', 'Abletten')
       .should('exist')
-      // .and('be.visible')
       .should('have.length', 1)
       .and('have.attr', 'href', '../../detail.html?ref=per017829')
       .invoke('text')

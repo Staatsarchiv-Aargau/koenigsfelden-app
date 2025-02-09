@@ -39,12 +39,7 @@ describe('Places register check', () => {
           .should('have.length', 1);
   });
 
-//   it('Serch results for “XXX” is equal 0', () => {
-//     cy.get('input[name="search"]').first().focus()
-//         .type('XXX{enter}')
-//         .wait(1000)
-//     cy.get('.register-item').should('not.exist')
-// });
+
 
 
 })
