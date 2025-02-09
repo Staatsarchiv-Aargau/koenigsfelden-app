@@ -1,12 +1,17 @@
 describe('Person register check', () => {
     beforeEach('loads', () => {
         cy.visit('people.html?search=&category=Alle')
+        .wait(1000)
     })
 
-    it('Check main metadate', () => {
+    it('Check meta title', () => {
         cy.title().should('not.be.empty');
-        // cy.get('meta[name="description"]').should('have.attr', 'content').and('not.be.empty');
-    });
+      });
+    
+      it.skip('Check meta description', () => {
+        cy.get('meta[name="description"]').should('have.attr', 'content').and('not.be.empty');
+      });
+    
 
     it('list of people is not empty', () => {
         cy.get('span.register-item').its('length').should('be.gte', 0)
