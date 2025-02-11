@@ -32,7 +32,7 @@ describe('Person register check', () => {
 
     it('Serch results for “Böp” is equal 1', () => {
         cy.get('input[name="search"]').first().focus()
-            .type('Böp{enter}')
+            .type('Böp{enter}').wait(1000)
         cy.get('.register-item').should('be.visible')
             .should('have.length', 1);
     });
