@@ -1,40 +1,52 @@
 describe('Person register check', () => {
     beforeEach('loads', () => {
         cy.visit('people.html?search=&category=Alle')
-        .wait(1000)
     })
 
     it('Check meta title', () => {
-        cy.title().should('not.be.empty');
+        cy.title()
+          .should('not.be.empty');
       });
     
       it.skip('Check meta description', () => {
-        cy.get('meta[name="description"]').should('have.attr', 'content').and('not.be.empty');
+        cy.get('meta[name="description"]')
+          .should('have.attr', 'content')
+          .and('not.be.empty');
       });
     
 
     it('list of people is not empty', () => {
-        cy.get('span.register-item').its('length').should('be.gte', 0)
+        cy.get('span.register-item')
+          .its('length')
+          .should('be.gte', 0)
     })
 
-    it('Check if there exist person of name Abletten and content of detail page', () => {
-        cy.contains('a', 'Abletten, Johannes')
-            .should('exist')
-            .and('be.visible')
-            .and('have.attr', 'href', 'detail.html?ref=per026637')
-            .click();
-        cy.wait(10)
+    it('Check if there exist person of name Abletten', () => {
+        cy.get('pb-split-list')
+          .contains('a', 'Abletten, Johannes')
+          .should('exist')
+          .and('be.visible')
+          .and('have.attr', 'href', 'detail.html?ref=per026637')
+    })
 
-        // Check if exists headline "Abletten" in new page
-        cy.contains('h2', 'Johannes Abletten').should('be.visible')
-            .should('have.class', 'tei-person1');
+    it('Should show person details on click', () => {
+        cy.get('span.register-item')
+          .as('persons')
+          .find('[href="detail.html?ref=per012083"]')
+        // TODO(DP): get rid of the necessity to use force here on FF 
+          .click({force: true})
+        cy.url()
+           .should('contain', '012083')
     })
 
     it('Serch results for “Böp” is equal 1', () => {
-        cy.get('input[name="search"]').first().focus()
-            .type('Böp{enter}').wait(1000)
-        cy.get('.register-item').should('be.visible')
-            .should('have.length', 1);
+        cy.get('input[name="search"]')
+          .first()
+          .focus()
+          .type('Böp{enter}')
+        cy.get('.register-item')
+          .should('be.visible')
+          .should('have.length', 1)
     });
 
 

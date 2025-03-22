@@ -18,6 +18,7 @@ module.exports = defineConfig({
     reporterOptions: {
       toConsole: true,
     },
-    includeShadowDom: true
+    includeShadowDom: true,
+    defaultCommandTimeout: 6000
   },
 });

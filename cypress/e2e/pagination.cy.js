@@ -2,7 +2,7 @@ describe('check pagination', () => { // check if the number of pages and number 
     beforeEach('loads', () => {
         cy.visit('index.html')
         .wait(1000)
-        .get('#paginate')
+        cy.get('#paginate')
             .then(paginate => {
                 const total = parseInt(paginate.attr('total'), 10)
                 const perPage = parseInt(paginate.attr('per-page'), 10)
@@ -36,7 +36,9 @@ describe('check pagination', () => { // check if the number of pages and number 
     });
 
     it('Check if number of document in the last page is equal to the modulo of number of documents and number of pages', () => {
-        cy.get('iron-icon[icon="last-page"]').closest('span').click({ force: true });
+        cy.get('iron-icon[icon="last-page"]')
+          .closest('span')
+          .click({ force: true });
         cy.wait(1000)
         .get('pb-paginate')
         .find('span.active')
