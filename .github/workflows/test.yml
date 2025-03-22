@@ -16,3 +16,4 @@ jobs:
         with:
           build: npm install
           browser: chrome
+          config: baseUrl=https://koenigsfelden.sources-online.org/
