@@ -4,7 +4,7 @@
   "description": " Die Urkunden und Akten des Klosters und des Oberamts Königsfelden",
   "dependencies": {
     "@jinntec/fore": "jinntec/fore",
-    "@teipublisher/pb-components": "2.19.0"
+    "@teipublisher/pb-components": "2.25.1"
   },
   "devDependencies": {
     "cypress": "^14.0.3"
