@@ -49,6 +49,8 @@ else if ($exist:path eq '/api.html') then
 else if (matches($exist:path, "^.*/(resources|transform|templates)/.*$")
     or matches($exist:path, "^.*/odd/.*\.css$")
     or matches($exist:path, "^.*/modules/.*\.json$")
+    or matches($exist:path, "^.*/modules/id-search.xql")
+    or matches($exist:path, "^.*/modules/id-search-json.xql")
     or matches($exist:path, "^.*/modules/custom-query.xql")) then
     let $dir := replace($exist:path, "^.*/(resources|transform|modules|templates|odd)/.*$", "$1")
     return
