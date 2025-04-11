@@ -236,8 +236,6 @@ app-drawer-layout:not([narrow]) [drawer-toggle] {
     height: 32px;
 }
 
-.menubar pb-login {}
-
 .menubar pb-lang {
     text-align: right;
     flex: 1 0;

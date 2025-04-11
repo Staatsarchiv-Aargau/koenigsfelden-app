@@ -1,9 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    pbEvents.subscribe('pb-login', null, function(ev) {
-        if (ev.detail.userChanged) {
-            pbEvents.emit('pb-search-resubmit', 'search');
-        }
-    });
 
     /* Parse the content received from the server */
     pbEvents.subscribe('pb-results-received', 'search', function(ev) {
