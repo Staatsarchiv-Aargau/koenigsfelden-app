@@ -7,6 +7,6 @@
     "@teipublisher/pb-components": "2.19.0"
   },
   "devDependencies": {
-    "cypress": "^14.0.3"
+    "cypress": "^14.3.0"
   }
 }
