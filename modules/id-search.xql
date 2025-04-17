@@ -9,7 +9,6 @@ declare option output:media-type "application/json";
 :)
 
 import module namespace config="http://www.tei-c.org/tei-simple/config" at "config.xqm";
-import module namespace common="http://www.tei-c.org/tei-simple/xquery/functions/ssrq-common" at "ext-common.xql";
 
 let $id := 
     switch (substring(request:get-parameter('id', 'lem000053'), 1, 3))
