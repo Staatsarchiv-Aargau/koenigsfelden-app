@@ -1,5 +1,6 @@
 describe('check pagination', () => { // check if the number of pages and number of documets on page give the total amount of documents.
     beforeEach('loads', () => {
+       cy.intercept({ resourceType: /xhr|fetch/ }, { log: false })
         cy.visit('index.html')
         .wait(1000)
         cy.get('#paginate')
@@ -35,7 +36,8 @@ describe('check pagination', () => { // check if the number of pages and number 
         })
     });
 
-    it('Check if number of document in the last page is equal to the modulo of number of documents and number of pages', () => {
+    it.skip('Check if number of document in the last page is equal to the modulo of number of documents and number of pages', () => {
+        // see eeditiones/tei-publisher-components#182
         cy.get('iron-icon[icon="last-page"]')
           .closest('span')
           .click({ force: true });
@@ -44,7 +46,7 @@ describe('check pagination', () => { // check if the number of pages and number 
         .find('span.active')
         .invoke('text')
         .then((foundText) => {
-            const foundNumber = parseInt(foundText.trim(), 10); 
+            const foundNumber = parseInt(foundText.trim(), 10);
             cy.get('@pagesAmount').then((pages) => {
                 expect(foundNumber).to.equal(pages);
                 })
@@ -56,4 +58,3 @@ describe('check pagination', () => { // check if the number of pages and number 
     });
 
 });
-
