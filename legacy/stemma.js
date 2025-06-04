@@ -31,7 +31,7 @@ var links = [];
 var boxWidth = 15;
 
 // base url
-var baseUrl = "https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/docs/"
+var baseUrl = "https://koenigsfelden.sources-online.org/data/docs/"
 
 // initial highlight
 
@@ -356,7 +356,7 @@ if (document.getElementById("checkPretexts").checked) {
     console.log("site: " + site);
     
     // open document of the voronoi that was clicked
-    var toURL = baseUrl + site.data.ref + '?odd=ssrq-norm.odd';
+    var toURL = baseUrl + site.data.ref + '?odd=koenigsfelden.odd';
     if (site) window.open(toURL, "_blank");
     
     // transfrom site.data.short to U-17_XYZA
@@ -802,7 +802,7 @@ function tooltip(d) {
 			tooltipDiv.html(
 				'<div class="float-left">' +
 				'<span class="secondary label small">Auswahl:</span> ' +
-				'<a href= "' + baseUrl + d.ref + '?odd=ssrq-norm.odd" target="_blank">' + // The first <a> tag
+				'<a href= "' + baseUrl + d.ref + '?odd=koenigsfelden.odd" target="_blank">' + // The first <a> tag
 				// "TEST " + 
 				//"Text: " + 
 				d.text + //" â€“â€“ " + 

@@ -148,9 +148,9 @@ declare function pmf:term-reference($config as map(*), $node as element(), $clas
     let $url :=
         typeswitch($node)
             case element(tei:persName) | element(tei:orgName) return
-                "https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/detail.html?ref=" || $ref[1]
+                "https://koenigsfelden.sources-online.org/detail.html?ref=" || $ref[1]
             case element(tei:placeName)  | element(tei:origPlace)  return
-                "https://www.koenigsfelden.uzh.ch/exist/apps/ssrq/detail.html?ref=" || $ref
+                "https://koenigsfelden.sources-online.org/detail.html?ref=" || $ref
             default return $ref
     return
         <span class="reference {$class}">
