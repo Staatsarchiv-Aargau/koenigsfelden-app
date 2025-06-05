@@ -67,7 +67,7 @@
             <elementSpec ident="pb" mode="change">
                     <model predicate="@facs" behaviour="pass-through">
             <desc>Use the url from the facs attribute to link with IIIF image</desc>
-            <param name="facs" value="let $base-uri := if(starts-with(@source ,'saa')) then 'https://www.e-codices.unifr.ch/loris/saa/' || substring-before(@source, '_') || '/' else 'https://media.sources-online.org/cantaloupe/iiif/2/koenigsfelden!' return $base-uri || @source || '.jp2'"/>
+            <param name="facs" value="let $base-uri := if(starts-with(@source ,'saa')) then 'https://www.e-codices.unifr.ch/loris/saa/' || substring-before(@source, '_') || '/' else 'https://media.sources-online.org/cantaloupe/iiif/2/koenigsfelden!' return $base-uri || @source || '.jpg'"/>
             <param name="content" value="@n"/>
             <param name="order" value="count(preceding::pb[@facs]) + 1"/>
             <param name="alternate" value="'Seitenumbruch'"/>
