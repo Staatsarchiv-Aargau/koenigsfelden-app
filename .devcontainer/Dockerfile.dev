@@ -39,6 +39,12 @@ RUN curl -L -o exist-distribution-${EXIST_VERSION}-unix.tar.bz2 https://github.c
     && rm exist-distribution-${EXIST_VERSION}-unix.tar.bz2 \
     && mv /usr/local/exist-distribution-${EXIST_VERSION} /usr/local/exist
 
+
+RUN  git clone --depth 1 -b main https://github.com/Staatsarchiv-Aargau/koenigsfelden-data.git
+RUN cd /workspaces/koenigsfelden-data \
+    && ant \
+    && cp build/*.xar /usr/local/exist/autodeploy/;
+
 # If tei-publisher-lib version is "master", build it. Otherwise download the specified version.
 RUN if [ "${PUBLISHER_LIB_VERSION}" = "master" ]; then \
         git clone https://github.com/eeditiones/tei-publisher-lib.git \
